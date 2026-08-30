@@ -159,18 +159,14 @@ projet concerné, avec un aperçu de chaque photo.
 
 ## À compléter avant la mise en ligne
 
-1. **Le portrait de la page « À propos »** : le visuel actuel est provisoire, à
-   remplacer par une photo professionnelle (format portrait 4/5, environ
-   1200 × 1500 px). Cela se fait directement dans l'administration, rubrique
-   « Images du site » — aucune intervention sur le code n'est nécessaire.
-2. **Les mentions légales et la page de protection des données** : les deux
+1. **Les mentions légales et la page de protection des données** : les deux
    pages sont des modèles et affichent un encadré le rappelant. Forme juridique,
    adresse, numéro d'identification, hébergeur et durée de conservation doivent
    être renseignés et relus juridiquement.
-3. **Les coordonnées** : `MRD_EMAIL`, `MRD_PHONE`, `MRD_INSTAGRAM`,
+2. **Les coordonnées** : `MRD_EMAIL`, `MRD_PHONE`, `MRD_INSTAGRAM`,
    `MRD_FACEBOOK` (voir `.env.example`). Sans téléphone renseigné, la ligne
    correspondante n'est simplement pas affichée.
-4. **L'envoi d'e-mails** : le réglage par défaut écrit les messages dans la
+3. **L'envoi d'e-mails** : le réglage par défaut écrit les messages dans la
    console. Renseigner les variables `DJANGO_EMAIL_*` pour un vrai serveur SMTP.
 
 ---
