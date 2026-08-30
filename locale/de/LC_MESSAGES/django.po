@@ -1,0 +1,1455 @@
+# Traduction du site Maison Riri Design.
+# Copyright (C) 2026 Maison Riri Design
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: maison-riri-web 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-29 13:06+0200\n"
+"PO-Revision-Date: 2026-08-29 13:20+0200\n"
+"Last-Translator: Maison Riri Design\n"
+"Language-Team: Deutsch\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\core\admin.py:32
+msgid "Français"
+msgstr "Französisch"
+
+#: .\core\admin.py:33
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\core\admin.py:34
+msgid "Repères"
+msgstr "Eckdaten"
+
+#: .\core\admin.py:44
+msgid "Aperçu"
+msgstr "Vorschau"
+
+#: .\core\admin.py:74 .\templates\core\contact.html:11
+#: .\templates\partials\footer.html:30 .\templates\partials\header.html:14
+msgid "Contact"
+msgstr "Kontakt"
+
+#: .\core\admin.py:75
+msgid "Événement"
+msgstr "Veranstaltung"
+
+#: .\core\admin.py:76
+msgid "Projet"
+msgstr "Projekt"
+
+#: .\core\admin.py:77
+msgid "Suivi"
+msgstr "Bearbeitung"
+
+#: .\core\admin.py:82
+msgid "Renvoyer vers le Google Form"
+msgstr "Erneut an das Google-Formular senden"
+
+#: .\core\admin.py:90
+#, python-format
+msgid "%(sent)s demande(s) transmise(s) sur %(total)s."
+msgstr "%(sent)s von %(total)s Anfragen übermittelt."
+
+#: .\core\forms.py:36
+msgid "Langue de communication souhaitée"
+msgstr "Bevorzugte Sprache"
+
+#: .\core\forms.py:39 .\templates\core\project_detail.html:44
+msgid "Type d'événement"
+msgstr "Welche Veranstaltung planen Sie?"
+
+#: .\core\forms.py:40
+msgid "Nombre d'invités"
+msgstr "Wie viele Gäste erwarten Sie?"
+
+#: .\core\forms.py:41
+msgid "Budget prévu"
+msgstr "Welches Budget möchten Sie einplanen?"
+
+#: .\core\forms.py:43
+msgid "Comment avez-vous découvert Maison Riri Design ?"
+msgstr "Wie haben Sie Maison Riri Design kennengelernt?"
+
+#: .\core\forms.py:46
+msgid "Prestations souhaitées"
+msgstr "Wobei dürfen wir Sie unterstützen?"
+
+#: .\core\forms.py:50
+msgid "Protection des données & consentement"
+msgstr "Datenschutz & Einverständnis"
+
+#: .\core\forms.py:52
+msgid "Photos d'inspiration"
+msgstr "Inspirationsfotos"
+
+#: .\core\forms.py:54
+msgid "Jusqu'à 8 images (JPEG, PNG ou WebP), 8 Mo maximum par photo."
+msgstr "Bis zu 8 Bilder (JPEG, PNG oder WebP), maximal 8 MB pro Foto."
+
+#: .\core\forms.py:78
+msgid "Nom et prénom"
+msgstr "Vor- und Nachname"
+
+#: .\core\forms.py:79
+msgid "Adresse e-mail"
+msgstr "E-Mail-Adresse"
+
+#: .\core\forms.py:80
+msgid "Numéro de téléphone"
+msgstr "Telefonnummer"
+
+#: .\core\forms.py:81
+msgid "Date de l'événement"
+msgstr "Wann findet Ihre Veranstaltung statt?"
+
+#: .\core\forms.py:82
+msgid "Lieu de l'événement"
+msgstr "Wo findet Ihre Veranstaltung statt?"
+
+#: .\core\forms.py:83
+msgid "Avez-vous déjà un thème ou une palette de couleurs ?"
+msgstr "Haben Sie bereits ein Thema oder eine Farbpalette?"
+
+#: .\core\forms.py:84
+msgid "Message / souhaits particuliers"
+msgstr "Nachricht / besondere Wünsche"
+
+#: .\core\forms.py:93
+msgid "Choisir…"
+msgstr "Bitte wählen …"
+
+#: .\core\forms.py:107
+msgid "Marie Dupont"
+msgstr "Maria Müller"
+
+#: .\core\forms.py:108
+msgid "marie@exemple.com"
+msgstr "maria@beispiel.de"
+
+#: .\core\forms.py:109
+msgid "+33 6 12 34 56 78"
+msgstr "+49 761 123456"
+
+#: .\core\forms.py:110
+msgid "Freiburg, Colmar, Bâle…"
+msgstr "Freiburg, Colmar, Basel …"
+
+#: .\core\forms.py:111
+msgid "Bordeaux & crème, bohème, minimaliste…"
+msgstr "Burgundy & Creme, Boho, minimalistisch …"
+
+#: .\core\forms.py:112
+msgid "Racontez-moi votre événement, vos envies, ce qui compte pour vous."
+msgstr "Erzählen Sie mir von Ihrer Veranstaltung, Ihren Wünschen und davon, was Ihnen wichtig ist."
+
+#: .\core\forms.py:125
+msgid "Envoi refusé."
+msgstr "Senden abgelehnt."
+
+#: .\core\forms.py:136
+#, python-format
+msgid "Merci de joindre au maximum %(count)s photos."
+msgstr "Bitte fügen Sie höchstens %(count)s Fotos bei."
+
+#: .\core\forms.py:141
+#, python-format
+msgid "« %(name)s » dépasse 8 Mo."
+msgstr "„%(name)s“ überschreitet 8 MB."
+
+#: .\core\forms.py:146
+#, python-format
+msgid "« %(name)s » n'est pas une image prise en charge."
+msgstr "„%(name)s“ ist kein unterstütztes Bildformat."
+
+#: .\core\models.py:37 .\templates\core\project_detail.html:30
+#: .\templates\partials\project_card.html:7
+msgid "Réalisation"
+msgstr "Umgesetztes Projekt"
+
+#: .\core\models.py:38 .\templates\core\project_detail.html:25
+#: .\templates\partials\project_card.html:5
+msgid "Concept créatif"
+msgstr "Kreativkonzept"
+
+#: .\core\models.py:40
+msgid "identifiant URL"
+msgstr "URL-Kennung"
+
+#: .\core\models.py:42
+msgid "type de projet"
+msgstr "Projektart"
+
+#: .\core\models.py:45
+msgid "titre (FR)"
+msgstr "Titel (FR)"
+
+#: .\core\models.py:46
+msgid "titre (DE)"
+msgstr "Titel (DE)"
+
+#: .\core\models.py:47
+msgid "sous-titre (FR)"
+msgstr "Untertitel (FR)"
+
+#: .\core\models.py:48
+msgid "sous-titre (DE)"
+msgstr "Untertitel (DE)"
+
+#: .\core\models.py:49
+msgid "résumé (FR)"
+msgstr "Kurzbeschreibung (FR)"
+
+#: .\core\models.py:50
+msgid "résumé (DE)"
+msgstr "Kurzbeschreibung (DE)"
+
+#: .\core\models.py:52
+msgid "texte long (FR)"
+msgstr "Langtext (FR)"
+
+#: .\core\models.py:52
+msgid "Séparez les paragraphes par une ligne vide."
+msgstr "Absätze durch eine Leerzeile trennen."
+
+#: .\core\models.py:54
+msgid "texte long (DE)"
+msgstr "Langtext (DE)"
+
+#: .\core\models.py:56
+msgid "type d'événement (FR)"
+msgstr "Art der Veranstaltung (FR)"
+
+#: .\core\models.py:57
+msgid "type d'événement (DE)"
+msgstr "Art der Veranstaltung (DE)"
+
+#: .\core\models.py:58
+msgid "lieu"
+msgstr "Ort"
+
+#: .\core\models.py:59
+msgid "année"
+msgstr "Jahr"
+
+#: .\core\models.py:61
+msgid "mots-clés (FR)"
+msgstr "Schlüsselwörter (FR)"
+
+#: .\core\models.py:61
+msgid "Séparés par des virgules."
+msgstr "Durch Kommas getrennt."
+
+#: .\core\models.py:63
+msgid "mots-clés (DE)"
+msgstr "Schlüsselwörter (DE)"
+
+#: .\core\models.py:65
+msgid "image de couverture"
+msgstr "Titelbild"
+
+#: .\core\models.py:66
+msgid "mis en avant sur l'accueil"
+msgstr "auf der Startseite hervorheben"
+
+#: .\core\models.py:67
+msgid "publié"
+msgstr "veröffentlicht"
+
+#: .\core\models.py:68
+msgid "ordre d'affichage"
+msgstr "Reihenfolge"
+
+#: .\core\models.py:75
+msgid "projet"
+msgstr "Projekt"
+
+#: .\core\models.py:76
+msgid "projets"
+msgstr "Projekte"
+
+#: .\core\models.py:124 .\templates\core\services.html:28
+msgid "Moodboard"
+msgstr "Moodboard"
+
+#: .\core\models.py:125 .\templates\core\services.html:43
+msgid "Détails"
+msgstr "Details"
+
+#: .\core\models.py:126
+msgid "Installation"
+msgstr "Aufbau"
+
+#: .\core\models.py:127
+msgid "Résultat final"
+msgstr "Endergebnis"
+
+#: .\core\models.py:130
+msgid "image"
+msgstr "Bild"
+
+#: .\core\models.py:131
+msgid "étape"
+msgstr "Etappe"
+
+#: .\core\models.py:132
+msgid "légende (FR)"
+msgstr "Bildunterschrift (FR)"
+
+#: .\core\models.py:133
+msgid "légende (DE)"
+msgstr "Bildunterschrift (DE)"
+
+#: .\core\models.py:134 .\core\models.py:155
+msgid "ordre"
+msgstr "Reihenfolge"
+
+#: .\core\models.py:138
+msgid "image de projet"
+msgstr "Projektbild"
+
+#: .\core\models.py:139
+msgid "images de projet"
+msgstr "Projektbilder"
+
+#: .\core\models.py:153
+msgid "code couleur"
+msgstr "Farbwert"
+
+#: .\core\models.py:154
+msgid "nom"
+msgstr "Name"
+
+#: .\core\models.py:159
+msgid "couleur de palette"
+msgstr "Farbe der Farbwelt"
+
+#: .\core\models.py:160
+msgid "palette"
+msgstr "Farbwelt"
+
+#: .\core\models.py:170
+msgid "Nouvelle"
+msgstr "Neu"
+
+#: .\core\models.py:171
+msgid "En cours"
+msgstr "In Bearbeitung"
+
+#: .\core\models.py:172
+msgid "Devis envoyé"
+msgstr "Angebot verschickt"
+
+#: .\core\models.py:173
+msgid "Confirmée"
+msgstr "Bestätigt"
+
+#: .\core\models.py:174
+msgid "Classée"
+msgstr "Abgeschlossen"
+
+#: .\core\models.py:176
+msgid "nom et prénom"
+msgstr "Vor- und Nachname"
+
+#: .\core\models.py:177
+msgid "adresse e-mail"
+msgstr "E-Mail-Adresse"
+
+#: .\core\models.py:178
+msgid "téléphone"
+msgstr "Telefon"
+
+#: .\core\models.py:179
+msgid "langue souhaitée"
+msgstr "gewünschte Sprache"
+
+#: .\core\models.py:181
+msgid "type d'événement"
+msgstr "Art der Veranstaltung"
+
+#: .\core\models.py:182
+msgid "date de l'événement"
+msgstr "Datum der Veranstaltung"
+
+#: .\core\models.py:183
+msgid "lieu de l'événement"
+msgstr "Ort der Veranstaltung"
+
+#: .\core\models.py:184
+msgid "nombre d'invités"
+msgstr "Anzahl der Gäste"
+
+#: .\core\models.py:186
+msgid "prestations souhaitées"
+msgstr "gewünschte Leistungen"
+
+#: .\core\models.py:187
+msgid "thème ou palette"
+msgstr "Thema oder Farbpalette"
+
+#: .\core\models.py:188
+msgid "budget"
+msgstr "Budget"
+
+#: .\core\models.py:189
+msgid "message"
+msgstr "Nachricht"
+
+#: .\core\models.py:190
+msgid "comment nous a connus"
+msgstr "Wie auf uns aufmerksam geworden"
+
+#: .\core\models.py:191
+msgid "consentement RGPD"
+msgstr "DSGVO-Einwilligung"
+
+#: .\core\models.py:193
+msgid "langue du formulaire"
+msgstr "Sprache des Formulars"
+
+#: .\core\models.py:194
+msgid "transmis au Google Form"
+msgstr "an Google-Formular übermittelt"
+
+#: .\core\models.py:195
+msgid "erreur de transmission"
+msgstr "Übermittlungsfehler"
+
+#: .\core\models.py:196
+msgid "statut"
+msgstr "Status"
+
+#: .\core\models.py:197
+msgid "reçue le"
+msgstr "eingegangen am"
+
+#: .\core\models.py:201
+msgid "demande de devis"
+msgstr "Angebotsanfrage"
+
+#: .\core\models.py:202
+msgid "demandes de devis"
+msgstr "Angebotsanfragen"
+
+#: .\core\models.py:216 .\core\models.py:221
+msgid "photo d'inspiration"
+msgstr "Inspirationsfoto"
+
+#: .\core\models.py:222
+msgid "photos d'inspiration"
+msgstr "Inspirationsfotos"
+
+#: .\core\urls.py:10
+msgid "a-propos/"
+msgstr "ueber-mich/"
+
+#: .\core\urls.py:11
+msgid "prestations/"
+msgstr "leistungen/"
+
+#: .\core\urls.py:12
+msgid "portfolio/"
+msgstr "portfolio/"
+
+#: .\core\urls.py:13
+msgid "portfolio/<slug:slug>/"
+msgstr "portfolio/<slug:slug>/"
+
+#: .\core\urls.py:14
+msgid "contact/"
+msgstr "kontakt/"
+
+#: .\core\urls.py:15
+msgid "contact/merci/"
+msgstr "kontakt/danke/"
+
+#: .\core\urls.py:16
+msgid "mentions-legales/"
+msgstr "impressum/"
+
+#: .\core\urls.py:17
+msgid "confidentialite/"
+msgstr "datenschutz/"
+
+#: .\templates\404.html:3
+msgid "Page introuvable"
+msgstr "Seite nicht gefunden"
+
+#: .\templates\404.html:8
+msgid "Cette page n'existe pas"
+msgstr "Diese Seite gibt es nicht"
+
+#: .\templates\404.html:9
+msgid "Le lien est peut-être ancien, ou la page a changé d'adresse."
+msgstr "Vielleicht ist der Link veraltet oder die Seite hat eine neue Adresse."
+
+#: .\templates\404.html:10 .\templates\500.html:10
+msgid "Retour à l'accueil"
+msgstr "Zurück zur Startseite"
+
+#: .\templates\500.html:3
+msgid "Erreur serveur"
+msgstr "Serverfehler"
+
+#: .\templates\500.html:8
+msgid "Une erreur est survenue"
+msgstr "Es ist ein Fehler aufgetreten"
+
+#: .\templates\500.html:9
+msgid ""
+"Merci de réessayer dans un instant. Si le problème persiste, écrivez-moi "
+"directement."
+msgstr "Bitte versuchen Sie es gleich noch einmal. Falls das Problem bestehen bleibt, schreiben Sie mir direkt."
+
+#: .\templates\base.html:6 .\templates\core\home.html:16
+msgid "Design événementiel & décoration sur mesure"
+msgstr "Eventdesign & Dekoration nach Maß"
+
+#: .\templates\base.html:7
+msgid ""
+"Maison Riri Design imagine des concepts de décoration sur mesure pour "
+"mariages, anniversaires et événements d'entreprise à Fribourg, en Alsace et "
+"à Bâle."
+msgstr "Maison Riri Design entwickelt individuelle Dekorationskonzepte für Hochzeiten, Geburtstage und Firmenveranstaltungen in Freiburg, im Elsass und in Basel."
+
+#: .\templates\base.html:13 .\templates\core\home.html:15
+msgid "Des événements qui racontent votre histoire."
+msgstr "Events, die Ihre Geschichte erzählen."
+
+#: .\templates\base.html:22
+msgid "Aller au contenu"
+msgstr "Zum Inhalt springen"
+
+#: .\templates\core\about.html:4 .\templates\core\about.html:11
+#: .\templates\partials\footer.html:14 .\templates\partials\header.html:11
+msgid "À propos"
+msgstr "Über mich"
+
+#: .\templates\core\about.html:5
+msgid ""
+"Rinazar Andriampeno, fondatrice de Maison Riri Design : un parcours entre "
+"Madagascar, l'Allemagne et la France au service d'un design événementiel sur "
+"mesure."
+msgstr "Rinazar Andriampeno, Gründerin von Maison Riri Design: ein Weg zwischen Madagaskar, Deutschland und Frankreich im Dienst eines maßgeschneiderten Eventdesigns."
+
+#: .\templates\core\about.html:12
+msgid "Entre Madagascar, l'Allemagne et la France"
+msgstr "Zwischen Madagaskar, Deutschland und Frankreich"
+
+#: .\templates\core\about.html:13
+msgid ""
+"Maison Riri Design est née de l'envie de faire dialoguer plusieurs cultures "
+"dans un même espace — et d'en faire quelque chose de beau."
+msgstr "Maison Riri Design ist aus dem Wunsch entstanden, mehrere Kulturen in einem Raum miteinander sprechen zu lassen — und daraus etwas Schönes zu machen."
+
+#: .\templates\core\about.html:21
+msgid "Fondatrice, Maison Riri Design"
+msgstr "Gründerin, Maison Riri Design"
+
+#: .\templates\core\about.html:25
+msgid "Mon histoire"
+msgstr "Meine Geschichte"
+
+#: .\templates\core\about.html:26
+msgid "Créer des liens, entre les cultures et entre les gens"
+msgstr "Verbindungen schaffen — zwischen Kulturen und zwischen Menschen"
+
+#: .\templates\core\about.html:27
+msgid ""
+"J'ai grandi entre plusieurs mondes : Madagascar, où les fêtes rassemblent "
+"des familles entières ; l'Allemagne, où j'ai appris la rigueur et le goût "
+"des choses bien faites ; la France, dont l'élégance et l'art de recevoir "
+"m'accompagnent depuis toujours."
+msgstr "Ich bin zwischen mehreren Welten aufgewachsen: Madagaskar, wo Feste ganze Familien zusammenbringen; Deutschland, wo ich Sorgfalt und den Sinn für gut gemachte Dinge gelernt habe; Frankreich, dessen Eleganz und Gastlichkeit mich seit jeher begleiten."
+
+#: .\templates\core\about.html:28
+msgid ""
+"Cette manière de passer d'une langue à l'autre, d'une tradition à l'autre, "
+"est devenue mon outil de travail. Lorsque je conçois un événement, je "
+"cherche d'abord ce qui compte pour vous : une couleur qui rappelle un "
+"souvenir, un plat de famille, une musique, un rituel. Puis je traduis tout "
+"cela en formes, en matières et en lumière."
+msgstr "Dieses Wechseln zwischen Sprachen und Traditionen ist zu meinem Werkzeug geworden. Wenn ich eine Veranstaltung entwerfe, suche ich zuerst nach dem, was Ihnen wichtig ist: eine Farbe, die an eine Erinnerung rührt, ein Familienrezept, ein Lied, ein Ritual. Dann übersetze ich all das in Formen, Materialien und Licht."
+
+#: .\templates\core\about.html:29
+msgid ""
+"C'est pour cela que Maison Riri Design ne propose pas de décoration en "
+"catalogue. Chaque concept est écrit pour une occasion précise et pour les "
+"personnes qui se trouvent derrière elle."
+msgstr "Deshalb gibt es bei Maison Riri Design keine Dekoration aus dem Katalog. Jedes Konzept wird für einen bestimmten Anlass und für die Menschen dahinter geschrieben."
+
+#: .\templates\core\about.html:30
+msgid "Discutons de votre projet"
+msgstr "Sprechen wir über Ihr Projekt"
+
+#: .\templates\core\about.html:38
+msgid "Ma façon de travailler"
+msgstr "Meine Arbeitsweise"
+
+#: .\templates\core\about.html:39
+msgid "Designed with intention."
+msgstr "Designed with intention."
+
+#: .\templates\core\about.html:40
+msgid ""
+"Une palette de couleurs cohérente plutôt qu'une accumulation d'éléments. Une "
+"lumière travaillée. Des matières que l'on a envie de toucher. Et "
+"suffisamment d'espace pour que vos invités se sentent bien."
+msgstr "Eine stimmige Farbwelt statt einer Anhäufung von Elementen. Durchdachtes Licht. Materialien, die man berühren möchte. Und genug Raum, damit sich Ihre Gäste wohlfühlen."
+
+#: .\templates\core\about.html:41
+msgid ""
+"Je travaille aussi bien sur des fêtes intimes que sur des événements de plus "
+"de cent cinquante personnes, en collaboration étroite avec les lieux, les "
+"fleuristes, les traiteurs et les loueurs de la région."
+msgstr "Ich arbeite ebenso an kleinen, intimen Feiern wie an Veranstaltungen mit über hundertfünfzig Gästen — in enger Zusammenarbeit mit Locations, Floristen, Caterern und Vermietern der Region."
+
+#: .\templates\core\about.html:43
+msgid "Basée à"
+msgstr "Sitz in"
+
+#: .\templates\core\about.html:44
+msgid "Interventions"
+msgstr "Einsatzgebiete"
+
+#: .\templates\core\about.html:44
+msgid "Bade-Wurtemberg · Alsace · Bâle"
+msgstr "Baden-Württemberg · Elsass · Basel"
+
+#: .\templates\core\about.html:45
+msgid "Conseil en"
+msgstr "Beratung auf"
+
+#: .\templates\core\about.html:46
+msgid "Spécialités"
+msgstr "Schwerpunkte"
+
+#: .\templates\core\about.html:46
+msgid "Concept, décoration, coordination"
+msgstr "Konzept, Dekoration, Koordination"
+
+#: .\templates\core\about.html:50
+msgid "Moodboard Red Wine — ambiance, tablescape et détails floraux"
+msgstr "Moodboard Red Wine — Stimmung, Tablescape und florale Details"
+
+#: .\templates\core\about.html:51
+msgid "Moodboard « Red Wine » — direction artistique"
+msgstr "Moodboard „Red Wine“ — künstlerische Leitung"
+
+#: .\templates\core\contact.html:4 .\templates\partials\footer.html:17
+#: .\templates\partials\header.html:27
+msgid "Demander un devis"
+msgstr "Angebot anfragen"
+
+#: .\templates\core\contact.html:5
+msgid ""
+"Parlez-moi de votre événement : type, date, lieu, nombre d'invités et "
+"envies. Je vous réponds avec une proposition personnalisée, sans engagement."
+msgstr "Erzählen Sie mir von Ihrer Veranstaltung: Art, Datum, Ort, Gästezahl und Wünsche. Sie erhalten ein persönliches, unverbindliches Angebot."
+
+#: .\templates\core\contact.html:12
+msgid "Demander un devis pour votre événement"
+msgstr "Angebot für Ihre Veranstaltung anfragen"
+
+#: .\templates\core\contact.html:13
+msgid ""
+"Quelques questions pour bien comprendre votre projet. Comptez cinq minutes — "
+"et n'hésitez pas à joindre vos images d'inspiration."
+msgstr "Ein paar Fragen, damit ich Ihr Projekt gut verstehe. Rechnen Sie mit fünf Minuten — und fügen Sie gerne Ihre Inspirationsbilder bei."
+
+#: .\templates\core\contact.html:24
+msgid ""
+"Quelques informations sont manquantes ou incorrectes. Merci de vérifier les "
+"champs signalés ci-dessous."
+msgstr "Einige Angaben fehlen oder sind fehlerhaft. Bitte prüfen Sie die unten markierten Felder."
+
+#: .\templates\core\contact.html:31
+msgid "Ne pas remplir"
+msgstr "Bitte nicht ausfüllen"
+
+#: .\templates\core\contact.html:36
+msgid "Informations personnelles"
+msgstr "Persönliche Informationen"
+
+#: .\templates\core\contact.html:37
+msgid "Pour vous recontacter dans la langue de votre choix."
+msgstr "Damit ich Sie in Ihrer Wunschsprache erreichen kann."
+
+#: .\templates\core\contact.html:47
+msgid "Votre événement"
+msgstr "Ihre Veranstaltung"
+
+#: .\templates\core\contact.html:48
+msgid ""
+"Même approximatifs, ces éléments m'aident à évaluer la faisabilité et le "
+"budget."
+msgstr "Auch ungefähre Angaben helfen mir, Machbarkeit und Budget einzuschätzen."
+
+#: .\templates\core\contact.html:58
+msgid "Votre projet"
+msgstr "Ihr Projekt"
+
+#: .\templates\core\contact.html:59
+msgid "Dites-m'en autant que vous le souhaitez : tout est utile."
+msgstr "Erzählen Sie mir so viel, wie Sie möchten — alles ist hilfreich."
+
+#: .\templates\core\contact.html:79 .\templates\core\privacy.html:4
+#: .\templates\core\privacy.html:11 .\templates\partials\footer.html:46
+msgid "Protection des données"
+msgstr "Datenschutz"
+
+#: .\templates\core\contact.html:83
+msgid ""
+"J'accepte que Maison Riri Design utilise mes données personnelles uniquement "
+"afin de traiter ma demande."
+msgstr "Ich stimme zu, dass Maison Riri Design meine personenbezogenen Daten ausschließlich zur Bearbeitung meiner Anfrage verwenden darf."
+
+#: .\templates\core\contact.html:84
+msgid "En savoir plus"
+msgstr "Mehr erfahren"
+
+#: .\templates\core\contact.html:92 .\templates\core\home.html:24
+msgid "Demander un devis pour mon événement"
+msgstr "Angebot für meine Veranstaltung anfragen"
+
+#: .\templates\core\contact.html:93
+msgid ""
+"Réponse sous 48 heures ouvrées. Champs marqués d'une étoile obligatoires."
+msgstr "Antwort innerhalb von 48 Werktagsstunden. Mit Stern markierte Felder sind Pflichtfelder."
+
+#: .\templates\core\contact.html:97
+msgid "Préférez-vous écrire directement ?"
+msgstr "Schreiben Sie lieber direkt?"
+
+#: .\templates\core\contact.html:104
+msgid "Bon à savoir"
+msgstr "Gut zu wissen"
+
+#: .\templates\core\contact.html:106
+msgid "Le devis est gratuit et sans engagement."
+msgstr "Das Angebot ist kostenlos und unverbindlich."
+
+#: .\templates\core\contact.html:107
+msgid "Conseil en allemand, en français ou en malgache."
+msgstr "Beratung auf Deutsch, Französisch oder Malagasy."
+
+#: .\templates\core\contact.html:108
+msgid "Fribourg, Alsace, Bâle — et au-delà sur demande."
+msgstr "Freiburg, Elsass, Basel — und auf Anfrage darüber hinaus."
+
+#: .\templates\core\contact.html:109
+msgid "Vos photos d'inspiration sont les bienvenues."
+msgstr "Ihre Inspirationsfotos sind willkommen."
+
+#: .\templates\core\contact.html:113
+msgid ""
+"Vous pouvez aussi remplir le questionnaire directement sur Google Forms."
+msgstr "Sie können den Fragebogen auch direkt bei Google Forms ausfüllen."
+
+#: .\templates\core\contact.html:114
+msgid "Ouvrir le formulaire"
+msgstr "Formular öffnen"
+
+#: .\templates\core\contact_success.html:4
+msgid "Demande envoyée"
+msgstr "Anfrage gesendet"
+
+#: .\templates\core\contact_success.html:11
+msgid "Merci"
+msgstr "Danke"
+
+#: .\templates\core\contact_success.html:12
+msgid "Votre demande est bien arrivée"
+msgstr "Ihre Anfrage ist angekommen"
+
+#: .\templates\core\contact_success.html:13
+msgid ""
+"Je reviens vers vous sous 48 heures ouvrées avec une première proposition "
+"et, si besoin, quelques questions complémentaires."
+msgstr "Ich melde mich innerhalb von 48 Werktagsstunden mit einem ersten Vorschlag und, falls nötig, einigen Rückfragen."
+
+#: .\templates\core\contact_success.html:14
+msgid ""
+"Pensez à vérifier vos courriers indésirables : ma réponse arrive parfois par "
+"cette porte-là."
+msgstr "Bitte schauen Sie auch in den Spam-Ordner — meine Antwort nimmt manchmal diesen Weg."
+
+#: .\templates\core\contact_success.html:16 .\templates\core\home.html:25
+msgid "Découvrir le portfolio"
+msgstr "Portfolio entdecken"
+
+#: .\templates\core\home.html:4 .\templates\core\home.html:5
+msgid "Des événements qui racontent votre histoire"
+msgstr "Events, die Ihre Geschichte erzählen"
+
+#: .\templates\core\home.html:11
+msgid "Arche décorative en ballons réalisée par Maison Riri Design"
+msgstr "Dekorativer Ballonbogen von Maison Riri Design"
+
+#: .\templates\core\home.html:18
+msgid "Fribourg"
+msgstr "Freiburg"
+
+#: .\templates\core\home.html:18
+msgid "Alsace"
+msgstr "Elsass"
+
+#: .\templates\core\home.html:18
+msgid "Bâle"
+msgstr "Basel"
+
+#: .\templates\core\home.html:21
+msgid "Mariages"
+msgstr "Hochzeiten"
+
+#: .\templates\core\home.html:21
+msgid "Anniversaires"
+msgstr "Geburtstage"
+
+#: .\templates\core\home.html:21
+msgid "Événements privés"
+msgstr "Private Feiern"
+
+#: .\templates\core\home.html:21
+msgid "Événements d'entreprise"
+msgstr "Firmenveranstaltungen"
+
+#: .\templates\core\home.html:34
+msgid "Concevoir des atmosphères, pas seulement des décors."
+msgstr "Atmosphären gestalten, nicht nur Dekoration."
+
+#: .\templates\core\home.html:37
+msgid ""
+"Maison Riri Design imagine, planifie et met en scène des concepts de "
+"décoration entièrement sur mesure pour les mariages, les anniversaires, les "
+"fêtes de famille et les événements d'entreprise."
+msgstr "Maison Riri Design entwirft, plant und inszeniert vollständig individuelle Dekorationskonzepte für Hochzeiten, Geburtstage, Familienfeiern und Firmenveranstaltungen."
+
+#: .\templates\core\home.html:38
+msgid ""
+"Du premier échange à l'installation le jour J, chaque projet part d'une "
+"histoire : la vôtre. Couleurs, matières, lumières et détails sont choisis "
+"pour composer un ensemble cohérent, chaleureux et profondément personnel."
+msgstr "Vom ersten Gespräch bis zum Aufbau am Tag selbst beginnt jedes Projekt mit einer Geschichte: Ihrer. Farben, Materialien, Licht und Details werden so gewählt, dass ein stimmiges, warmes und zutiefst persönliches Gesamtbild entsteht."
+
+#: .\templates\core\home.html:39
+msgid ""
+"Basée à Fribourg-en-Brisgau, j'interviens en Allemagne, en Alsace et dans la "
+"région de Bâle — en allemand comme en français."
+msgstr "Von Freiburg im Breisgau aus arbeite ich in Deutschland, im Elsass und in der Region Basel — auf Deutsch wie auf Französisch."
+
+#: .\templates\core\home.html:40 .\templates\partials\process.html:10
+msgid "Faire connaissance"
+msgstr "Kennenlernen"
+
+#: .\templates\core\home.html:47 .\templates\core\services.html:4
+#: .\templates\core\services.html:11 .\templates\partials\footer.html:15
+#: .\templates\partials\header.html:12
+msgid "Prestations"
+msgstr "Leistungen"
+
+#: .\templates\core\home.html:48
+msgid "Trois façons de vous accompagner"
+msgstr "Drei Wege, Sie zu begleiten"
+
+#: .\templates\core\home.html:53 .\templates\core\services.html:22
+msgid "Design événementiel & concept"
+msgstr "Eventdesign & Konzept"
+
+#: .\templates\core\home.html:55 .\templates\core\services.html:27
+msgid "Concept personnalisé de couleurs et de décoration"
+msgstr "Individuelles Farb- und Dekorationskonzept"
+
+#: .\templates\core\home.html:56
+msgid "Moodboard & direction artistique"
+msgstr "Moodboard & künstlerische Leitung"
+
+#: .\templates\core\home.html:57
+msgid "Aménagement de l'espace"
+msgstr "Raumgestaltung"
+
+#: .\templates\core\home.html:58
+msgid "Décoration des tables"
+msgstr "Tischdekoration"
+
+#: .\templates\core\home.html:63 .\templates\core\services.html:47
+msgid "Décoration & mise en scène"
+msgstr "Dekoration & Inszenierung"
+
+#: .\templates\core\home.html:65 .\templates\core\services.html:39
+msgid "Décoration de table, fleurs et bougies"
+msgstr "Tischdekoration, Blumen und Kerzen"
+
+#: .\templates\core\home.html:66
+msgid "Décoration en ballons, backdrops, espaces photo"
+msgstr "Ballondekoration, Backdrops, Fotobereiche"
+
+#: .\templates\core\home.html:67
+msgid "Coins gâteaux et détails personnalisés"
+msgstr "Kuchenecken und persönliche Details"
+
+#: .\templates\core\home.html:68 .\templates\core\services.html:44
+msgid "Installation et démontage"
+msgstr "Auf- und Abbau"
+
+#: .\templates\core\home.html:73 .\templates\core\services.html:57
+msgid "Planification & coordination"
+msgstr "Planung & Koordination"
+
+#: .\templates\core\home.html:75
+msgid "Choix des prestataires"
+msgstr "Auswahl der Dienstleister"
+
+#: .\templates\core\home.html:76
+msgid "Matériel de location"
+msgstr "Mietmobiliar und Mietmaterial"
+
+#: .\templates\core\home.html:77
+msgid "Coordination des éléments de l'événement"
+msgstr "Koordination der Elemente der Veranstaltung"
+
+#: .\templates\core\home.html:78
+msgid "Suivi jusqu'au jour J"
+msgstr "Begleitung bis zum Tag der Feier"
+
+#: .\templates\core\home.html:83
+msgid "Voir le détail des prestations"
+msgstr "Leistungen im Detail ansehen"
+
+#: .\templates\core\home.html:90 .\templates\core\portfolio.html:4
+#: .\templates\core\portfolio.html:11 .\templates\core\project_detail.html:14
+#: .\templates\partials\footer.html:16 .\templates\partials\header.html:13
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: .\templates\core\home.html:91
+msgid "Quelques univers créés sur mesure"
+msgstr "Einige maßgeschneiderte Welten"
+
+#: .\templates\core\home.html:99
+msgid "Voir tous les projets"
+msgstr "Alle Projekte ansehen"
+
+#: .\templates\core\legal.html:4 .\templates\core\legal.html:11
+#: .\templates\partials\footer.html:45
+msgid "Mentions légales"
+msgstr "Impressum"
+
+#: .\templates\core\legal.html:10
+msgid "Informations légales"
+msgstr "Rechtliche Angaben"
+
+#: .\templates\core\legal.html:17
+msgid ""
+"Modèle à compléter par Maison Riri Design : forme juridique, adresse "
+"complète, numéro d'identification et hébergeur doivent être renseignés avant "
+"la mise en ligne."
+msgstr "Vorlage, die von Maison Riri Design zu vervollständigen ist: Rechtsform, vollständige Anschrift, Steuer- bzw. Registernummer und Hoster müssen vor dem Livegang ergänzt werden."
+
+#: .\templates\core\legal.html:19
+msgid "Éditeur du site"
+msgstr "Anbieter der Website"
+
+#: .\templates\core\legal.html:23
+msgid "Freiburg im Breisgau, Allemagne"
+msgstr "Freiburg im Breisgau, Deutschland"
+
+#: .\templates\core\legal.html:27
+msgid "Responsable de la publication"
+msgstr "Verantwortlich für den Inhalt"
+
+#: .\templates\core\legal.html:30
+msgid "Hébergement"
+msgstr "Hosting"
+
+#: .\templates\core\legal.html:31
+msgid "À compléter : nom, adresse et coordonnées de l'hébergeur du site."
+msgstr "Zu ergänzen: Name, Anschrift und Kontaktdaten des Hosters."
+
+#: .\templates\core\legal.html:33
+msgid "Propriété intellectuelle"
+msgstr "Urheberrecht"
+
+#: .\templates\core\legal.html:34
+msgid ""
+"L'ensemble des textes, concepts, moodboards et photographies présentés sur "
+"ce site est la propriété de Maison Riri Design, sauf mention contraire. "
+"Toute reproduction, même partielle, est soumise à autorisation écrite "
+"préalable."
+msgstr "Sämtliche Texte, Konzepte, Moodboards und Fotografien dieser Website sind Eigentum von Maison Riri Design, sofern nicht anders angegeben. Jede — auch auszugsweise — Vervielfältigung bedarf der vorherigen schriftlichen Zustimmung."
+
+#: .\templates\core\legal.html:35
+msgid ""
+"Les planches d'ambiance présentées dans les concepts créatifs rassemblent "
+"des images de référence utilisées à des fins d'illustration de la direction "
+"artistique."
+msgstr "Die in den Kreativkonzepten gezeigten Moodboards versammeln Referenzbilder, die der Veranschaulichung der künstlerischen Richtung dienen."
+
+#: .\templates\core\legal.html:37
+msgid "Données personnelles"
+msgstr "Personenbezogene Daten"
+
+#: .\templates\core\legal.html:38
+msgid ""
+"Le traitement des données collectées via le formulaire de devis est détaillé "
+"sur la page consacrée à la protection des données."
+msgstr "Die Verarbeitung der über das Anfrageformular erhobenen Daten wird auf der Seite zum Datenschutz im Einzelnen beschrieben."
+
+#: .\templates\core\legal.html:39
+msgid "Consulter la page"
+msgstr "Seite ansehen"
+
+#: .\templates\core\portfolio.html:5
+msgid ""
+"Réalisations et concepts créatifs signés Maison Riri Design : anniversaires, "
+"mariages et événements d'entreprise à Fribourg, en Alsace et à Bâle."
+msgstr "Umgesetzte Projekte und Kreativkonzepte von Maison Riri Design: Geburtstage, Hochzeiten und Firmenveranstaltungen in Freiburg, im Elsass und in Basel."
+
+#: .\templates\core\portfolio.html:12
+msgid "Des univers, du moodboard au résultat final"
+msgstr "Welten — vom Moodboard bis zum Endergebnis"
+
+#: .\templates\core\portfolio.html:13
+msgid ""
+"Certains projets ont été réalisés, d'autres sont des concepts créatifs "
+"développés pour montrer une direction artistique. Les uns comme les autres "
+"sont identifiés clairement."
+msgstr "Manche Projekte wurden umgesetzt, andere sind Kreativkonzepte, die eine künstlerische Richtung zeigen. Beide sind klar gekennzeichnet."
+
+#: .\templates\core\portfolio.html:19
+msgid "Filtrer les projets"
+msgstr "Projekte filtern"
+
+#: .\templates\core\portfolio.html:20
+msgid "Tous"
+msgstr "Alle"
+
+#: .\templates\core\portfolio.html:33
+msgid "Aucun projet ne correspond à ce filtre pour le moment."
+msgstr "Zu diesem Filter gibt es derzeit kein Projekt."
+
+#: .\templates\core\privacy.html:12
+msgid ""
+"Voici précisément ce qu'il advient des informations que vous transmettez via "
+"le formulaire de devis."
+msgstr "Hier steht genau, was mit den Angaben geschieht, die Sie über das Anfrageformular übermitteln."
+
+#: .\templates\core\privacy.html:18
+msgid ""
+"Modèle à faire valider juridiquement avant la mise en ligne, notamment sur "
+"la durée de conservation et l'identité du responsable de traitement."
+msgstr "Vorlage, die vor dem Livegang juristisch geprüft werden sollte — insbesondere zu Speicherdauer und Verantwortlichem."
+
+#: .\templates\core\privacy.html:20
+msgid "Responsable du traitement"
+msgstr "Verantwortlicher"
+
+#: .\templates\core\privacy.html:21
+msgid "Freiburg im Breisgau"
+msgstr "Freiburg im Breisgau"
+
+#: .\templates\core\privacy.html:23
+msgid "Données collectées"
+msgstr "Erhobene Daten"
+
+#: .\templates\core\privacy.html:24
+msgid ""
+"Le formulaire de devis recueille : votre nom, votre adresse e-mail, "
+"éventuellement votre numéro de téléphone, la langue de communication "
+"souhaitée, ainsi que les informations relatives à votre événement (type, "
+"date, lieu, nombre d'invités, prestations souhaitées, thème, budget, "
+"message) et les photos d'inspiration que vous choisissez de joindre."
+msgstr "Das Anfrageformular erhebt: Ihren Namen, Ihre E-Mail-Adresse, gegebenenfalls Ihre Telefonnummer, Ihre bevorzugte Sprache sowie die Angaben zu Ihrer Veranstaltung (Art, Datum, Ort, Gästezahl, gewünschte Leistungen, Thema, Budget, Nachricht) und die Inspirationsfotos, die Sie beifügen."
+
+#: .\templates\core\privacy.html:26
+msgid "Finalité et base légale"
+msgstr "Zweck und Rechtsgrundlage"
+
+#: .\templates\core\privacy.html:27
+msgid ""
+"Ces informations servent uniquement à étudier votre demande, à vous répondre "
+"et, le cas échéant, à préparer une proposition commerciale. La base légale "
+"est votre consentement, recueilli explicitement dans le formulaire, ainsi "
+"que les mesures précontractuelles prises à votre demande."
+msgstr "Diese Angaben dienen ausschließlich der Prüfung Ihrer Anfrage, der Antwort an Sie und gegebenenfalls der Erstellung eines Angebots. Rechtsgrundlage sind Ihre im Formular ausdrücklich erteilte Einwilligung sowie vorvertragliche Maßnahmen auf Ihre Anfrage hin."
+
+#: .\templates\core\privacy.html:29
+msgid "Destinataires"
+msgstr "Empfänger"
+
+#: .\templates\core\privacy.html:30
+msgid ""
+"Vos données sont enregistrées sur le serveur du site et copiées dans un "
+"formulaire Google Forms utilisé par Maison Riri Design pour le suivi des "
+"demandes. Google agit ici comme sous-traitant ; un transfert hors Union "
+"européenne est possible dans ce cadre. Aucune donnée n'est vendue ni "
+"transmise à des fins publicitaires."
+msgstr "Ihre Daten werden auf dem Server der Website gespeichert und in ein Google-Formular übertragen, das Maison Riri Design zur Nachverfolgung der Anfragen nutzt. Google handelt dabei als Auftragsverarbeiter; eine Übermittlung außerhalb der Europäischen Union ist in diesem Rahmen möglich. Es werden keine Daten verkauft oder zu Werbezwecken weitergegeben."
+
+#: .\templates\core\privacy.html:32
+msgid "Durée de conservation"
+msgstr "Speicherdauer"
+
+#: .\templates\core\privacy.html:33
+msgid ""
+"Les demandes sans suite sont conservées douze mois. Les demandes ayant donné "
+"lieu à une prestation sont conservées le temps requis par les obligations "
+"comptables et fiscales applicables."
+msgstr "Anfragen ohne Folgeauftrag werden zwölf Monate aufbewahrt. Anfragen, aus denen ein Auftrag entstanden ist, werden so lange aufbewahrt, wie es die handels- und steuerrechtlichen Pflichten verlangen."
+
+#: .\templates\core\privacy.html:35
+msgid "Vos droits"
+msgstr "Ihre Rechte"
+
+#: .\templates\core\privacy.html:36
+msgid ""
+"Vous disposez d'un droit d'accès, de rectification, d'effacement, de "
+"limitation et d'opposition, ainsi que du droit de retirer votre consentement "
+"à tout moment. Il suffit d'écrire à l'adresse indiquée ci-dessus. Vous "
+"pouvez également introduire une réclamation auprès de l'autorité de contrôle "
+"compétente."
+msgstr "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung und Widerspruch sowie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Eine Nachricht an die oben genannte Adresse genügt. Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu."
+
+#: .\templates\core\privacy.html:38
+msgid "Cookies"
+msgstr "Cookies"
+
+#: .\templates\core\privacy.html:39
+msgid ""
+"Ce site ne dépose aucun cookie de mesure d'audience ni de publicité. Seuls "
+"des cookies techniques sont utilisés : mémorisation de la langue choisie et "
+"protection des formulaires contre la falsification de requêtes."
+msgstr "Diese Website setzt keine Analyse- oder Werbe-Cookies. Verwendet werden ausschließlich technische Cookies: Speicherung der gewählten Sprache und Schutz der Formulare vor Anfragefälschung."
+
+#: .\templates\core\project_detail.html:27
+msgid ""
+"Ce projet est une étude de concept : la direction artistique a été "
+"entièrement développée, mais l'événement n'a pas encore été réalisé."
+msgstr "Dieses Projekt ist eine Konzeptstudie: Die künstlerische Richtung ist vollständig ausgearbeitet, die Veranstaltung wurde jedoch noch nicht umgesetzt."
+
+#: .\templates\core\project_detail.html:37
+msgid "Mots-clés"
+msgstr "Schlüsselwörter"
+
+#: .\templates\core\project_detail.html:45
+msgid "Lieu"
+msgstr "Ort"
+
+#: .\templates\core\project_detail.html:46
+msgid "Année"
+msgstr "Jahr"
+
+#: .\templates\core\project_detail.html:47
+msgid "Statut"
+msgstr "Status"
+
+#: .\templates\core\project_detail.html:51
+msgid "Palette"
+msgstr "Farbwelt"
+
+#: .\templates\core\project_detail.html:83
+msgid "Les visuels de ce projet arrivent très bientôt."
+msgstr "Die Bilder zu diesem Projekt folgen in Kürze."
+
+#: .\templates\core\project_detail.html:91
+msgid "À découvrir aussi"
+msgstr "Ebenfalls entdecken"
+
+#: .\templates\core\services.html:5
+msgid ""
+"Design événementiel et concept, décoration et mise en scène, planification "
+"et coordination : les prestations de Maison Riri Design à Fribourg, en "
+"Alsace et à Bâle."
+msgstr "Eventdesign und Konzept, Dekoration und Inszenierung, Planung und Koordination: die Leistungen von Maison Riri Design in Freiburg, im Elsass und in Basel."
+
+#: .\templates\core\services.html:12
+msgid "Du concept à la dernière bougie allumée"
+msgstr "Vom Konzept bis zur letzten angezündeten Kerze"
+
+#: .\templates\core\services.html:13
+msgid ""
+"Trois familles de prestations, à combiner librement selon l'ampleur de votre "
+"événement et le rôle que vous souhaitez me confier."
+msgstr "Drei Leistungsbereiche, frei kombinierbar — je nach Größe Ihrer Veranstaltung und der Rolle, die Sie mir anvertrauen möchten."
+
+#: .\templates\core\services.html:23
+msgid "Donner une direction claire à votre événement"
+msgstr "Ihrer Veranstaltung eine klare Richtung geben"
+
+#: .\templates\core\services.html:24
+msgid ""
+"Tout commence par une intention. Nous définissons ensemble l'atmosphère "
+"recherchée, puis je la traduis en une direction artistique complète que vous "
+"pouvez visualiser avant même le premier achat."
+msgstr "Alles beginnt mit einer Absicht. Gemeinsam bestimmen wir die gewünschte Atmosphäre, und ich übersetze sie in eine vollständige künstlerische Richtung, die Sie sehen können, bevor der erste Einkauf getätigt ist."
+
+#: .\templates\core\services.html:27
+msgid "Concept"
+msgstr "Konzept"
+
+#: .\templates\core\services.html:28
+msgid "Planches d'ambiance et références visuelles"
+msgstr "Moodboards und visuelle Referenzen"
+
+#: .\templates\core\services.html:29
+msgid "Direction"
+msgstr "Leitung"
+
+#: .\templates\core\services.html:29
+msgid "Direction artistique de l'ensemble du projet"
+msgstr "Künstlerische Leitung des gesamten Projekts"
+
+#: .\templates\core\services.html:30
+msgid "Espace"
+msgstr "Raum"
+
+#: .\templates\core\services.html:30
+msgid "Aménagement de l'espace et plan de salle"
+msgstr "Raumgestaltung und Saalplan"
+
+#: .\templates\core\services.html:31
+msgid "Tables"
+msgstr "Tische"
+
+#: .\templates\core\services.html:31
+msgid "Décoration et mise en place des tables"
+msgstr "Tischdekoration und Eindecken"
+
+#: .\templates\core\services.html:39
+msgid "Table"
+msgstr "Tisch"
+
+#: .\templates\core\services.html:40
+msgid "Ballons"
+msgstr "Ballons"
+
+#: .\templates\core\services.html:40
+msgid "Décoration en ballons, arches et compositions organiques"
+msgstr "Ballondekoration, Bögen und organische Girlanden"
+
+#: .\templates\core\services.html:41
+msgid "Scénographie"
+msgstr "Szenografie"
+
+#: .\templates\core\services.html:41
+msgid "Backdrops et espaces photo"
+msgstr "Backdrops und Fotobereiche"
+
+#: .\templates\core\services.html:42
+msgid "Gourmandises"
+msgstr "Süßes"
+
+#: .\templates\core\services.html:42
+msgid "Coins gâteaux et sweet tables"
+msgstr "Kuchenecken und Sweet Tables"
+
+#: .\templates\core\services.html:43
+msgid "Signalétique, marque-places et détails personnalisés"
+msgstr "Beschilderung, Platzkarten und persönliche Details"
+
+#: .\templates\core\services.html:44
+msgid "Logistique"
+msgstr "Logistik"
+
+#: .\templates\core\services.html:48
+msgid "Composer l'espace, jusqu'au dernier détail"
+msgstr "Den Raum komponieren — bis ins letzte Detail"
+
+#: .\templates\core\services.html:49
+msgid ""
+"C'est le moment où le concept devient tangible. J'installe, j'ajuste et je "
+"vérifie chaque angle de vue afin que la salle soit parfaite à l'instant où "
+"vos invités poussent la porte — puis je démonte une fois la fête terminée."
+msgstr "Jetzt wird das Konzept greifbar. Ich baue auf, justiere und prüfe jeden Blickwinkel, damit der Raum in dem Moment perfekt ist, in dem Ihre Gäste die Tür öffnen — und baue nach der Feier wieder ab."
+
+#: .\templates\core\services.html:58
+msgid "Vous gardez la fête, je garde la logistique"
+msgstr "Sie behalten das Fest, ich die Logistik"
+
+#: .\templates\core\services.html:59
+msgid ""
+"Un événement réussi tient autant aux personnes qui l'entourent qu'à sa "
+"décoration. Je vous accompagne dans le choix des prestataires et je "
+"coordonne les échanges jusqu'au jour J."
+msgstr "Eine gelungene Veranstaltung hängt ebenso von den Menschen drumherum ab wie von der Dekoration. Ich begleite Sie bei der Auswahl der Dienstleister und koordiniere die Abstimmung bis zum Tag der Feier."
+
+#: .\templates\core\services.html:62
+msgid "Prestataires"
+msgstr "Dienstleister"
+
+#: .\templates\core\services.html:62
+msgid "Accompagnement dans le choix des prestataires"
+msgstr "Begleitung bei der Auswahl der Dienstleister"
+
+#: .\templates\core\services.html:63
+msgid "Location"
+msgstr "Miete"
+
+#: .\templates\core\services.html:63
+msgid "Sélection du matériel de location"
+msgstr "Auswahl des Mietmaterials"
+
+#: .\templates\core\services.html:64
+msgid "Coordination"
+msgstr "Koordination"
+
+#: .\templates\core\services.html:64
+msgid "Coordination des éléments nécessaires à l'événement"
+msgstr "Koordination aller für die Veranstaltung nötigen Elemente"
+
+#: .\templates\core\services.html:65
+msgid "Planning"
+msgstr "Ablauf"
+
+#: .\templates\core\services.html:65
+msgid "Déroulé et suivi jusqu'au jour de l'événement"
+msgstr "Ablaufplan und Begleitung bis zum Tag der Veranstaltung"
+
+#: .\templates\core\services.html:70
+msgid ""
+"Chaque événement est conçu individuellement. Je serais ravie de vous établir "
+"une proposition personnalisée."
+msgstr "Jede Veranstaltung wird individuell gestaltet. Gerne erstelle ich Ihnen ein persönliches Angebot."
+
+#: .\templates\core\services.html:71 .\templates\partials\callout.html:7
+msgid "Demander un devis sans engagement"
+msgstr "Unverbindliches Angebot anfragen"
+
+#: .\templates\partials\callout.html:4
+msgid "Parlons de votre événement"
+msgstr "Sprechen wir über Ihre Veranstaltung"
+
+#: .\templates\partials\callout.html:5
+msgid "Chaque événement est conçu individuellement"
+msgstr "Jede Veranstaltung wird individuell gestaltet"
+
+#: .\templates\partials\callout.html:6
+msgid ""
+"Je serais ravie de vous établir une proposition personnalisée, adaptée à "
+"votre occasion, à votre lieu et à votre budget."
+msgstr "Gerne erstelle ich Ihnen ein persönliches Angebot, abgestimmt auf Ihren Anlass, Ihre Location und Ihr Budget."
+
+#: .\templates\partials\footer.html:7
+msgid "where details create memories."
+msgstr "where details create memories."
+
+#: .\templates\partials\footer.html:11
+msgid "Navigation"
+msgstr "Navigation"
+
+#: .\templates\partials\footer.html:13 .\templates\partials\header.html:10
+msgid "Accueil"
+msgstr "Startseite"
+
+#: .\templates\partials\footer.html:22
+msgid "Zones d'intervention"
+msgstr "Einsatzgebiete"
+
+#: .\templates\partials\footer.html:25
+msgid "et au-delà, sur demande"
+msgstr "und darüber hinaus, auf Anfrage"
+
+#: .\templates\partials\footer.html:37
+msgid "Langues"
+msgstr "Sprachen"
+
+#: .\templates\partials\header.html:9
+msgid "Navigation principale"
+msgstr "Hauptnavigation"
+
+#: .\templates\partials\header.html:28
+msgid "Ouvrir le menu"
+msgstr "Menü öffnen"
+
+#: .\templates\partials\pillars.html:4
+msgid "Pourquoi Maison Riri Design"
+msgstr "Warum Maison Riri Design"
+
+#: .\templates\partials\pillars.html:5
+msgid "Un design qui vous ressemble, jusque dans le détail"
+msgstr "Ein Design, das zu Ihnen passt — bis ins Detail"
+
+#: .\templates\partials\pillars.html:10
+msgid "Une perspective multiculturelle"
+msgstr "Eine multikulturelle Perspektive"
+
+#: .\templates\partials\pillars.html:11
+msgid ""
+"Les différentes cultures, traditions et histoires personnelles font partie "
+"intégrante du design plutôt que d'en être un décor."
+msgstr "Verschiedene Kulturen, Traditionen und persönliche Geschichten werden Teil des Designs, statt nur Kulisse zu sein."
+
+#: .\templates\partials\pillars.html:15
+msgid "Des concepts personnalisés"
+msgstr "Individuelle Konzepte"
+
+#: .\templates\partials\pillars.html:16
+msgid ""
+"Pas de décoration standardisée : chaque concept est imaginé en fonction de "
+"l'occasion et des personnes qui se trouvent derrière l'événement."
+msgstr "Keine Dekoration von der Stange: Jedes Konzept entsteht aus dem Anlass und den Menschen, die hinter der Veranstaltung stehen."
+
+#: .\templates\partials\pillars.html:20
+msgid "Le souci du détail"
+msgstr "Liebe zum Detail"
+
+#: .\templates\partials\pillars.html:21
+msgid ""
+"De la palette de couleurs au moindre détail, chaque élément est pensé pour "
+"créer un ensemble harmonieux et cohérent."
+msgstr "Von der Farbpalette bis zur kleinsten Kleinigkeit ist jedes Element auf ein harmonisches, stimmiges Gesamtbild hin gedacht."
+
+#: .\templates\partials\pillars.html:25
+msgid "Allemand & français"
+msgstr "Deutsch & Französisch"
+
+#: .\templates\partials\pillars.html:26
+msgid ""
+"Un accompagnement personnalisé pour vos événements à Fribourg, en Alsace et "
+"au-delà — en allemand, en français ou en malgache."
+msgstr "Eine persönliche Begleitung für Ihre Veranstaltungen in Freiburg, im Elsass und darüber hinaus — auf Deutsch, Französisch oder Malagasy."
+
+#: .\templates\partials\process.html:4
+msgid "Notre collaboration"
+msgstr "Unsere Zusammenarbeit"
+
+#: .\templates\partials\process.html:5
+msgid "Voici comment se déroule notre collaboration"
+msgstr "So läuft unsere Zusammenarbeit ab"
+
+#: .\templates\partials\process.html:11
+msgid "Vous me parlez de votre événement, de vos envies et de votre budget."
+msgstr "Sie erzählen mir von Ihrer Veranstaltung, Ihren Wünschen und Ihrem Budget."
+
+#: .\templates\partials\process.html:15
+msgid "Le concept"
+msgstr "Das Konzept"
+
+#: .\templates\partials\process.html:16
+msgid "Je développe une direction créative personnalisée pour votre événement."
+msgstr "Ich entwickle eine individuelle kreative Richtung für Ihre Veranstaltung."
+
+#: .\templates\partials\process.html:20
+msgid "La planification"
+msgstr "Die Planung"
+
+#: .\templates\partials\process.html:21
+msgid ""
+"La décoration, les matériaux, le matériel de location et les autres détails "
+"sont préparés et coordonnés."
+msgstr "Dekoration, Materialien, Mietmaterial und weitere Details werden vorbereitet und koordiniert."
+
+#: .\templates\partials\process.html:25
+msgid "La réalisation"
+msgstr "Die Umsetzung"
+
+#: .\templates\partials\process.html:26
+msgid "Le jour de l'événement, le concept prend vie."
+msgstr "Am Tag der Veranstaltung wird das Konzept lebendig."
