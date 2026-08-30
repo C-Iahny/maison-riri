@@ -174,7 +174,7 @@ projet concerné, avec un aperçu de chaque photo.
 ## Mise en production
 
 ```bash
-export DJANGO_DEBUG=0 DJANGO_SECRET_KEY="…" DJANGO_ALLOWED_HOSTS="maisonriridesign.com"
+export DJANGO_DEBUG=0 DJANGO_SECRET_KEY="…" DJANGO_ALLOWED_HOSTS="maison-riri.com"
 ```
 
 ```bash

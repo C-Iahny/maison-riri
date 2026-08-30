@@ -19,7 +19,7 @@ from . import choices
 
 logger = logging.getLogger(__name__)
 
-_USER_AGENT = "Mozilla/5.0 (compatible; MaisonRiriDesign/1.0; +https://maisonriridesign.com)"
+_USER_AGENT = "Mozilla/5.0 (compatible; MaisonRiriDesign/1.0; +https://maison-riri.com)"
 
 
 def build_payload(quote):

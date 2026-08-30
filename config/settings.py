@@ -130,9 +130,9 @@ DATA_UPLOAD_MAX_NUMBER_FILES = 12
 SITE_INFO = {
     "brand": "Maison Riri Design",
     "founder": "Rinazar Andriampeno",
-    "email": env("MRD_EMAIL", "contact@maisonriridesign.com"),
+    "email": env("MRD_EMAIL", "hello.maisonriri@gmail.com"),
     "phone": env("MRD_PHONE", ""),
-    "instagram": env("MRD_INSTAGRAM", "https://www.instagram.com/maisonriridesign"),
+    "instagram": env("MRD_INSTAGRAM", "https://www.instagram.com/maisonriri.design/"),
     "facebook": env("MRD_FACEBOOK", ""),
     "regions": ["Freiburg im Breisgau", "Alsace", "Basel"],
 }
