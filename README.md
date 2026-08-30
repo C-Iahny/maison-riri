@@ -203,6 +203,41 @@ Points d'attention :
   sert déjà `/media/` prend simplement la main avant.
 - Le fichier `db.sqlite3` convient au volume attendu ; pour passer à PostgreSQL,
   seul le bloc `DATABASES` de `config/settings.py` est à modifier.
+- `DJANGO_DATA_DIR` déplace **d'un seul réglage** la base et le dossier `media/`
+  ailleurs que dans le code. Laissé vide, rien ne change. C'est indispensable
+  sur un hébergeur à conteneurs, où le disque est remis à zéro à chaque
+  déploiement (voir ci-dessous).
+
+### Déploiement sur Railway
+
+Le disque d'un conteneur Railway est **éphémère** : sans volume, chaque
+déploiement effacerait la base (portfolio, demandes de devis, comptes admin) et
+toutes les images envoyées depuis l'administration.
+
+1. **Créer un volume** sur le service, point de montage `/app/data`.
+2. **Variables d'environnement** du service :
+
+   ```
+   DJANGO_DATA_DIR=/app/data
+   DJANGO_DEBUG=0
+   DJANGO_SECRET_KEY=<clé aléatoire>
+   DJANGO_ALLOWED_HOSTS=maison-riri.com,www.maison-riri.com,<sous-domaine>.up.railway.app
+   DJANGO_CSRF_TRUSTED_ORIGINS=https://maison-riri.com,https://www.maison-riri.com
+   ```
+
+3. **Commande de démarrage** — les migrations doivent tourner sur le volume
+   fraîchement monté, et `seed_site_images` (sans `--reset`, donc sans effet si
+   les images sont déjà définies) donne ses visuels à une installation neuve :
+
+   ```bash
+   python manage.py migrate && python manage.py seed_site_images && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+   ```
+
+Railway terminant le TLS en amont, `SECURE_PROXY_SSL_HEADER` est réglé pour que
+`SECURE_SSL_REDIRECT` ne boucle pas — c'est déjà fait dans `config/settings.py`.
+
+Le domaine doit figurer dans `DJANGO_ALLOWED_HOSTS`, faute de quoi Django
+répond `DisallowedHost` sur toutes les pages.
 
 ---
 

@@ -1,0 +1,7 @@
+# Le dépôt a d'abord été alimenté depuis l'interface web de GitHub, en CRLF.
+# Normaliser une bonne fois évite que chaque fichier réapparaisse « entièrement
+# modifié » au prochain envoi fait depuis une autre machine.
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.mo binary

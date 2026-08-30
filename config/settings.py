@@ -13,10 +13,20 @@ def env_bool(name, default=False):
     return env(name, str(default)).strip().lower() in {"1", "true", "yes", "on"}
 
 
+def env_list(name, default=""):
+    """Découpe une variable « a,b,c ».
+
+    Les espaces autour des valeurs sont tolérés : une liste recopiée avec des
+    espaces est une cause classique de ``DisallowedHost``, difficile à voir.
+    """
+    return [item.strip() for item in env(name, default).split(",") if item.strip()]
+
+
 SECRET_KEY = env("DJANGO_SECRET_KEY", "dev-insecure-change-me-before-production")
 DEBUG = env_bool("DJANGO_DEBUG", True)
-ALLOWED_HOSTS = [h for h in env("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",") if h]
-CSRF_TRUSTED_ORIGINS = [o for o in env("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o]
+
+ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]")
+CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -63,10 +73,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# Base de données et fichiers envoyés vivent au même endroit : sur un hébergeur
+# à conteneurs (Railway, Render…), le disque est remis à zéro à chaque
+# déploiement. Pointer DJANGO_DATA_DIR vers un volume persistant met donc à
+# l'abri, d'un seul réglage, la base ET les images changées depuis l'admin.
+DATA_DIR = Path(env("DJANGO_DATA_DIR", str(BASE_DIR)))
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DATA_DIR / "db.sqlite3",
     }
 }
 
@@ -102,7 +118,7 @@ STORAGES = {
 }
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = DATA_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -140,11 +156,13 @@ EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("DJANGO_EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", "Maison Riri Design <no-reply@localhost>")
-QUOTE_NOTIFICATION_RECIPIENTS = [
-    e.strip() for e in env("MRD_NOTIFY_EMAILS", SITE_INFO["email"]).split(",") if e.strip()
-]
+QUOTE_NOTIFICATION_RECIPIENTS = env_list("MRD_NOTIFY_EMAILS", SITE_INFO["email"])
 
 if not DEBUG:
+    # Derrière le proxy d'un hébergeur (Railway, Render, Heroku…), la connexion
+    # arrive en HTTP dans le conteneur alors que le visiteur est bien en HTTPS.
+    # Sans cet en-tête, SECURE_SSL_REDIRECT boucle indéfiniment.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_SSL_REDIRECT = env_bool("DJANGO_SECURE_SSL_REDIRECT", True)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
