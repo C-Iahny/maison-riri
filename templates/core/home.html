@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Des événements qui racontent votre histoire" %}{% endblock %}
+{% block og_title %}Maison Riri Design — {% trans "Des événements qui racontent votre histoire" %}{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero__media">
+    <img src="{{ site_images.hero.url }}" alt="{{ site_images.hero.alt }}" fetchpriority="high">
+  </div>
+  <div class="shell hero__inner">
+    <img class="hero__logo" src="{{ site_images.logo.url }}" alt="{{ site_images.logo.alt }}">
+    <h1>{% trans "Des événements qui racontent votre histoire." %}</h1>
+    <p class="hero__claim">{% trans "Design événementiel & décoration sur mesure" %}</p>
+    <div class="hero__meta">
+      <span>{% trans "Fribourg" %}</span><span>{% trans "Alsace" %}</span><span>{% trans "Bâle" %}</span>
+    </div>
+    <div class="hero__meta">
+      <span>{% trans "Mariages" %}</span><span>{% trans "Anniversaires" %}</span><span>{% trans "Événements privés" %}</span><span>{% trans "Événements d'entreprise" %}</span>
+    </div>
+    <div class="hero__cta">
+      <a class="btn btn--light" href="{% url 'core:contact' %}">{% trans "Demander un devis pour mon événement" %}</a>
+      <a class="btn btn--light" href="{% url 'core:portfolio' %}">{% trans "Découvrir le portfolio" %}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell split split--top">
+    <div class="reveal">
+      <p class="eyebrow">Maison Riri Design</p>
+      <p class="intro-statement">{% trans "Concevoir des atmosphères, pas seulement des décors." %}</p>
+    </div>
+    <div class="reveal">
+      <p class="lede">{% trans "Maison Riri Design imagine, planifie et met en scène des concepts de décoration entièrement sur mesure pour les mariages, les anniversaires, les fêtes de famille et les événements d'entreprise." %}</p>
+      <p>{% trans "Du premier échange à l'installation le jour J, chaque projet part d'une histoire : la vôtre. Couleurs, matières, lumières et détails sont choisis pour composer un ensemble cohérent, chaleureux et profondément personnel." %}</p>
+      <p>{% trans "Basée à Fribourg-en-Brisgau, j'interviens en Allemagne, en Alsace et dans la région de Bâle — en allemand comme en français." %}</p>
+      <p style="margin-top:2rem"><a class="link-arrow" href="{% url 'core:about' %}">{% trans "Faire connaissance" %} <span aria-hidden="true">→</span></a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Prestations" %}</p>
+    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% trans "Trois façons de vous accompagner" %}</h2>
+
+    <div class="cards">
+      <article class="card reveal">
+        <span class="card__index">01</span>
+        <h3>{% trans "Design événementiel & concept" %}</h3>
+        <ul>
+          <li>{% trans "Concept personnalisé de couleurs et de décoration" %}</li>
+          <li>{% trans "Moodboard & direction artistique" %}</li>
+          <li>{% trans "Aménagement de l'espace" %}</li>
+          <li>{% trans "Décoration des tables" %}</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <span class="card__index">02</span>
+        <h3>{% trans "Décoration & mise en scène" %}</h3>
+        <ul>
+          <li>{% trans "Décoration de table, fleurs et bougies" %}</li>
+          <li>{% trans "Décoration en ballons, backdrops, espaces photo" %}</li>
+          <li>{% trans "Coins gâteaux et détails personnalisés" %}</li>
+          <li>{% trans "Installation et démontage" %}</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <span class="card__index">03</span>
+        <h3>{% trans "Planification & coordination" %}</h3>
+        <ul>
+          <li>{% trans "Choix des prestataires" %}</li>
+          <li>{% trans "Matériel de location" %}</li>
+          <li>{% trans "Coordination des éléments de l'événement" %}</li>
+          <li>{% trans "Suivi jusqu'au jour J" %}</li>
+        </ul>
+      </article>
+    </div>
+
+    <p style="margin-top:2.5rem"><a class="link-arrow" href="{% url 'core:services' %}">{% trans "Voir le détail des prestations" %} <span aria-hidden="true">→</span></a></p>
+  </div>
+</section>
+
+{% if featured_projects %}
+<section class="section">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Portfolio" %}</p>
+    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% trans "Quelques univers créés sur mesure" %}</h2>
+
+    <div class="project-grid">
+      {% for project in featured_projects %}
+        {% include "partials/project_card.html" %}
+      {% endfor %}
+    </div>
+
+    <p style="margin-top:3rem"><a class="link-arrow" href="{% url 'core:portfolio' %}">{% trans "Voir tous les projets" %} <span aria-hidden="true">→</span></a></p>
+  </div>
+</section>
+{% endif %}
+
+{% include "partials/pillars.html" %}
+{% include "partials/process.html" %}
+{% include "partials/callout.html" %}
+
+{% endblock %}

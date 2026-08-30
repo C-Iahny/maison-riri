@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Portfolio" %}{% endblock %}
+{% block description %}{% trans "Réalisations et concepts créatifs signés Maison Riri Design : anniversaires, mariages et événements d'entreprise à Fribourg, en Alsace et à Bâle." %}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Portfolio" %}</p>
+    <h1>{% trans "Des univers, du moodboard au résultat final" %}</h1>
+    <p class="lede">{% trans "Certains projets ont été réalisés, d'autres sont des concepts créatifs développés pour montrer une direction artistique. Les uns comme les autres sont identifiés clairement." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <nav class="filters" aria-label="{% trans 'Filtrer les projets' %}">
+      <a href="{% url 'core:portfolio' %}" class="{% if not active_kind %}is-active{% endif %}">{% trans "Tous" %}</a>
+      {% for value, label in kinds %}
+        <a href="{% url 'core:portfolio' %}?type={{ value }}" class="{% if active_kind == value %}is-active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </nav>
+
+    {% if projects %}
+      <div class="project-grid">
+        {% for project in projects %}
+          {% include "partials/project_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="lede">{% trans "Aucun projet ne correspond à ce filtre pour le moment." %}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% include "partials/callout.html" %}
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ project.title }}{% endblock %}
+{% block description %}{{ project.summary|striptags|truncatewords:32 }}{% endblock %}
+{% block og_title %}{{ project.title }} — Maison Riri Design{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ project.cover.url }}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">
+      <a href="{% url 'core:portfolio' %}" style="text-decoration:none;color:inherit">{% trans "Portfolio" %}</a>
+    </p>
+    <h1>{{ project.title }}</h1>
+    {% if project.subtitle %}<p class="lede">{{ project.subtitle }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="shell project-lead">
+    <div class="reveal">
+      {% if project.is_concept %}
+        <p class="eyebrow">{% trans "Concept créatif" %}</p>
+        <p class="form-alert" style="margin-bottom:2rem">
+          {% trans "Ce projet est une étude de concept : la direction artistique a été entièrement développée, mais l'événement n'a pas encore été réalisé." %}
+        </p>
+      {% else %}
+        <p class="eyebrow">{% trans "Réalisation" %}</p>
+      {% endif %}
+
+      {% if project.summary %}<p class="lede">{{ project.summary }}</p>{% endif %}
+      {% for paragraph in project.story_paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+
+      {% if project.keyword_list %}
+        <p class="eyebrow" style="margin-top:2.5rem">{% trans "Mots-clés" %}</p>
+        <p style="color:var(--ink-soft)">{% for keyword in project.keyword_list %}{{ keyword }}{% if not forloop.last %} · {% endif %}{% endfor %}</p>
+      {% endif %}
+    </div>
+
+    <aside class="reveal">
+      <ul class="facts">
+        {% if project.event_type %}<li><span class="facts__key">{% trans "Type d'événement" %}</span><span class="facts__value">{{ project.event_type }}</span></li>{% endif %}
+        {% if project.location %}<li><span class="facts__key">{% trans "Lieu" %}</span><span class="facts__value">{{ project.location }}</span></li>{% endif %}
+        {% if project.year %}<li><span class="facts__key">{% trans "Année" %}</span><span class="facts__value">{{ project.year }}</span></li>{% endif %}
+        <li><span class="facts__key">{% trans "Statut" %}</span><span class="facts__value">{{ project.get_kind_display }}</span></li>
+      </ul>
+
+      {% if project.palette.all %}
+        <p class="eyebrow" style="margin-top:2rem">{% trans "Palette" %}</p>
+        <div class="palette">
+          {% for color in project.palette.all %}
+            <div class="palette__chip">
+              <div class="palette__swatch" style="background:{{ color.hex_code }}"></div>
+              <div class="palette__label">{{ color.name|default:color.hex_code }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tight" style="padding-top:0">
+  <div class="shell">
+    {% for bucket in project.images_by_stage %}
+      <div class="stage reveal">
+        <div class="stage__head">
+          <span class="card__index">{{ forloop.counter|stringformat:"02d" }}</span>
+          <h3>{{ bucket.label }}</h3>
+        </div>
+        <div class="gallery">
+          {% for image in bucket.images %}
+            <figure>
+              <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" loading="lazy">
+              {% if image.caption %}<figcaption>{{ image.caption }}</figcaption>{% endif %}
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
+    {% empty %}
+      <p class="lede">{% trans "Les visuels de ce projet arrivent très bientôt." %}</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% if other_projects %}
+<section class="section section--cream">
+  <div class="shell">
+    <p class="eyebrow">{% trans "À découvrir aussi" %}</p>
+    <div class="project-grid" style="margin-top:2rem">
+      {% for project in other_projects %}
+        {% include "partials/project_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "partials/callout.html" %}
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load i18n %}
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="{{ site_images.logo.url }}" alt="{{ site_images.logo.alt }}" width="76" height="76">
+        <p class="footer__claim">{% trans "where details create memories." %}</p>
+      </div>
+
+      <div>
+        <h4>{% trans "Navigation" %}</h4>
+        <ul>
+          <li><a href="{% url 'core:home' %}">{% trans "Accueil" %}</a></li>
+          <li><a href="{% url 'core:about' %}">{% trans "À propos" %}</a></li>
+          <li><a href="{% url 'core:services' %}">{% trans "Prestations" %}</a></li>
+          <li><a href="{% url 'core:portfolio' %}">{% trans "Portfolio" %}</a></li>
+          <li><a href="{% url 'core:contact' %}">{% trans "Demander un devis" %}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>{% trans "Zones d'intervention" %}</h4>
+        <ul>
+          {% for region in site.regions %}<li>{{ region }}</li>{% endfor %}
+          <li>{% trans "et au-delà, sur demande" %}</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>{% trans "Contact" %}</h4>
+        <ul>
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {% if site.phone %}<li><a href="tel:{{ site.phone|cut:' ' }}">{{ site.phone }}</a></li>{% endif %}
+          {% if site.instagram %}<li><a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a></li>{% endif %}
+          {% if site.facebook %}<li><a href="{{ site.facebook }}" rel="noopener" target="_blank">Facebook</a></li>{% endif %}
+        </ul>
+        <h4 style="margin-top:1.6rem">{% trans "Langues" %}</h4>
+        <ul><li>Deutsch · Français · Malagasy</li></ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© {% now "Y" %} Maison Riri Design — {{ site.founder }}</span>
+      <span>
+        <a href="{% url 'core:legal' %}">{% trans "Mentions légales" %}</a> ·
+        <a href="{% url 'core:privacy' %}">{% trans "Protection des données" %}</a>
+      </span>
+    </div>
+  </div>
+</footer>

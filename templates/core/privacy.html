@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Protection des données" %}{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">RGPD / DSGVO</p>
+    <h1>{% trans "Protection des données" %}</h1>
+    <p class="lede">{% trans "Voici précisément ce qu'il advient des informations que vous transmettez via le formulaire de devis." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell--narrow">
+    <p class="form-alert">{% trans "Modèle à faire valider juridiquement avant la mise en ligne, notamment sur la durée de conservation et l'identité du responsable de traitement." %}</p>
+
+    <h2 style="margin-bottom:1rem">{% trans "Responsable du traitement" %}</h2>
+    <p>Maison Riri Design — {{ site.founder }}, {% trans "Freiburg im Breisgau" %} — <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Données collectées" %}</h2>
+    <p>{% trans "Le formulaire de devis recueille : votre nom, votre adresse e-mail, éventuellement votre numéro de téléphone, la langue de communication souhaitée, ainsi que les informations relatives à votre événement (type, date, lieu, nombre d'invités, prestations souhaitées, thème, budget, message) et les photos d'inspiration que vous choisissez de joindre." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Finalité et base légale" %}</h2>
+    <p>{% trans "Ces informations servent uniquement à étudier votre demande, à vous répondre et, le cas échéant, à préparer une proposition commerciale. La base légale est votre consentement, recueilli explicitement dans le formulaire, ainsi que les mesures précontractuelles prises à votre demande." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Destinataires" %}</h2>
+    <p>{% trans "Vos données sont enregistrées sur le serveur du site et copiées dans un formulaire Google Forms utilisé par Maison Riri Design pour le suivi des demandes. Google agit ici comme sous-traitant ; un transfert hors Union européenne est possible dans ce cadre. Aucune donnée n'est vendue ni transmise à des fins publicitaires." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Durée de conservation" %}</h2>
+    <p>{% trans "Les demandes sans suite sont conservées douze mois. Les demandes ayant donné lieu à une prestation sont conservées le temps requis par les obligations comptables et fiscales applicables." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Vos droits" %}</h2>
+    <p>{% trans "Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition, ainsi que du droit de retirer votre consentement à tout moment. Il suffit d'écrire à l'adresse indiquée ci-dessus. Vous pouvez également introduire une réclamation auprès de l'autorité de contrôle compétente." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Cookies" %}</h2>
+    <p>{% trans "Ce site ne dépose aucun cookie de mesure d'audience ni de publicité. Seuls des cookies techniques sont utilisés : mémorisation de la langue choisie et protection des formulaires contre la falsification de requêtes." %}</p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Demander un devis" %}{% endblock %}
+{% block description %}{% trans "Parlez-moi de votre événement : type, date, lieu, nombre d'invités et envies. Je vous réponds avec une proposition personnalisée, sans engagement." %}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Contact" %}</p>
+    <h1>{% trans "Demander un devis pour votre événement" %}</h1>
+    <p class="lede">{% trans "Quelques questions pour bien comprendre votre projet. Comptez cinq minutes — et n'hésitez pas à joindre vos images d'inspiration." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell form-layout">
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+
+      {% if form.errors %}
+        <p class="form-alert" role="alert">{% trans "Quelques informations sont manquantes ou incorrectes. Merci de vérifier les champs signalés ci-dessous." %}</p>
+      {% endif %}
+      {% if form.non_field_errors %}
+        <ul class="field__errors">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      {% endif %}
+
+      <div class="honeypot" aria-hidden="true">
+        <label for="{{ form.website.id_for_label }}">{% trans "Ne pas remplir" %}</label>
+        {{ form.website }}
+      </div>
+
+      <fieldset class="fieldset">
+        <legend>{% trans "Informations personnelles" %}</legend>
+        <p class="fieldset__hint">{% trans "Pour vous recontacter dans la langue de votre choix." %}</p>
+        <div class="field-grid">
+          {% include "partials/field.html" with field=form.full_name %}
+          {% include "partials/field.html" with field=form.email %}
+          {% include "partials/field.html" with field=form.phone %}
+          {% include "partials/field.html" with field=form.preferred_language %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>{% trans "Votre événement" %}</legend>
+        <p class="fieldset__hint">{% trans "Même approximatifs, ces éléments m'aident à évaluer la faisabilité et le budget." %}</p>
+        <div class="field-grid">
+          {% include "partials/field.html" with field=form.event_type %}
+          {% include "partials/field.html" with field=form.event_date %}
+          {% include "partials/field.html" with field=form.event_location %}
+          {% include "partials/field.html" with field=form.guest_count %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>{% trans "Votre projet" %}</legend>
+        <p class="fieldset__hint">{% trans "Dites-m'en autant que vous le souhaitez : tout est utile." %}</p>
+
+        <div class="field field--full" style="margin-bottom:1.5rem">
+          <span class="field__label">{{ form.services.label }} <span class="field__req" aria-hidden="true">*</span></span>
+          <div class="checkbox-grid">{{ form.services }}</div>
+          {% if form.services.errors %}
+            <ul class="field__errors">{% for error in form.services.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+          {% endif %}
+        </div>
+
+        <div class="field-grid">
+          {% include "partials/field.html" with field=form.theme full=1 %}
+          {% include "partials/field.html" with field=form.budget %}
+          {% include "partials/field.html" with field=form.referral %}
+          {% include "partials/field.html" with field=form.message full=1 %}
+          {% include "partials/field.html" with field=form.inspirations full=1 %}
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>{% trans "Protection des données" %}</legend>
+        <div class="consent">
+          <label for="{{ form.consent.id_for_label }}">
+            {{ form.consent }}
+            <span>{% trans "J'accepte que Maison Riri Design utilise mes données personnelles uniquement afin de traiter ma demande." %}
+            <a href="{% url 'core:privacy' %}" style="color:var(--wine-700)">{% trans "En savoir plus" %}</a></span>
+          </label>
+          {% if form.consent.errors %}
+            <ul class="field__errors">{% for error in form.consent.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+          {% endif %}
+        </div>
+      </fieldset>
+
+      <button class="btn" type="submit">{% trans "Demander un devis pour mon événement" %}</button>
+      <p class="field__help" style="margin-top:1rem">{% trans "Réponse sous 48 heures ouvrées. Champs marqués d'une étoile obligatoires." %}</p>
+    </form>
+
+    <aside class="aside-card reveal">
+      <h3>{% trans "Préférez-vous écrire directement ?" %}</h3>
+      <ul>
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        {% if site.phone %}<li><a href="tel:{{ site.phone|cut:' ' }}">{{ site.phone }}</a></li>{% endif %}
+        {% if site.instagram %}<li><a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a></li>{% endif %}
+      </ul>
+
+      <h3>{% trans "Bon à savoir" %}</h3>
+      <ul>
+        <li>{% trans "Le devis est gratuit et sans engagement." %}</li>
+        <li>{% trans "Conseil en allemand, en français ou en malgache." %}</li>
+        <li>{% trans "Fribourg, Alsace, Bâle — et au-delà sur demande." %}</li>
+        <li>{% trans "Vos photos d'inspiration sont les bienvenues." %}</li>
+      </ul>
+
+      <p class="field__help">
+        {% blocktrans %}Vous pouvez aussi remplir le questionnaire directement sur Google Forms.{% endblocktrans %}
+        <a href="{{ google_form_url }}" rel="noopener" target="_blank">{% trans "Ouvrir le formulaire" %}</a>
+      </p>
+    </aside>
+
+  </div>
+</section>
+
+{% endblock %}

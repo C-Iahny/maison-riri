@@ -1,0 +1,11 @@
+{% comment %}Rend un champ de formulaire : libellé, widget, aide et erreurs.{% endcomment %}
+<div class="field {% if full %}field--full{% endif %}">
+  <label for="{{ field.id_for_label }}">
+    {{ field.label }}{% if field.field.required %} <span class="field__req" aria-hidden="true">*</span>{% endif %}
+  </label>
+  {{ field }}
+  {% if field.help_text %}<p class="field__help">{{ field.help_text }}</p>{% endif %}
+  {% if field.errors %}
+    <ul class="field__errors">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+  {% endif %}
+</div>

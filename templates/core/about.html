@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "À propos" %}{% endblock %}
+{% block description %}{% trans "Rinazar Andriampeno, fondatrice de Maison Riri Design : un parcours entre Madagascar, l'Allemagne et la France au service d'un design événementiel sur mesure." %}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{% trans "À propos" %}</p>
+    <h1>{% trans "Entre Madagascar, l'Allemagne et la France" %}</h1>
+    <p class="lede">{% trans "Maison Riri Design est née de l'envie de faire dialoguer plusieurs cultures dans un même espace — et d'en faire quelque chose de beau." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell split split--top">
+    <figure class="figure-frame reveal" style="margin:0">
+      <img src="{{ site_images.portrait.url }}" alt="{{ site_images.portrait.alt }}">
+      <figcaption>{{ site.founder }} — {% trans "Fondatrice, Maison Riri Design" %}</figcaption>
+    </figure>
+
+    <div class="reveal">
+      <p class="eyebrow">{% trans "Mon histoire" %}</p>
+      <h2 style="margin-bottom:1.6rem">{% trans "Créer des liens, entre les cultures et entre les gens" %}</h2>
+      <p>{% trans "J'ai grandi entre plusieurs mondes : Madagascar, où les fêtes rassemblent des familles entières ; l'Allemagne, où j'ai appris la rigueur et le goût des choses bien faites ; la France, dont l'élégance et l'art de recevoir m'accompagnent depuis toujours." %}</p>
+      <p>{% trans "Cette manière de passer d'une langue à l'autre, d'une tradition à l'autre, est devenue mon outil de travail. Lorsque je conçois un événement, je cherche d'abord ce qui compte pour vous : une couleur qui rappelle un souvenir, un plat de famille, une musique, un rituel. Puis je traduis tout cela en formes, en matières et en lumière." %}</p>
+      <p>{% trans "C'est pour cela que Maison Riri Design ne propose pas de décoration en catalogue. Chaque concept est écrit pour une occasion précise et pour les personnes qui se trouvent derrière elle." %}</p>
+      <p style="margin-top:2rem"><a class="link-arrow" href="{% url 'core:contact' %}">{% trans "Discutons de votre projet" %} <span aria-hidden="true">→</span></a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="shell split">
+    <div class="reveal">
+      <p class="eyebrow">{% trans "Ma façon de travailler" %}</p>
+      <h2 style="margin-bottom:1.6rem">{% trans "Designed with intention." %}</h2>
+      <p>{% trans "Une palette de couleurs cohérente plutôt qu'une accumulation d'éléments. Une lumière travaillée. Des matières que l'on a envie de toucher. Et suffisamment d'espace pour que vos invités se sentent bien." %}</p>
+      <p>{% trans "Je travaille aussi bien sur des fêtes intimes que sur des événements de plus de cent cinquante personnes, en collaboration étroite avec les lieux, les fleuristes, les traiteurs et les loueurs de la région." %}</p>
+      <ul class="facts" style="margin-top:2rem">
+        <li><span class="facts__key">{% trans "Basée à" %}</span><span class="facts__value">Freiburg im Breisgau</span></li>
+        <li><span class="facts__key">{% trans "Interventions" %}</span><span class="facts__value">{% trans "Bade-Wurtemberg · Alsace · Bâle" %}</span></li>
+        <li><span class="facts__key">{% trans "Conseil en" %}</span><span class="facts__value">Deutsch · Français · Malagasy</span></li>
+        <li><span class="facts__key">{% trans "Spécialités" %}</span><span class="facts__value">{% trans "Concept, décoration, coordination" %}</span></li>
+      </ul>
+    </div>
+    <figure class="figure-frame figure-frame--wide reveal" style="margin:0">
+      <img src="{{ site_images.atmosphere.url }}" alt="{{ site_images.atmosphere.alt }}" loading="lazy">
+      <figcaption>{% trans "Moodboard « Red Wine » — direction artistique" %}</figcaption>
+    </figure>
+  </div>
+</section>
+
+{% include "partials/pillars.html" %}
+{% include "partials/callout.html" %}
+
+{% endblock %}

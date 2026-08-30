@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Prestations" %}{% endblock %}
+{% block description %}{% trans "Design événementiel et concept, décoration et mise en scène, planification et coordination : les prestations de Maison Riri Design à Fribourg, en Alsace et à Bâle." %}{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Prestations" %}</p>
+    <h1>{% trans "Du concept à la dernière bougie allumée" %}</h1>
+    <p class="lede">{% trans "Trois familles de prestations, à combiner librement selon l'ampleur de votre événement et le rôle que vous souhaitez me confier." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+
+    <article class="split split--top reveal" style="margin-bottom:clamp(3.5rem,3rem+3vw,6rem)">
+      <div>
+        <p class="eyebrow">01 — {% trans "Design événementiel & concept" %}</p>
+        <h2 style="margin-bottom:1.4rem">{% trans "Donner une direction claire à votre événement" %}</h2>
+        <p>{% trans "Tout commence par une intention. Nous définissons ensemble l'atmosphère recherchée, puis je la traduis en une direction artistique complète que vous pouvez visualiser avant même le premier achat." %}</p>
+      </div>
+      <ul class="facts">
+        <li><span class="facts__key">{% trans "Concept" %}</span><span class="facts__value">{% trans "Concept personnalisé de couleurs et de décoration" %}</span></li>
+        <li><span class="facts__key">{% trans "Moodboard" %}</span><span class="facts__value">{% trans "Planches d'ambiance et références visuelles" %}</span></li>
+        <li><span class="facts__key">{% trans "Direction" %}</span><span class="facts__value">{% trans "Direction artistique de l'ensemble du projet" %}</span></li>
+        <li><span class="facts__key">{% trans "Espace" %}</span><span class="facts__value">{% trans "Aménagement de l'espace et plan de salle" %}</span></li>
+        <li><span class="facts__key">{% trans "Tables" %}</span><span class="facts__value">{% trans "Décoration et mise en place des tables" %}</span></li>
+      </ul>
+    </article>
+
+    <hr class="rule">
+
+    <article class="split split--top reveal" style="margin:clamp(3.5rem,3rem+3vw,6rem) 0">
+      <ul class="facts">
+        <li><span class="facts__key">{% trans "Table" %}</span><span class="facts__value">{% trans "Décoration de table, fleurs et bougies" %}</span></li>
+        <li><span class="facts__key">{% trans "Ballons" %}</span><span class="facts__value">{% trans "Décoration en ballons, arches et compositions organiques" %}</span></li>
+        <li><span class="facts__key">{% trans "Scénographie" %}</span><span class="facts__value">{% trans "Backdrops et espaces photo" %}</span></li>
+        <li><span class="facts__key">{% trans "Gourmandises" %}</span><span class="facts__value">{% trans "Coins gâteaux et sweet tables" %}</span></li>
+        <li><span class="facts__key">{% trans "Détails" %}</span><span class="facts__value">{% trans "Signalétique, marque-places et détails personnalisés" %}</span></li>
+        <li><span class="facts__key">{% trans "Logistique" %}</span><span class="facts__value">{% trans "Installation et démontage" %}</span></li>
+      </ul>
+      <div>
+        <p class="eyebrow">02 — {% trans "Décoration & mise en scène" %}</p>
+        <h2 style="margin-bottom:1.4rem">{% trans "Composer l'espace, jusqu'au dernier détail" %}</h2>
+        <p>{% trans "C'est le moment où le concept devient tangible. J'installe, j'ajuste et je vérifie chaque angle de vue afin que la salle soit parfaite à l'instant où vos invités poussent la porte — puis je démonte une fois la fête terminée." %}</p>
+      </div>
+    </article>
+
+    <hr class="rule">
+
+    <article class="split split--top reveal" style="margin-top:clamp(3.5rem,3rem+3vw,6rem)">
+      <div>
+        <p class="eyebrow">03 — {% trans "Planification & coordination" %}</p>
+        <h2 style="margin-bottom:1.4rem">{% trans "Vous gardez la fête, je garde la logistique" %}</h2>
+        <p>{% trans "Un événement réussi tient autant aux personnes qui l'entourent qu'à sa décoration. Je vous accompagne dans le choix des prestataires et je coordonne les échanges jusqu'au jour J." %}</p>
+      </div>
+      <ul class="facts">
+        <li><span class="facts__key">{% trans "Prestataires" %}</span><span class="facts__value">{% trans "Accompagnement dans le choix des prestataires" %}</span></li>
+        <li><span class="facts__key">{% trans "Location" %}</span><span class="facts__value">{% trans "Sélection du matériel de location" %}</span></li>
+        <li><span class="facts__key">{% trans "Coordination" %}</span><span class="facts__value">{% trans "Coordination des éléments nécessaires à l'événement" %}</span></li>
+        <li><span class="facts__key">{% trans "Planning" %}</span><span class="facts__value">{% trans "Déroulé et suivi jusqu'au jour de l'événement" %}</span></li>
+      </ul>
+    </article>
+
+    <div class="text-center" style="margin-top:clamp(3.5rem,3rem+3vw,5.5rem)">
+      <p class="intro-statement mx-auto" style="max-width:32ch">{% trans "Chaque événement est conçu individuellement. Je serais ravie de vous établir une proposition personnalisée." %}</p>
+      <p style="margin-top:2rem"><a class="btn" href="{% url 'core:contact' %}">{% trans "Demander un devis sans engagement" %}</a></p>
+    </div>
+  </div>
+</section>
+
+{% include "partials/process.html" %}
+{% include "partials/callout.html" %}
+
+{% endblock %}

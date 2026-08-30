@@ -1,0 +1,33 @@
+{% load i18n %}
+<header class="masthead" data-masthead>
+  <div class="shell masthead__inner">
+    <a class="brand" href="{% url 'core:home' %}">
+      <img src="{{ site_images.logo.url }}" alt="" width="56" height="56">
+      <span class="brand__name">Maison Riri<span class="brand__tag">Design</span></span>
+    </a>
+
+    <nav class="nav" id="primary-nav" aria-label="{% trans 'Navigation principale' %}">
+      <a class="nav__link" href="{% url 'core:home' %}" {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %}>{% trans "Accueil" %}</a>
+      <a class="nav__link" href="{% url 'core:about' %}" {% if request.resolver_match.url_name == 'about' %}aria-current="page"{% endif %}>{% trans "À propos" %}</a>
+      <a class="nav__link" href="{% url 'core:services' %}" {% if request.resolver_match.url_name == 'services' %}aria-current="page"{% endif %}>{% trans "Prestations" %}</a>
+      <a class="nav__link" href="{% url 'core:portfolio' %}" {% if request.resolver_match.url_name == 'portfolio' or request.resolver_match.url_name == 'project_detail' %}aria-current="page"{% endif %}>{% trans "Portfolio" %}</a>
+      <a class="nav__link" href="{% url 'core:contact' %}" {% if request.resolver_match.url_name == 'contact' %}aria-current="page"{% endif %}>{% trans "Contact" %}</a>
+    </nav>
+
+    <div class="masthead__actions">
+      <div class="lang">
+        <form action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <button type="submit" name="language" value="de" {% if LANGUAGE_CODE == 'de' %}aria-current="true"{% endif %} lang="de">DE</button>
+          <span class="lang__sep" aria-hidden="true">|</span>
+          <button type="submit" name="language" value="fr" {% if LANGUAGE_CODE == 'fr' %}aria-current="true"{% endif %} lang="fr">FR</button>
+        </form>
+      </div>
+      <a class="btn btn--sm" href="{% url 'core:contact' %}">{% trans "Demander un devis" %}</a>
+      <button class="burger" type="button" data-burger aria-expanded="false" aria-controls="primary-nav" aria-label="{% trans 'Ouvrir le menu' %}">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

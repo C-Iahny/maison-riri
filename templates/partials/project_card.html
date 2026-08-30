@@ -1,0 +1,17 @@
+{% load i18n %}
+<a class="project-card reveal" href="{{ project.get_absolute_url }}">
+  <div class="project-card__media">
+    {% if project.is_concept %}
+      <span class="tag tag--concept">{% trans "Concept créatif" %}</span>
+    {% else %}
+      <span class="tag">{% trans "Réalisation" %}</span>
+    {% endif %}
+    <img src="{{ project.cover.url }}" alt="{{ project.title }}" loading="lazy">
+  </div>
+  <div class="project-card__body">
+    <h3>{{ project.title }}</h3>
+    <p class="project-card__meta">
+      {{ project.subtitle }}{% if project.location %} · {{ project.location }}{% endif %}
+    </p>
+  </div>
+</a>

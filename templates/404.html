@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Page introuvable" %}{% endblock %}
+{% block content %}
+<section class="confirmation">
+  <div class="shell--narrow">
+    <p class="eyebrow eyebrow--centered">404</p>
+    <h1 style="font-size:clamp(2.2rem,1.6rem+2.5vw,3.6rem)">{% trans "Cette page n'existe pas" %}</h1>
+    <p class="lede mx-auto" style="margin-top:1.5rem">{% trans "Le lien est peut-être ancien, ou la page a changé d'adresse." %}</p>
+    <p style="margin-top:2.5rem"><a class="btn btn--ghost" href="{% url 'core:home' %}">{% trans "Retour à l'accueil" %}</a></p>
+  </div>
+</section>
+{% endblock %}

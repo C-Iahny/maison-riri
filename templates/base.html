@@ -1,0 +1,34 @@
+{% load i18n static %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% trans "Design événementiel & décoration sur mesure" %}{% endblock %} — Maison Riri Design</title>
+  <meta name="description" content="{% block description %}{% trans "Maison Riri Design imagine des concepts de décoration sur mesure pour mariages, anniversaires et événements d'entreprise à Fribourg, en Alsace et à Bâle." %}{% endblock %}">
+  <meta name="theme-color" content="#4a1220">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="icon" href="{{ site_images.logo.url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Maison Riri Design">
+  <meta property="og:title" content="{% block og_title %}Maison Riri Design{% endblock %}">
+  <meta property="og:description" content="{% trans "Des événements qui racontent votre histoire." %}">
+  <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ site_images.share.url }}{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main">{% trans "Aller au contenu" %}</a>
+  {% include "partials/header.html" %}
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/footer.html" %}
+  <script src="{% static 'js/site.js' %}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

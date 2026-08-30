@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Mentions légales" %}{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{% trans "Informations légales" %}</p>
+    <h1>{% trans "Mentions légales" %}</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell--narrow">
+    <p class="form-alert">{% trans "Modèle à compléter par Maison Riri Design : forme juridique, adresse complète, numéro d'identification et hébergeur doivent être renseignés avant la mise en ligne." %}</p>
+
+    <h2 style="margin-bottom:1rem">{% trans "Éditeur du site" %}</h2>
+    <p>
+      Maison Riri Design<br>
+      {{ site.founder }}<br>
+      {% trans "Freiburg im Breisgau, Allemagne" %}<br>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>{% if site.phone %}<br>{{ site.phone }}{% endif %}
+    </p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Responsable de la publication" %}</h2>
+    <p>{{ site.founder }}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Hébergement" %}</h2>
+    <p>{% trans "À compléter : nom, adresse et coordonnées de l'hébergeur du site." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Propriété intellectuelle" %}</h2>
+    <p>{% trans "L'ensemble des textes, concepts, moodboards et photographies présentés sur ce site est la propriété de Maison Riri Design, sauf mention contraire. Toute reproduction, même partielle, est soumise à autorisation écrite préalable." %}</p>
+    <p>{% trans "Les planches d'ambiance présentées dans les concepts créatifs rassemblent des images de référence utilisées à des fins d'illustration de la direction artistique." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Données personnelles" %}</h2>
+    <p>{% blocktrans %}Le traitement des données collectées via le formulaire de devis est détaillé sur la page consacrée à la protection des données.{% endblocktrans %}
+      <a href="{% url 'core:privacy' %}" style="color:var(--wine-700)">{% trans "Consulter la page" %}</a></p>
+  </div>
+</section>
+{% endblock %}

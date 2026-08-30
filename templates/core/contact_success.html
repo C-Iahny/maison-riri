@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Demande envoyée" %}{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="confirmation">
+  <div class="shell--narrow">
+    <div class="confirmation__mark" aria-hidden="true">✦</div>
+    <p class="eyebrow eyebrow--centered">{% trans "Merci" %}</p>
+    <h1 style="font-size:clamp(2.2rem,1.6rem+2.5vw,3.6rem)">{% trans "Votre demande est bien arrivée" %}</h1>
+    <p class="lede mx-auto" style="margin-top:1.5rem">{% trans "Je reviens vers vous sous 48 heures ouvrées avec une première proposition et, si besoin, quelques questions complémentaires." %}</p>
+    <p class="mx-auto" style="max-width:52ch;margin-top:1rem;color:var(--muted)">{% trans "Pensez à vérifier vos courriers indésirables : ma réponse arrive parfois par cette porte-là." %}</p>
+    <p style="margin-top:2.5rem">
+      <a class="btn btn--ghost" href="{% url 'core:portfolio' %}">{% trans "Découvrir le portfolio" %}</a>
+    </p>
+  </div>
+</section>
+{% endblock %}
