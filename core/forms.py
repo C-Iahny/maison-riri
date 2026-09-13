@@ -104,9 +104,9 @@ class QuoteRequestForm(forms.ModelForm):
             self.fields[name].required = True
 
         placeholders = {
-            "full_name": _("Marie Dupont"),
+            "full_name": _("Riri Andria"),
             "email": _("marie@exemple.com"),
-            "phone": _("+33 6 12 34 56 78"),
+            "phone": _("+49 1525 35958545 "),
             "event_location": _("Freiburg, Colmar, Bâle…"),
             "theme": _("Bordeaux & crème, bohème, minimaliste…"),
             "message": _("Racontez-moi votre événement, vos envies, ce qui compte pour vous."),
