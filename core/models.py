@@ -23,6 +23,91 @@ class LocalizedMixin:
         return value
 
 
+class AutoTranslated(models.Model):
+    """Remplit automatiquement la langue manquante d'un couple FR / DE.
+
+    ``TRANSLATED_PAIRS`` liste les couples ``(champ_fr, champ_de)``. À
+    l'enregistrement, si un seul des deux a changé et que l'autre est vide
+    — ou n'était lui-même qu'une traduction automatique —, l'autre est
+    régénéré via l'API Claude (``core/translate.py``). Une traduction saisie
+    à la main est reconnue comme telle et n'est jamais écrasée. Le champ
+    ``machine_translations`` mémorise quels champs ont été générés.
+    """
+
+    TRANSLATED_PAIRS = ()
+
+    machine_translations = models.JSONField(default=dict, blank=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        instance = super().from_db(db, field_names, values)
+        instance._db_values = {name: getattr(instance, name, "") for pair in cls.TRANSLATED_PAIRS for name in pair}
+        return instance
+
+    def save(self, *args, **kwargs):
+        touched = self._auto_translate()
+        update_fields = kwargs.get("update_fields")
+        if touched and update_fields is not None:
+            kwargs["update_fields"] = list(set(update_fields) | touched | {"machine_translations"})
+        super().save(*args, **kwargs)
+        self._db_values = {name: getattr(self, name, "") for pair in self.TRANSLATED_PAIRS for name in pair}
+
+    def _auto_translate(self):
+        from . import translate
+
+        if not translate.is_enabled():
+            return set()
+        before = getattr(self, "_db_values", {})
+        flags = dict(self.machine_translations or {})
+        touched = set()
+        for fr_field, de_field in self.TRANSLATED_PAIRS:
+            fr = (getattr(self, fr_field) or "").strip()
+            de = (getattr(self, de_field) or "").strip()
+            fr_changed = fr != (before.get(fr_field) or "").strip()
+            de_changed = de != (before.get(de_field) or "").strip()
+            # Un champ modifié à la main cesse d'être une traduction automatique.
+            if fr_changed:
+                flags.pop(fr_field, None)
+            if de_changed:
+                flags.pop(de_field, None)
+            if fr_changed and de_changed:
+                continue  # les deux versions ont été écrites : rien à générer
+            if fr_changed:
+                if not fr and flags.get(de_field):
+                    setattr(self, de_field, "")  # source effacée : sa traduction disparaît
+                    flags.pop(de_field, None); touched.add(de_field)
+                elif fr and (not de or flags.get(de_field)):
+                    output = translate.translate(fr, "fr", "de")
+                    if output:
+                        setattr(self, de_field, output); flags[de_field] = True; touched.add(de_field)
+            elif de_changed:
+                if not de and flags.get(fr_field):
+                    setattr(self, fr_field, "")
+                    flags.pop(fr_field, None); touched.add(fr_field)
+                elif de and (not fr or flags.get(fr_field)):
+                    output = translate.translate(de, "de", "fr")
+                    if output:
+                        setattr(self, fr_field, output); flags[fr_field] = True; touched.add(fr_field)
+        if flags != (self.machine_translations or {}):
+            self.machine_translations = flags
+            touched.add("machine_translations")
+        return touched
+
+    def machine_translated_fields(self):
+        """Libellés des champs actuellement issus d'une traduction automatique."""
+        names = []
+        for name, flag in (self.machine_translations or {}).items():
+            if flag:
+                try:
+                    names.append(str(self._meta.get_field(name).verbose_name))
+                except Exception:  # noqa: BLE001
+                    names.append(name)
+        return names
+
+
 class ProjectQuerySet(models.QuerySet):
     def published(self):
         return self.filter(is_published=True)
@@ -31,8 +116,13 @@ class ProjectQuerySet(models.QuerySet):
         return self.published().filter(is_featured=True)
 
 
-class Project(LocalizedMixin, models.Model):
+class Project(LocalizedMixin, AutoTranslated):
     """Une réalisation ou une étude de concept présentée au portfolio."""
+
+    TRANSLATED_PAIRS = (
+        ("title_fr", "title_de"), ("subtitle_fr", "subtitle_de"), ("summary_fr", "summary_de"),
+        ("story_fr", "story_de"), ("event_type_fr", "event_type_de"), ("keywords_fr", "keywords_de"),
+    )
 
     class Kind(models.TextChoices):
         REALIZED = "realized", _("Réalisation")
@@ -120,7 +210,9 @@ class Project(LocalizedMixin, models.Model):
         return buckets
 
 
-class ProjectImage(LocalizedMixin, models.Model):
+class ProjectImage(LocalizedMixin, AutoTranslated):
+    TRANSLATED_PAIRS = (("caption_fr", "caption_de"),)
+
     class Stage(models.TextChoices):
         MOODBOARD = "moodboard", _("Moodboard")
         DETAILS = "details", _("Détails")
@@ -147,15 +239,17 @@ class ProjectImage(LocalizedMixin, models.Model):
         return self.localized("caption")
 
 
-class PaletteColor(models.Model):
+class PaletteColor(AutoTranslated):
     """Un aplat de la palette chromatique d'un projet."""
+
+    TRANSLATED_PAIRS = (("name", "name_de"),)
 
     project = models.ForeignKey(Project, related_name="palette", on_delete=models.CASCADE)
     hex_code = models.CharField(_("code couleur"), max_length=7, help_text="#4A1220")
     name = models.CharField(_("nom (FR)"), max_length=60, blank=True)
     name_de = models.CharField(
         _("nom (DE)"), max_length=60, blank=True,
-        help_text=_("Laissé vide, le nom français est affiché sur le site allemand."),
+        help_text=_("Laissé vide, il est traduit automatiquement à partir du nom français."),
     )
     order = models.PositiveIntegerField(_("ordre"), default=0)
 
@@ -238,7 +332,7 @@ class InspirationImage(models.Model):
         return "Inspiration #%s" % self.pk
 
 
-class SiteImage(models.Model):
+class SiteImage(AutoTranslated):
     """Une image « fixe » du site (logo, hero, portrait…), remplaçable en admin.
 
     Tant qu'aucun fichier n'a été envoyé pour un emplacement, le site retombe
@@ -252,6 +346,8 @@ class SiteImage(models.Model):
         PORTRAIT = "portrait", _("Portrait — page À propos")
         ATMOSPHERE = "atmosphere", _("Ambiance — page À propos")
         SHARE = "share", _("Image de partage (réseaux sociaux)")
+
+    TRANSLATED_PAIRS = (("alt_fr", "alt_de"),)
 
     #: Visuel statique utilisé tant que l'emplacement n'a pas été personnalisé.
     FALLBACKS = {
@@ -333,13 +429,15 @@ class ResolvedImage(LocalizedMixin):
         return self.localized("alt") or SiteImage.DEFAULT_ALTS[self.slot]
 
 
-class SiteText(models.Model):
+class SiteText(AutoTranslated):
     """Un texte de page modifiable depuis l'administration.
 
     La liste des textes possibles vit dans ``core/content.py`` (clé, libellé,
     valeur par défaut). Une ligne vide ici signifie « garder le texte par
     défaut » ; une ligne renseignée le remplace immédiatement sur le site.
     """
+
+    TRANSLATED_PAIRS = (("text_fr", "text_de"),)
 
     key = models.CharField(_("clé"), max_length=60, unique=True, editable=False)
     position = models.PositiveIntegerField(_("ordre"), default=0, editable=False)
@@ -349,7 +447,7 @@ class SiteText(models.Model):
     )
     text_de = models.TextField(
         _("texte (DE)"), blank=True,
-        help_text=_("Laissé vide, le texte français saisi ci-dessus — ou, à défaut, la traduction d'origine — est affiché."),
+        help_text=_("Laissé vide, il est traduit automatiquement à partir du texte français."),
     )
     updated_at = models.DateTimeField(_("mise à jour le"), auto_now=True)
 

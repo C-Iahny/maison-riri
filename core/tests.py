@@ -377,3 +377,83 @@ class BackOfficeTests(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertContains(self.client.get("/fr/"), "Titre depuis le back-office")
+
+
+def fake_translate(text, source, target):
+    return "[%s] %s" % (target, text)
+
+
+@override_settings(MEDIA_ROOT=MEDIA, AUTO_TRANSLATE=True)
+@mock.patch("core.translate.translate", side_effect=fake_translate)
+class AutoTranslationTests(TestCase):
+    """Une langue saisie, l'autre générée — sans jamais écraser une saisie manuelle."""
+
+    def test_missing_german_is_generated_from_french(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        self.assertEqual(text.text_de, "[de] Bonjour")
+        self.assertEqual(text.machine_translations, {"text_de": True})
+        translate.assert_called_once_with("Bonjour", "fr", "de")
+
+    def test_missing_french_is_generated_from_german(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_de="Hallo")
+        self.assertEqual(text.text_fr, "[fr] Hallo")
+        self.assertEqual(text.machine_translations, {"text_fr": True})
+
+    def test_both_languages_given_means_no_call(self, translate):
+        SiteText.objects.create(key="home.hero_title", text_fr="Bonjour", text_de="Hallo")
+        translate.assert_not_called()
+
+    def test_machine_translation_follows_later_french_edits(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        text = SiteText.objects.get(pk=text.pk)
+        text.text_fr = "Bonsoir"
+        text.save()
+        self.assertEqual(text.text_de, "[de] Bonsoir")
+
+    def test_hand_written_german_is_never_overwritten(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour", text_de="Guten Tag")
+        text = SiteText.objects.get(pk=text.pk)
+        text.text_fr = "Bonsoir"
+        text.save()
+        self.assertEqual(text.text_de, "Guten Tag")
+        translate.assert_not_called()
+
+    def test_editing_the_generated_german_makes_it_manual(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        text = SiteText.objects.get(pk=text.pk)
+        text.text_de = "Guten Abend"
+        text.save()
+        self.assertEqual(text.machine_translations, {})
+        text = SiteText.objects.get(pk=text.pk)
+        text.text_fr = "Bonsoir"
+        text.save()
+        self.assertEqual(text.text_de, "Guten Abend")
+
+    def test_clearing_the_source_clears_its_generated_translation(self, translate):
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        text = SiteText.objects.get(pk=text.pk)
+        text.text_fr = ""
+        text.save()
+        self.assertEqual(text.text_de, "")
+        self.assertFalse(text.is_custom)
+
+    def test_api_failure_never_blocks_saving(self, translate):
+        translate.side_effect = lambda *a: None
+        text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        self.assertEqual(text.text_de, "")
+        self.assertEqual(SiteText.objects.count(), 1)
+
+    def test_projects_and_inline_content_are_covered(self, translate):
+        project = Project.objects.create(slug="p", title_fr="Titre", story_fr="Un.\n\nDeux.", cover=a_png("c.png"))
+        self.assertEqual(project.title_de, "[de] Titre")
+        self.assertEqual(project.story_de, "[de] Un.\n\nDeux.")
+        color = PaletteColor.objects.create(project=project, hex_code="#000000", name="Corail")
+        self.assertEqual(color.name_de, "[de] Corail")
+        image = ProjectImage.objects.create(project=project, image=a_png("g.png"), caption_de="Bühne")
+        self.assertEqual(image.caption_fr, "[fr] Bühne")
+
+    def test_disabled_setting_skips_translation(self, translate):
+        with self.settings(AUTO_TRANSLATE=False):
+            text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
+        self.assertEqual(text.text_de, "")
+        translate.assert_not_called()

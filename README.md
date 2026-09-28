@@ -119,6 +119,16 @@ Pour désactiver complètement la recopie vers Google :
   `{% site_text "clé" %}` dans le gabarit.
 - **Les autres textes** (libellés de listes, formulaire, pages légales) vivent
   dans les gabarits et se traduisent dans `locale/de/LC_MESSAGES/django.po`.
+- **Traduction automatique** : pour tout ce qui se saisit dans l'administration
+  (textes du site, projets du portfolio, légendes, couleurs, textes alternatifs),
+  il suffit de remplir une langue. À l'enregistrement, la langue manquante est
+  traduite par l'API Claude (`core/translate.py`, modèle `claude-opus-5`). Une
+  traduction écrite à la main n'est jamais écrasée ; une traduction automatique
+  suit les modifications ultérieures de sa source, et disparaît si la source est
+  effacée. Réglages : `ANTHROPIC_API_KEY` (obligatoire, clé à créer sur
+  console.anthropic.com) et `MRD_AUTO_TRANSLATE=0` pour désactiver. Sans clé,
+  rien ne bloque : le texte est enregistré et un avertissement est consigné.
+  `python manage.py auto_translate` complète après coup les champs restés vides.
 
 Après modification d'un texte de gabarit :
 
@@ -255,6 +265,7 @@ toutes les images envoyées depuis l'administration.
    DJANGO_SECRET_KEY=<clé aléatoire>
    DJANGO_ALLOWED_HOSTS=maison-riri.com,www.maison-riri.com,<sous-domaine>.up.railway.app
    DJANGO_CSRF_TRUSTED_ORIGINS=https://maison-riri.com,https://www.maison-riri.com
+   ANTHROPIC_API_KEY=<clé pour la traduction automatique>
    ```
 
 3. **Version de Python** : le fichier `.python-version` (3.12) est lu par
@@ -288,8 +299,9 @@ core/
   admin.py       back-office
   assets/        visuels d'origine utilisés par seed_content
   content.py     registre des textes de pages modifiables en admin
+  translate.py   traduction automatique FR <-> DE via l'API Claude
   templatetags/  balise {% site_text %}
-  tests.py       36 tests (formulaire, passerelle Google, pages, bilinguisme, images et textes du site, back-office)
+  tests.py       46 tests (formulaire, passerelle Google, pages, bilinguisme, images et textes du site, back-office, traduction automatique)
 templates/       gabarits, partagés via partials/ ; admin/ = tableau de bord et aide du back-office
 static/          css/site.css, js/site.js, images de marque
 locale/de/       traduction allemande

@@ -34,6 +34,19 @@ def _thumbnail(image_field, height=90):
     )
 
 
+class TranslationStateMixin:
+    """Affiche quels champs ont été remplis par la traduction automatique."""
+
+    @admin.display(description=_("Traduction automatique"))
+    def translation_state(self, obj):
+        if obj is None or not obj.pk:
+            return _("Laissez une langue vide : elle sera traduite automatiquement à l'enregistrement.")
+        fields = obj.machine_translated_fields()
+        if not fields:
+            return _("Aucun champ traduit automatiquement.")
+        return format_html("{} {}", _("Champs traduits automatiquement :"), ", ".join(fields))
+
+
 # --- Tableau de bord ----------------------------------------------------------
 
 def new_quotes_badge(request):
@@ -57,7 +70,7 @@ def dashboard_callback(request, context):
 # --- Images du site -----------------------------------------------------------
 
 @admin.register(SiteImage)
-class SiteImageAdmin(ModelAdmin):
+class SiteImageAdmin(TranslationStateMixin, ModelAdmin):
     """Les visuels fixes du site : logo, accueil, portrait, ambiance, partage.
 
     Un emplacement laissé vide affiche l'image d'origine livrée avec le site ;
@@ -66,12 +79,12 @@ class SiteImageAdmin(ModelAdmin):
 
     list_display = ("preview", "slot", "updated_at")
     list_display_links = ("preview", "slot")
-    readonly_fields = ("preview_large", "updated_at")
+    readonly_fields = ("preview_large", "updated_at", "translation_state")
     fieldsets = (
         (None, {"fields": ("slot", "image", "preview_large")}),
         (_("Description de l'image"), {
-            "fields": ("alt_fr", "alt_de"),
-            "description": _("Une phrase qui décrit l'image, lue par les lecteurs d'écran et les moteurs de recherche. Facultatif."),
+            "fields": ("alt_fr", "alt_de", "translation_state"),
+            "description": _("Une phrase qui décrit l'image, lue par les lecteurs d'écran et les moteurs de recherche. Facultatif. Remplissez une seule langue : l'autre est traduite automatiquement."),
         }),
         (None, {"fields": ("updated_at",)}),
     )
@@ -111,19 +124,19 @@ class PageFilter(admin.SimpleListFilter):
 
 
 @admin.register(SiteText)
-class SiteTextAdmin(ModelAdmin):
+class SiteTextAdmin(TranslationStateMixin, ModelAdmin):
     """Chaque texte de page, avec sa valeur d'origine et la version personnalisée."""
 
     list_display = ("label", "page", "state", "updated_at")
     list_display_links = ("label",)
     list_filter = (PageFilter,)
     search_fields = ("key", "text_fr", "text_de")
-    readonly_fields = ("label", "page", "help", "default_fr")
+    readonly_fields = ("label", "page", "help", "default_fr", "translation_state")
     fieldsets = (
         (None, {"fields": ("label", "page", "help", "default_fr")}),
         (_("Votre texte"), {
-            "fields": ("text_fr", "text_de"),
-            "description": _("Ce que vous écrivez ici remplace le texte d'origine sur le site, immédiatement. Videz le champ pour revenir au texte d'origine."),
+            "fields": ("text_fr", "text_de", "translation_state"),
+            "description": _("Ce que vous écrivez ici remplace le texte d'origine sur le site, immédiatement. Écrivez dans une seule langue : l'autre est traduite automatiquement à l'enregistrement. Videz les deux champs pour revenir au texte d'origine."),
         }),
     )
 
@@ -209,7 +222,7 @@ class PaletteColorInline(TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(ModelAdmin):
+class ProjectAdmin(TranslationStateMixin, ModelAdmin):
     list_display = ("cover_thumb", "title_fr", "kind", "location", "year", "is_featured", "is_published", "order")
     list_display_links = ("cover_thumb", "title_fr")
     list_editable = ("is_featured", "is_published", "order")
@@ -217,7 +230,7 @@ class ProjectAdmin(ModelAdmin):
     search_fields = ("title_fr", "title_de", "summary_fr", "summary_de", "location")
     prepopulated_fields = {"slug": ("title_fr",)}
     inlines = [ProjectImageInline, PaletteColorInline]
-    readonly_fields = ("cover_preview",)
+    readonly_fields = ("cover_preview", "translation_state")
     warn_unsaved_form = True
     fieldsets = (
         (_("L'essentiel"), {
@@ -228,8 +241,8 @@ class ProjectAdmin(ModelAdmin):
             "fields": ("title_fr", "subtitle_fr", "event_type_fr", "summary_fr", "story_fr", "keywords_fr"),
         }),
         (_("Textes en allemand"), {
-            "fields": ("title_de", "subtitle_de", "event_type_de", "summary_de", "story_de", "keywords_de"),
-            "description": _("Facultatif : un champ laissé vide affiche la version française sur le site allemand."),
+            "fields": ("title_de", "subtitle_de", "event_type_de", "summary_de", "story_de", "keywords_de", "translation_state"),
+            "description": _("Facultatif : un champ laissé vide est traduit automatiquement à partir du français à l'enregistrement. Ce que vous écrivez ici à la main est conservé tel quel."),
             "classes": ("collapse",),
         }),
         (_("Repères"), {"fields": ("location", "year")}),

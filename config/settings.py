@@ -1,5 +1,6 @@
 """Réglages Django pour le site Maison Riri Design."""
 import os
+import sys
 from pathlib import Path
 
 from django.templatetags.static import static
@@ -142,6 +143,11 @@ SITE_INFO = {
     "facebook": env("MRD_FACEBOOK", ""),
     "regions": ["Freiburg im Breisgau", "Alsace", "Basel"],
 }
+
+# --- Traduction automatique FR <-> DE des contenus saisis en admin -----------
+# Nécessite ANTHROPIC_API_KEY dans l'environnement (lue par le SDK). Coupée
+# pendant les tests pour ne jamais appeler l'API.
+AUTO_TRANSLATE = env_bool("MRD_AUTO_TRANSLATE", True) and "test" not in sys.argv[1:2]
 
 # --- Passerelle vers le formulaire Google existant ---------------------------
 # Les demandes sont enregistrées en base puis recopiées dans le Google Form du
