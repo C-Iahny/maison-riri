@@ -23,7 +23,7 @@ DREAMLAND = {
     "title_de": "Dreamland",
     "subtitle_fr": "Remise de diplômes · Arc-en-ciel & lettres lumineuses",
     "subtitle_de": "Abschlussfeier · Regenbogen & Leuchtbuchstaben",
-    "event_type_fr": "Remise de diplômes",
+    "event_type_fr": "Cérémonie de fin d'études",
     "event_type_de": "Abschlussfeier",
     "keywords_fr": "Arc-en-ciel, Ballons organiques, Backdrop, Lettres lumineuses, Sweet table",
     "keywords_de": "Regenbogen, Organische Ballons, Backdrop, Leuchtbuchstaben, Sweet Table",
@@ -65,12 +65,12 @@ DREAMLAND = {
     "is_featured": True,
     "order": 1,
     "palette": [
-        ("#F0605F", "Corail"),
-        ("#F49A4C", "Abricot"),
-        ("#B49CD6", "Lavande"),
-        ("#9FD7B0", "Menthe"),
-        ("#F4A9C0", "Rose poudré"),
-        ("#A9CCE3", "Bleu ciel"),
+        ("#F0605F", "Corail", "Koralle"),
+        ("#F49A4C", "Abricot", "Aprikose"),
+        ("#B49CD6", "Lavande", "Lavendel"),
+        ("#9FD7B0", "Menthe", "Mint"),
+        ("#F4A9C0", "Rose poudré", "Puderrosa"),
+        ("#A9CCE3", "Bleu ciel", "Himmelblau"),
     ],
     "images": [
         ("dreamland-entrance.jpg", ProjectImage.Stage.SETUP,
@@ -104,8 +104,8 @@ RED_WINE = {
     "title_de": "Thirty & Fabulous",
     "subtitle_fr": "30e anniversaire · Bordeaux • Vin • Crème",
     "subtitle_de": "30. Geburtstag · Bordeaux • Wein • Creme",
-    "event_type_fr": "Anniversaire — 30 ans",
-    "event_type_de": "Geburtstag — 30 Jahre",
+    "event_type_fr": "30ᵉ anniversaire",
+    "event_type_de": "30. Geburtstag",
     "keywords_fr": "Élégant, Chaleureux, Féminin, Moderne, Atmosphérique, Souci du détail",
     "keywords_de": "Elegant, Warm, Feminin, Modern, Atmosphärisch, Detailorientiert",
     "summary_fr": (
@@ -143,11 +143,11 @@ RED_WINE = {
     "is_featured": True,
     "order": 2,
     "palette": [
-        ("#4F141C", "Burgundy"),
-        ("#6D1E2B", "Vin"),
-        ("#8E3D44", "Bordeaux clair"),
-        ("#B78477", "Rosé poudré"),
-        ("#F2EADB", "Crème"),
+        ("#4F141C", "Burgundy", "Burgundy"),
+        ("#6D1E2B", "Vin", "Weinrot"),
+        ("#8E3D44", "Bordeaux clair", "Helles Bordeaux"),
+        ("#B78477", "Rosé poudré", "Puderrosé"),
+        ("#F2EADB", "Crème", "Creme"),
     ],
     "images": [
         ("redwine-moodboard-1.jpg", ProjectImage.Stage.MOODBOARD,
@@ -194,8 +194,10 @@ class Command(BaseCommand):
             project.cover.save(data["cover"], File(handle), save=False)
         project.save()
 
-        for index, (hex_code, name) in enumerate(data["palette"]):
-            PaletteColor.objects.create(project=project, hex_code=hex_code, name=name, order=index)
+        for index, (hex_code, name_fr, name_de) in enumerate(data["palette"]):
+            PaletteColor.objects.create(
+                project=project, hex_code=hex_code, name=name_fr, name_de=name_de, order=index
+            )
 
         for index, (filename, stage, caption_fr, caption_de) in enumerate(data["images"]):
             image = ProjectImage(

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n site_text %}
 
 {% block title %}{% trans "Demander un devis" %}{% endblock %}
 {% block description %}{% trans "Parlez-moi de votre événement : type, date, lieu, nombre d'invités et envies. Je vous réponds avec une proposition personnalisée, sans engagement." %}{% endblock %}
@@ -9,8 +9,8 @@
 <section class="page-hero">
   <div class="shell">
     <p class="eyebrow">{% trans "Contact" %}</p>
-    <h1>{% trans "Demander un devis pour votre événement" %}</h1>
-    <p class="lede">{% trans "Quelques questions pour bien comprendre votre projet. Comptez cinq minutes — et n'hésitez pas à joindre vos images d'inspiration." %}</p>
+    <h1>{% site_text "contact.hero_title" %}</h1>
+    <p class="lede">{% site_text "contact.hero_lede" %}</p>
   </div>
 </section>
 
@@ -90,7 +90,7 @@
       </fieldset>
 
       <button class="btn" type="submit">{% trans "Demander un devis pour mon événement" %}</button>
-      <p class="field__help" style="margin-top:1rem">{% trans "Réponse sous 48 heures ouvrées. Champs marqués d'une étoile obligatoires." %}</p>
+      <p class="field__help" style="margin-top:1rem">{% site_text "contact.reply_note" %}</p>
     </form>
 
     <aside class="aside-card reveal">
@@ -103,10 +103,7 @@
 
       <h3>{% trans "Bon à savoir" %}</h3>
       <ul>
-        <li>{% trans "Le devis est gratuit et sans engagement." %}</li>
-        <li>{% trans "Conseil en allemand, en français ou en malgache." %}</li>
-        <li>{% trans "Fribourg, Alsace, Bâle — et au-delà sur demande." %}</li>
-        <li>{% trans "Vos photos d'inspiration sont les bienvenues." %}</li>
+        {% site_text "contact.good_to_know" %}
       </ul>
 
       <p class="field__help">

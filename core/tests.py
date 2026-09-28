@@ -12,7 +12,7 @@ from django.utils import translation
 from PIL import Image
 
 from . import choices, google_form
-from .models import Project, ProjectImage, QuoteRequest, SiteImage
+from .models import PaletteColor, Project, ProjectImage, QuoteRequest, SiteImage, SiteText
 
 MEDIA = tempfile.mkdtemp()
 
@@ -210,6 +210,38 @@ class PageTests(TestCase):
         response = self.client.get("/de/portfolio/dreamland/")
         self.assertContains(response, "Eine farbenfrohe Abschlussfeier.")
 
+    def test_project_facts_use_a_neutral_label_not_the_form_question(self):
+        self.project.event_type_fr = "Cérémonie de fin d'études"
+        self.project.event_type_de = "Abschlussfeier"
+        self.project.save()
+        response = self.client.get("/de/portfolio/dreamland/")
+        self.assertContains(response, "Art der Veranstaltung")
+        self.assertNotContains(response, "Welche Veranstaltung planen Sie?")
+
+    def test_palette_names_follow_the_active_language(self):
+        PaletteColor.objects.create(project=self.project, hex_code="#F0605F", name="Corail", name_de="Koralle")
+        PaletteColor.objects.create(project=self.project, hex_code="#F49A4C", name="Abricot")
+        self.assertContains(self.client.get("/fr/portfolio/dreamland/"), "Corail")
+        german = self.client.get("/de/portfolio/dreamland/")
+        self.assertContains(german, "Koralle")
+        self.assertNotContains(german, "Corail")
+        self.assertContains(german, "Abricot")  # repli sur le français
+
+    def test_legal_pages_carry_no_placeholder(self):
+        for url in ("/fr/mentions-legales/", "/fr/confidentialite/", "/de/impressum/", "/de/datenschutz/"):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertNotContains(response, "compléter")
+                self.assertNotContains(response, "Modèle")
+                self.assertNotContains(response, "Vorlage")
+                self.assertNotContains(response, "ergänzen")
+        self.assertContains(self.client.get("/fr/mentions-legales/"), "Railway")
+
+    def test_contact_announces_two_working_days(self):
+        self.assertContains(self.client.get("/fr/contact/"), "sous 2 jours ouvrés")
+        self.assertContains(self.client.get("/de/kontakt/"), "innerhalb von 2 Werktagen")
+        self.assertContains(self.client.get("/de/kontakt/"), "Wobei darf ich Sie unterstützen?")
+
     def test_root_redirects_to_a_language_prefix(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 302)
@@ -264,3 +296,84 @@ class SiteImageTests(TestCase):
 
         image.delete()
         self.assertContains(self.client.get(reverse("core:home")), "img/hero.jpg")
+
+
+@override_settings(MEDIA_ROOT=MEDIA)
+class SiteTextTests(TestCase):
+    """Textes de pages modifiables depuis le back-office."""
+
+    def setUp(self):
+        translation.activate("fr")
+        self.addCleanup(translation.activate, "fr")
+
+    def test_defaults_are_shown_and_translated_when_nothing_is_customised(self):
+        self.assertContains(self.client.get("/fr/"), "Des événements qui racontent votre histoire.")
+        self.assertContains(self.client.get("/de/"), "Events, die Ihre Geschichte erzählen.")
+
+    def test_custom_text_replaces_the_default_and_is_escaped(self):
+        SiteText.objects.create(key="home.hero_title", text_fr="Mon <titre>")
+        response = self.client.get("/fr/")
+        self.assertContains(response, "<h1>Mon &lt;titre&gt;</h1>", html=False)
+        self.assertNotContains(response, "<h1>Des événements qui racontent votre histoire.</h1>")
+
+    def test_german_falls_back_on_the_custom_french_text(self):
+        SiteText.objects.create(key="home.hero_title", text_fr="Titre perso")
+        self.assertContains(self.client.get("/de/"), "Titre perso")
+        SiteText.objects.filter(key="home.hero_title").update(text_de="Eigener Titel")
+        self.assertContains(self.client.get("/de/"), "Eigener Titel")
+
+    def test_paragraphs_and_lines_are_rendered_as_html_blocks(self):
+        SiteText.objects.create(key="about.story", text_fr="Un.\n\nDeux.")
+        SiteText.objects.create(key="contact.good_to_know", text_fr="A\nB")
+        self.assertContains(self.client.get("/fr/a-propos/"), "<p>Un.</p>")
+        self.assertContains(self.client.get("/fr/a-propos/"), "<p>Deux.</p>")
+        self.assertContains(self.client.get("/fr/contact/"), "<li>B</li>")
+
+    def test_ensure_all_creates_one_row_per_registered_text(self):
+        from . import content
+
+        SiteText.ensure_all()
+        self.assertEqual(SiteText.objects.count(), len(content.REGISTRY))
+        SiteText.ensure_all()
+        self.assertEqual(SiteText.objects.count(), len(content.REGISTRY))
+
+
+@override_settings(MEDIA_ROOT=MEDIA)
+class BackOfficeTests(TestCase):
+    """Le back-office s'affiche et permet les gestes du quotidien."""
+
+    def setUp(self):
+        from django.contrib.auth.models import User
+
+        translation.activate("fr")
+        self.addCleanup(translation.activate, "fr")
+        self.user = User.objects.create_superuser("riri", "riri@example.com", "un-mot-de-passe-solide")
+        self.client.force_login(self.user)
+
+    def test_dashboard_help_and_lists_answer(self):
+        for url in (
+            "/fr/admin/", "/fr/admin/aide/", "/fr/admin/core/siteimage/", "/fr/admin/core/sitetext/",
+            "/fr/admin/core/project/", "/fr/admin/core/project/add/", "/fr/admin/core/quoterequest/",
+            "/fr/admin/auth/user/",
+        ):
+            with self.subTest(url=url):
+                self.assertEqual(self.client.get(url).status_code, 200)
+
+    def test_dashboard_links_to_the_four_sections(self):
+        response = self.client.get("/fr/admin/")
+        for label in ("Images du site", "Textes du site", "Portfolio", "Demandes de devis", "Besoin d'aide"):
+            self.assertContains(response, label)
+
+    def test_help_page_requires_a_staff_account(self):
+        self.client.logout()
+        self.assertEqual(self.client.get("/fr/admin/aide/").status_code, 302)
+
+    def test_text_list_creates_rows_and_saving_one_changes_the_site(self):
+        self.client.get("/fr/admin/core/sitetext/")
+        row = SiteText.objects.get(key="home.hero_title")
+        response = self.client.post(
+            reverse("admin:core_sitetext_change", args=[row.pk]),
+            {"text_fr": "Titre depuis le back-office", "text_de": ""},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertContains(self.client.get("/fr/"), "Titre depuis le back-office")

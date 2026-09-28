@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% load i18n unfold %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block branding %}
+  {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+  {% component "unfold/components/card.html" with title="Aide — gérer le site au quotidien" title_icon="help" %}
+    <div class="mrd-help">
+      <p>Tout ce que vous modifiez ici est visible sur le site immédiatement, sans rien installer ni redéployer. Une erreur n'est jamais grave : chaque champ peut être corrigé ou vidé, et le site retombe alors sur son contenu d'origine.</p>
+
+      <h2>Changer une image du site</h2>
+      <ol>
+        <li>Ouvrez <a href="{% url 'admin:core_siteimage_changelist' %}">Images du site</a> et cliquez sur l'emplacement voulu (logo, grande image de l'accueil, portrait…).</li>
+        <li>Dans le champ <kbd>Image</kbd>, choisissez le nouveau fichier sur votre ordinateur.</li>
+        <li>Cliquez sur <kbd>Enregistrer</kbd>. C'est tout.</li>
+      </ol>
+      <p>Formats conseillés : logo carré (600 × 600 px), grande image de l'accueil en paysage (2000 × 1300 px), portrait en 4/5 (1200 × 1500 px). Les fichiers JPEG ou PNG conviennent ; évitez les images de plus de 5 Mo.</p>
+
+      <h2>Modifier un texte</h2>
+      <ol>
+        <li>Ouvrez <a href="{% url 'admin:core_sitetext_changelist' %}">Textes du site</a>. Le filtre à droite permet de n'afficher qu'une page (Accueil, À propos…).</li>
+        <li>Cliquez sur le texte à changer : le texte d'origine est rappelé en haut.</li>
+        <li>Écrivez votre version dans <kbd>Texte (FR)</kbd>, et si vous le souhaitez la version allemande dans <kbd>Texte (DE)</kbd>. Laissez le champ allemand vide pour afficher le texte français sur le site allemand.</li>
+        <li>Enregistrez. Pour revenir au texte d'origine, videz simplement les deux champs.</li>
+      </ol>
+      <p>Pour un texte à plusieurs paragraphes, laissez une ligne vide entre chaque paragraphe. Pour une liste, écrivez un élément par ligne.</p>
+
+      <h2>Ajouter ou modifier un projet du portfolio</h2>
+      <ol>
+        <li>Ouvrez <a href="{% url 'admin:core_project_changelist' %}">Portfolio</a> puis <kbd>Ajouter</kbd>, ou cliquez sur un projet existant.</li>
+        <li>Choisissez le type : <strong>Réalisation</strong> pour un événement réalisé, <strong>Concept créatif</strong> pour un projet imaginé mais non réalisé (l'étiquette s'affiche automatiquement sur le site).</li>
+        <li>Envoyez l'image de couverture, puis remplissez les textes en français : titre, sous-titre, type d'événement, résumé, texte long. Les textes allemands sont facultatifs.</li>
+        <li>Plus bas, ajoutez les photos de la galerie en indiquant leur étape (moodboard, détails, installation, résultat final) et les couleurs de la palette.</li>
+        <li>Cochez <kbd>Mis en avant sur l'accueil</kbd> pour que le projet apparaisse sur la page d'accueil, puis enregistrez.</li>
+      </ol>
+
+      <h2>Traiter une demande de devis</h2>
+      <ol>
+        <li>Ouvrez <a href="{% url 'admin:core_quoterequest_changelist' %}">Demandes de devis</a>. Les nouvelles demandes sont signalées par une pastille dans le menu.</li>
+        <li>Cliquez sur une demande pour lire le message, les coordonnées et voir les photos d'inspiration.</li>
+        <li>Changez le statut au fil du suivi : nouvelle, en cours, devis envoyé, confirmée, classée.</li>
+      </ol>
+      <p>Chaque demande est aussi recopiée dans votre Google Form et envoyée par e-mail à l'adresse de contact du site.</p>
+
+      <h2>Changer votre mot de passe</h2>
+      <p>Cliquez sur votre nom en haut à droite, puis sur <kbd>Changer de mot de passe</kbd>.</p>
+
+      <h2>Voir le résultat</h2>
+      <p>Le lien <kbd>Voir le site</kbd> du menu ouvre le site public. Le site existe en français et en allemand : le bouton de langue en haut de chaque page permet de vérifier les deux versions.</p>
+    </div>
+  {% endcomponent %}
+{% endblock %}

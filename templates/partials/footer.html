@@ -1,10 +1,10 @@
-{% load i18n %}
+{% load i18n site_text %}
 <footer class="footer">
   <div class="shell">
     <div class="footer__grid">
       <div class="footer__brand">
         <img src="{{ site_images.logo.url }}" alt="{{ site_images.logo.alt }}" width="76" height="76">
-        <p class="footer__claim">{% trans "where details create memories." %}</p>
+        <p class="footer__claim">{% site_text "shared.footer_claim" %}</p>
       </div>
 
       <div>

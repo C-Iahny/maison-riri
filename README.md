@@ -3,8 +3,10 @@
 Site vitrine bilingue (français / allemand) pour **Maison Riri Design**, design
 événementiel et décoration sur mesure — Freiburg im Breisgau, Alsace, Bâle.
 
-Construit avec **Python + Django 4.2**, sans dépendance front-end : HTML, CSS et
-un fichier JavaScript de 60 lignes.
+Construit avec **Python 3.12+ et Django 5.2**, sans dépendance front-end : HTML,
+CSS et un fichier JavaScript de 60 lignes. Le back-office utilise
+[django-unfold](https://unfoldadmin.com/) pour une interface simple, en français,
+utilisable sans connaissance technique.
 
 ---
 
@@ -18,10 +20,10 @@ un fichier JavaScript de 60 lignes.
 | Portfolio | `/fr/portfolio/` · `/de/portfolio/` | Grille filtrable « Réalisation » / « Concept créatif » |
 | Détail projet | `/fr/portfolio/<slug>/` | Récit, palette, galerie regroupée par étape (moodboard → détails → installation → résultat) |
 | Devis | `/fr/contact/` · `/de/kontakt/` | Formulaire complet avec téléversement de photos d'inspiration |
-| Mentions légales / Protection des données | `/fr/mentions-legales/`, `/fr/confidentialite/` | Modèles à compléter avant mise en ligne |
+| Mentions légales / Protection des données | `/fr/mentions-legales/`, `/fr/confidentialite/` | Impressum (hébergeur Railway, litiges, responsabilité) et politique RGPD |
 
-Également disponibles : `/robots.txt`, `/sitemap.xml`, administration Django sur
-`/fr/admin/`.
+Également disponibles : `/robots.txt`, `/sitemap.xml`, et le back-office sur
+`/fr/admin/` (tableau de bord, images, textes, portfolio, demandes, page d'aide).
 
 ---
 
@@ -96,8 +98,10 @@ Pour désactiver complètement la recopie vers Google :
 ## Contenu éditorial
 
 - **Les projets du portfolio** se gèrent dans l'administration : titre, récit,
-  palette, galerie par étape, et le type « Réalisation » ou « Concept créatif »
-  qui affiche l'étiquette correspondante sur le site.
+  palette (nom de chaque couleur en FR et en DE), galerie par étape, et le type
+  « Réalisation » ou « Concept créatif » qui affiche l'étiquette correspondante
+  sur le site. Les concepts non réalisés doivent rester étiquetés « Concept
+  créatif ».
 - Chaque champ éditorial existe en français et en allemand (`titre (FR)` /
   `titre (DE)`). Si la version allemande est vide, la version française est
   affichée à la place.
@@ -105,7 +109,15 @@ Pour désactiver complètement la recopie vers Google :
   ambiance de la page « À propos », image de partage sur les réseaux sociaux —
   se remplacent dans l'administration, rubrique **Images du site**. Voir plus
   bas.
-- **Les textes de pages** (accueil, à propos, prestations, processus) vivent
+- **Les textes principaux des pages** (accueil, à propos, prestations,
+  contact, bandeau d'appel et devise du pied de page) se modifient dans
+  l'administration, rubrique **Textes du site** : chaque texte y apparaît avec
+  sa valeur d'origine ; un champ rempli la remplace immédiatement, un champ
+  vidé la rétablit. La liste des textes modifiables et leurs valeurs par
+  défaut vivent dans [`core/content.py`](core/content.py) ; pour rendre un
+  nouveau texte modifiable, on l'ajoute là puis on remplace `{% trans %}` par
+  `{% site_text "clé" %}` dans le gabarit.
+- **Les autres textes** (libellés de listes, formulaire, pages légales) vivent
   dans les gabarits et se traduisent dans `locale/de/LC_MESSAGES/django.po`.
 
 Après modification d'un texte de gabarit :
@@ -113,6 +125,10 @@ Après modification d'un texte de gabarit :
 ```bash
 python manage.py makemessages -l de --ignore=staticfiles && python manage.py compilemessages -l de
 ```
+
+Sans les outils GNU gettext (`msgfmt`), le fichier `.mo` se compile aussi avec
+`polib` : `pip install polib` puis
+`python -c "import polib; polib.pofile('locale/de/LC_MESSAGES/django.po').save_as_mofile('locale/de/LC_MESSAGES/django.mo')"`.
 
 ### Les images du site
 
@@ -148,8 +164,8 @@ projet concerné, avec un aperçu de chaque photo.
 `python manage.py seed_content` charge deux projets à partir des visuels fournis
 (`core/assets/`) :
 
-- **Dreamland** — remise de diplômes, arche de ballons et lettres lumineuses
-  (réalisation, 7 photos) ;
+- **Dreamland** — cérémonie de fin d'études, arche de ballons et lettres
+  lumineuses (réalisation, 7 photos) ;
 - **Thirty & Fabulous — Red Wine** — étude de concept pour un 30ᵉ anniversaire,
   reprise du dossier PDF (concept créatif, 2 moodboards, palette burgundy).
 
@@ -159,15 +175,35 @@ projet concerné, avec un aperçu de chaque photo.
 
 ## À compléter avant la mise en ligne
 
-1. **Les mentions légales et la page de protection des données** : les deux
-   pages sont des modèles et affichent un encadré le rappelant. Forme juridique,
-   adresse, numéro d'identification, hébergeur et durée de conservation doivent
-   être renseignés et relus juridiquement.
+1. **L'adresse postale des mentions légales** : `MRD_ADDRESS` (lignes séparées
+   par `|`). Tant qu'elle est vide, la page affiche seulement « Freiburg im
+   Breisgau, Allemagne ». L'hébergeur (Railway) est déjà renseigné ; si le site
+   change d'hébergeur, corriger `templates/core/legal.html` et
+   `templates/core/privacy.html`.
 2. **Les coordonnées** : `MRD_EMAIL`, `MRD_PHONE`, `MRD_INSTAGRAM`,
    `MRD_FACEBOOK` (voir `.env.example`). Sans téléphone renseigné, la ligne
    correspondante n'est simplement pas affichée.
 3. **L'envoi d'e-mails** : le réglage par défaut écrit les messages dans la
    console. Renseigner les variables `DJANGO_EMAIL_*` pour un vrai serveur SMTP.
+
+---
+
+## Le back-office, pour l'administratrice
+
+Le site se gère entièrement depuis `/fr/admin/`, sans toucher au code :
+
+| Rubrique | Ce qu'on y fait |
+| --- | --- |
+| Tableau de bord | Raccourcis vers les quatre rubriques, dernières demandes, chiffres clés |
+| Images du site | Remplacer le logo, la grande image de l'accueil, le portrait, l'ambiance, l'image de partage |
+| Textes du site | Modifier titres, accroches et paragraphes des pages, en FR et en DE |
+| Portfolio | Ajouter ou modifier un projet : couverture, récit, palette, galerie, étiquette « Concept créatif » |
+| Demandes de devis | Lire les demandes, voir les photos d'inspiration, suivre le statut |
+| Aide | Mode d'emploi pas à pas, dans l'interface |
+
+Le compte de l'administratrice se crée avec `python manage.py createsuperuser`
+(ou depuis **Comptes** par un autre superutilisateur). Le mot de passe se change
+depuis le menu du compte, en haut à droite.
 
 ---
 
@@ -221,7 +257,9 @@ toutes les images envoyées depuis l'administration.
    DJANGO_CSRF_TRUSTED_ORIGINS=https://maison-riri.com,https://www.maison-riri.com
    ```
 
-3. **Commande de démarrage** — les migrations doivent tourner sur le volume
+3. **Version de Python** : le fichier `.python-version` (3.12) est lu par
+   Railway ; Django 5.2 et django-unfold exigent Python 3.12 au minimum.
+4. **Commande de démarrage** — les migrations doivent tourner sur le volume
    fraîchement monté, et `seed_site_images` (sans `--reset`, donc sans effet si
    les images sont déjà définies) donne ses visuels à une installation neuve :
 
@@ -249,8 +287,10 @@ core/
   views.py       pages publiques
   admin.py       back-office
   assets/        visuels d'origine utilisés par seed_content
-  tests.py       23 tests (formulaire, passerelle Google, pages, bilinguisme, images du site)
-templates/       gabarits, partagés via partials/
+  content.py     registre des textes de pages modifiables en admin
+  templatetags/  balise {% site_text %}
+  tests.py       36 tests (formulaire, passerelle Google, pages, bilinguisme, images et textes du site, back-office)
+templates/       gabarits, partagés via partials/ ; admin/ = tableau de bord et aide du back-office
 static/          css/site.css, js/site.js, images de marque
 locale/de/       traduction allemande
 ```

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n site_text %}
 
 {% block title %}{% trans "Des événements qui racontent votre histoire" %}{% endblock %}
 {% block og_title %}Maison Riri Design — {% trans "Des événements qui racontent votre histoire" %}{% endblock %}
@@ -12,13 +12,13 @@
   </div>
   <div class="shell hero__inner">
     <img class="hero__logo" src="{{ site_images.logo.url }}" alt="{{ site_images.logo.alt }}">
-    <h1>{% trans "Des événements qui racontent votre histoire." %}</h1>
-    <p class="hero__claim">{% trans "Design événementiel & décoration sur mesure" %}</p>
+    <h1>{% site_text "home.hero_title" %}</h1>
+    <p class="hero__claim">{% site_text "home.hero_claim" %}</p>
     <div class="hero__meta">
-      <span>{% trans "Fribourg" %}</span><span>{% trans "Alsace" %}</span><span>{% trans "Bâle" %}</span>
+      <span>{% trans "Fribourg-en-Brisgau & environs" %}</span><span>{% trans "Alsace" %}</span><span>{% trans "Bâle" %}</span>
     </div>
     <div class="hero__meta">
-      <span>{% trans "Mariages" %}</span><span>{% trans "Anniversaires" %}</span><span>{% trans "Événements privés" %}</span><span>{% trans "Événements d'entreprise" %}</span>
+      <span>{% trans "Anniversaires" %}</span><span>{% trans "Cérémonies privées" %}</span><span>{% trans "Événements d'entreprise" %}</span><span>{% trans "Mariages" %}</span>
     </div>
     <div class="hero__cta">
       <a class="btn btn--light" href="{% url 'core:contact' %}">{% trans "Demander un devis pour mon événement" %}</a>
@@ -31,12 +31,11 @@
   <div class="shell split split--top">
     <div class="reveal">
       <p class="eyebrow">Maison Riri Design</p>
-      <p class="intro-statement">{% trans "Concevoir des atmosphères, pas seulement des décors." %}</p>
+      <p class="intro-statement">{% site_text "home.intro_statement" %}</p>
     </div>
     <div class="reveal">
-      <p class="lede">{% trans "Maison Riri Design imagine, planifie et met en scène des concepts de décoration entièrement sur mesure pour les mariages, les anniversaires, les fêtes de famille et les événements d'entreprise." %}</p>
-      <p>{% trans "Du premier échange à l'installation le jour J, chaque projet part d'une histoire : la vôtre. Couleurs, matières, lumières et détails sont choisis pour composer un ensemble cohérent, chaleureux et profondément personnel." %}</p>
-      <p>{% trans "Basée à Fribourg-en-Brisgau, j'interviens en Allemagne, en Alsace et dans la région de Bâle — en allemand comme en français." %}</p>
+      <p class="lede">{% site_text "home.intro_lede" %}</p>
+      {% site_text "home.intro_body" %}
       <p style="margin-top:2rem"><a class="link-arrow" href="{% url 'core:about' %}">{% trans "Faire connaissance" %} <span aria-hidden="true">→</span></a></p>
     </div>
   </div>
@@ -45,7 +44,7 @@
 <section class="section section--cream">
   <div class="shell">
     <p class="eyebrow">{% trans "Prestations" %}</p>
-    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% trans "Trois façons de vous accompagner" %}</h2>
+    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% site_text "home.services_title" %}</h2>
 
     <div class="cards">
       <article class="card reveal">
@@ -84,11 +83,29 @@
   </div>
 </section>
 
-{% if featured_projects %}
 <section class="section">
+  <div class="shell split split--top">
+    <div class="reveal">
+      <p class="eyebrow">{% trans "Événements d'entreprise" %}</p>
+      <h2 style="margin-bottom:1.4rem">{% site_text "home.corporate_title" %}</h2>
+      {% site_text "home.corporate_body" %}
+      <p style="margin-top:2rem"><a class="link-arrow" href="{% url 'core:contact' %}">{% trans "Parler de votre événement d'entreprise" %} <span aria-hidden="true">→</span></a></p>
+    </div>
+    <ul class="facts reveal">
+      <li><span class="facts__key">{% trans "Formats" %}</span><span class="facts__value">{% trans "Fêtes d'équipe, soirées de fin d'année, lancements, réceptions" %}</span></li>
+      <li><span class="facts__key">{% trans "Identité" %}</span><span class="facts__value">{% trans "Concept aux couleurs de votre marque" %}</span></li>
+      <li><span class="facts__key">{% trans "Espaces" %}</span><span class="facts__value">{% trans "Accueil, scène, espace photo, tables et buffets" %}</span></li>
+      <li><span class="facts__key">{% trans "Périmètre" %}</span><span class="facts__value">{% trans "Fribourg-en-Brisgau et environs, Alsace, Bâle" %}</span></li>
+      <li><span class="facts__key">{% trans "Langues" %}</span><span class="facts__value">Deutsch · Français</span></li>
+    </ul>
+  </div>
+</section>
+
+{% if featured_projects %}
+<section class="section section--cream">
   <div class="shell">
     <p class="eyebrow">{% trans "Portfolio" %}</p>
-    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% trans "Quelques univers créés sur mesure" %}</h2>
+    <h2 style="max-width:20ch;margin-bottom:clamp(2.5rem,2rem+2vw,3.5rem)">{% site_text "home.portfolio_title" %}</h2>
 
     <div class="project-grid">
       {% for project in featured_projects %}

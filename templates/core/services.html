@@ -1,16 +1,16 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static site_text %}
 
 {% block title %}{% trans "Prestations" %}{% endblock %}
-{% block description %}{% trans "Design événementiel et concept, décoration et mise en scène, planification et coordination : les prestations de Maison Riri Design à Fribourg, en Alsace et à Bâle." %}{% endblock %}
+{% block description %}{% trans "Design événementiel et concept, décoration et mise en scène, planification et coordination : les prestations de Maison Riri Design à Fribourg-en-Brisgau et ses environs, en Alsace et à Bâle." %}{% endblock %}
 
 {% block content %}
 
 <section class="page-hero">
   <div class="shell">
     <p class="eyebrow">{% trans "Prestations" %}</p>
-    <h1>{% trans "Du concept à la dernière bougie allumée" %}</h1>
-    <p class="lede">{% trans "Trois familles de prestations, à combiner librement selon l'ampleur de votre événement et le rôle que vous souhaitez me confier." %}</p>
+    <h1>{% site_text "services.hero_title" %}</h1>
+    <p class="lede">{% site_text "services.hero_lede" %}</p>
   </div>
 </section>
 
@@ -20,8 +20,8 @@
     <article class="split split--top reveal" style="margin-bottom:clamp(3.5rem,3rem+3vw,6rem)">
       <div>
         <p class="eyebrow">01 — {% trans "Design événementiel & concept" %}</p>
-        <h2 style="margin-bottom:1.4rem">{% trans "Donner une direction claire à votre événement" %}</h2>
-        <p>{% trans "Tout commence par une intention. Nous définissons ensemble l'atmosphère recherchée, puis je la traduis en une direction artistique complète que vous pouvez visualiser avant même le premier achat." %}</p>
+        <h2 style="margin-bottom:1.4rem">{% site_text "services.s1_title" %}</h2>
+        <p>{% site_text "services.s1_text" %}</p>
       </div>
       <ul class="facts">
         <li><span class="facts__key">{% trans "Concept" %}</span><span class="facts__value">{% trans "Concept personnalisé de couleurs et de décoration" %}</span></li>
@@ -34,19 +34,20 @@
 
     <hr class="rule">
 
-    <article class="split split--top reveal" style="margin:clamp(3.5rem,3rem+3vw,6rem) 0">
+    <article class="split split--top split--flip reveal" style="margin:clamp(3.5rem,3rem+3vw,6rem) 0">
+      <div>
+        <p class="eyebrow">02 — {% trans "Décoration & mise en scène" %}</p>
+        <h2 style="margin-bottom:1.4rem">{% site_text "services.s2_title" %}</h2>
+        <p>{% site_text "services.s2_text" %}</p>
+      </div>
       <ul class="facts">
+        <li><span class="facts__key">{% trans "Table" %}</span><span class="facts__value">{% trans "Décoration de table, fleurs et bougies" %}</span></li>
         <li><span class="facts__key">{% trans "Ballons" %}</span><span class="facts__value">{% trans "Décoration en ballons, arches et compositions organiques" %}</span></li>
         <li><span class="facts__key">{% trans "Scénographie" %}</span><span class="facts__value">{% trans "Backdrops et espaces photo" %}</span></li>
-        <li><span class="facts__key">{% trans "Candy Bar" %}</span><span class="facts__value">{% trans "Coins gâteaux et sweet tables" %}</span></li>
+        <li><span class="facts__key">{% trans "Gourmandises" %}</span><span class="facts__value">{% trans "Coins gâteaux et sweet tables" %}</span></li>
         <li><span class="facts__key">{% trans "Détails" %}</span><span class="facts__value">{% trans "Signalétique, marque-places et détails personnalisés" %}</span></li>
         <li><span class="facts__key">{% trans "Logistique" %}</span><span class="facts__value">{% trans "Installation et démontage" %}</span></li>
       </ul>
-      <div>
-        <p class="eyebrow">02 — {% trans "Décoration & mise en scène" %}</p>
-        <h2 style="margin-bottom:1.4rem">{% trans "Composer l'espace, jusqu'au dernier détail" %}</h2>
-        <p>{% trans "C'est le moment où le concept devient tangible. J'installe, j'ajuste et je vérifie chaque angle de vue afin que la salle soit parfaite à l'instant où vos invités poussent la porte — puis je démonte une fois la fête terminée." %}</p>
-      </div>
     </article>
 
     <hr class="rule">
@@ -54,8 +55,8 @@
     <article class="split split--top reveal" style="margin-top:clamp(3.5rem,3rem+3vw,6rem)">
       <div>
         <p class="eyebrow">03 — {% trans "Planification & coordination" %}</p>
-        <h2 style="margin-bottom:1.4rem">{% trans "Vous gardez la fête, je garde la logistique" %}</h2>
-        <p>{% trans "Un événement réussi tient autant aux personnes qui l'entourent qu'à sa décoration. Je vous accompagne dans le choix des prestataires et je coordonne les échanges jusqu'au jour J." %}</p>
+        <h2 style="margin-bottom:1.4rem">{% site_text "services.s3_title" %}</h2>
+        <p>{% site_text "services.s3_text" %}</p>
       </div>
       <ul class="facts">
         <li><span class="facts__key">{% trans "Prestataires" %}</span><span class="facts__value">{% trans "Accompagnement dans le choix des prestataires" %}</span></li>
@@ -66,7 +67,8 @@
     </article>
 
     <div class="text-center" style="margin-top:clamp(3.5rem,3rem+3vw,5.5rem)">
-      <p class="intro-statement mx-auto" style="max-width:32ch">{% trans "Chaque événement est conçu individuellement. Je serais ravie de vous établir une proposition personnalisée." %}</p>
+      <p class="intro-statement mx-auto" style="max-width:32ch">{% site_text "services.closing" %}</p>
+      <p class="field__help mx-auto" style="max-width:52ch;margin-top:1.2rem">{% site_text "services.closing_note" %}</p>
       <p style="margin-top:2rem"><a class="btn" href="{% url 'core:contact' %}">{% trans "Demander un devis sans engagement" %}</a></p>
     </div>
   </div>

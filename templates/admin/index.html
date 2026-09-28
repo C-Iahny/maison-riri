@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% load i18n unfold %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block branding %}
+  {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="mrd-grid" style="margin-bottom:1.5rem">
+    {% url 'admin:core_siteimage_changelist' as images_url %}
+    {% component "unfold/components/card.html" with href=images_url title="Images du site" title_icon="image" %}
+      {% component "unfold/components/text.html" %}
+        Logo, grande image de l'accueil, portrait et ambiance de la page « À propos », image de partage. Remplacez un fichier : le site change aussitôt.
+      {% endcomponent %}
+    {% endcomponent %}
+
+    {% url 'admin:core_sitetext_changelist' as texts_url %}
+    {% component "unfold/components/card.html" with href=texts_url title="Textes du site" title_icon="edit_note" %}
+      {% component "unfold/components/text.html" %}
+        Titres, accroches et paragraphes des pages Accueil, À propos, Prestations et Contact, en français et en allemand.
+      {% endcomponent %}
+    {% endcomponent %}
+
+    {% url 'admin:core_project_changelist' as projects_url %}
+    {% component "unfold/components/card.html" with href=projects_url title="Portfolio" title_icon="photo_library" %}
+      {% component "unfold/components/text.html" %}
+        Vos réalisations et concepts créatifs : récit, palette de couleurs, galerie photo par étape.
+      {% endcomponent %}
+    {% endcomponent %}
+
+    {% url 'admin:core_quoterequest_changelist' as quotes_url %}
+    {% component "unfold/components/card.html" with href=quotes_url title="Demandes de devis" title_icon="mail" %}
+      {% component "unfold/components/text.html" %}
+        Les demandes reçues par le formulaire du site, avec leurs photos d'inspiration et leur statut de suivi.
+      {% endcomponent %}
+    {% endcomponent %}
+  </div>
+
+  <div class="mrd-grid">
+    {% component "unfold/components/card.html" with title="En un coup d'œil" title_icon="insights" %}
+      <div class="mrd-grid" style="gap:1rem">
+        <div class="mrd-kpi">{{ dashboard.new_quotes }}<small>nouvelle{{ dashboard.new_quotes|pluralize }} demande{{ dashboard.new_quotes|pluralize }} de devis</small></div>
+        <div class="mrd-kpi">{{ dashboard.projects }}<small>projet{{ dashboard.projects|pluralize }} publié{{ dashboard.projects|pluralize }}</small></div>
+        <div class="mrd-kpi">{{ dashboard.custom_texts }}<small>texte{{ dashboard.custom_texts|pluralize }} personnalisé{{ dashboard.custom_texts|pluralize }}</small></div>
+      </div>
+    {% endcomponent %}
+
+    {% component "unfold/components/card.html" with title="Dernières demandes" title_icon="schedule" %}
+      {% if dashboard.latest_quotes %}
+        <table class="mrd-quotes">
+          {% for quote in dashboard.latest_quotes %}
+            <tr>
+              <td><a href="{% url 'admin:core_quoterequest_change' quote.pk %}">{{ quote.full_name }}</a><br><span class="mrd-muted">{{ quote.event_type|default:"—" }} · {{ quote.event_date|date:"d/m/Y"|default:"—" }}</span></td>
+              <td style="text-align:right"><span class="mrd-muted">{{ quote.get_status_display }}</span></td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        {% component "unfold/components/text.html" %}Aucune demande pour le moment.{% endcomponent %}
+      {% endif %}
+    {% endcomponent %}
+
+    {% url 'admin_help' as help_url %}
+    {% component "unfold/components/card.html" with href=help_url title="Besoin d'aide ?" title_icon="help" %}
+      {% component "unfold/components/text.html" %}
+        Comment changer une image, modifier un texte, ajouter un projet au portfolio ou traiter une demande : tout est expliqué pas à pas.
+      {% endcomponent %}
+    {% endcomponent %}
+  </div>
+{% endblock %}

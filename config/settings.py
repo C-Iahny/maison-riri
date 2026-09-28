@@ -2,6 +2,9 @@
 import os
 from pathlib import Path
 
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -29,6 +32,7 @@ ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]")
 CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 INSTALLED_APPS = [
+    "unfold",  # habillage du back-office, à placer avant django.contrib.admin
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -131,6 +135,8 @@ SITE_INFO = {
     "brand": "Maison Riri Design",
     "founder": "Rinazar Andriampeno",
     "email": env("MRD_EMAIL", "hello.maisonriri@gmail.com"),
+    # Adresse postale complète (mentions légales). Sauts de ligne : « | ».
+    "address": env("MRD_ADDRESS", "").replace("|", "\n").strip(),
     "phone": env("MRD_PHONE", ""),
     "instagram": env("MRD_INSTAGRAM", "https://www.instagram.com/maisonriri.design/"),
     "facebook": env("MRD_FACEBOOK", ""),
@@ -177,4 +183,67 @@ LOGGING = {
     "disable_existing_loggers": False,
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "root": {"handlers": ["console"], "level": "INFO"},
+}
+
+
+# --- Back-office (django-unfold) ---------------------------------------------
+# Une interface simple, en français, pensée pour une utilisation sans
+# connaissance technique : quatre rubriques, un tableau de bord, une page d'aide.
+UNFOLD = {
+    "SITE_TITLE": "Maison Riri Design",
+    "SITE_HEADER": "Maison Riri Design",
+    "SITE_SUBHEADER": "Administration du site",
+    "SITE_SYMBOL": "celebration",
+    "SITE_URL": "/",
+    "SHOW_HISTORY": False,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_BACK_BUTTON": True,
+    "DASHBOARD_CALLBACK": "core.admin.dashboard_callback",
+    "STYLES": [lambda request: static("css/admin.css")],
+    "COLORS": {
+        "primary": {
+            "50": "#fbf3f4", "100": "#f6e3e6", "200": "#eec5cb", "300": "#de9aa5",
+            "400": "#c6667a", "500": "#a83f57", "600": "#8e2a45", "700": "#6f1d35",
+            "800": "#55182b", "900": "#4a1220", "950": "#2c0a12",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": False,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Le site",
+                "items": [
+                    {"title": "Tableau de bord", "icon": "dashboard", "link": reverse_lazy("admin:index")},
+                    {"title": "Images du site", "icon": "image", "link": reverse_lazy("admin:core_siteimage_changelist")},
+                    {"title": "Textes du site", "icon": "edit_note", "link": reverse_lazy("admin:core_sitetext_changelist")},
+                    {"title": "Portfolio", "icon": "photo_library", "link": reverse_lazy("admin:core_project_changelist")},
+                ],
+            },
+            {
+                "title": "Clients",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Demandes de devis", "icon": "mail",
+                        "link": reverse_lazy("admin:core_quoterequest_changelist"),
+                        "badge": "core.admin.new_quotes_badge",
+                    },
+                ],
+            },
+            {
+                "title": "Réglages",
+                "separator": True,
+                "items": [
+                    {"title": "Aide", "icon": "help", "link": reverse_lazy("admin_help")},
+                    {
+                        "title": "Comptes", "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {"title": "Voir le site", "icon": "open_in_new", "link": "/"},
+                ],
+            },
+        ],
+    },
 }

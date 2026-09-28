@@ -41,7 +41,7 @@
 
     <aside class="reveal">
       <ul class="facts">
-        {% if project.event_type %}<li><span class="facts__key">{% trans "Type d'événement" %}</span><span class="facts__value">{{ project.event_type }}</span></li>{% endif %}
+        {% if project.event_type %}<li><span class="facts__key">{% trans "Type d'événement" context "fiche projet" %}</span><span class="facts__value">{{ project.event_type }}</span></li>{% endif %}
         {% if project.location %}<li><span class="facts__key">{% trans "Lieu" %}</span><span class="facts__value">{{ project.location }}</span></li>{% endif %}
         {% if project.year %}<li><span class="facts__key">{% trans "Année" %}</span><span class="facts__value">{{ project.year }}</span></li>{% endif %}
         <li><span class="facts__key">{% trans "Statut" %}</span><span class="facts__value">{{ project.get_kind_display }}</span></li>
@@ -53,7 +53,7 @@
           {% for color in project.palette.all %}
             <div class="palette__chip">
               <div class="palette__swatch" style="background:{{ color.hex_code }}"></div>
-              <div class="palette__label">{{ color.name|default:color.hex_code }}</div>
+              <div class="palette__label">{{ color.label|default:color.hex_code }}</div>
             </div>
           {% endfor %}
         </div>

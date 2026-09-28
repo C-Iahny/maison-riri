@@ -14,25 +14,36 @@
 
 <section class="section">
   <div class="shell--narrow">
-    <p class="form-alert">{% trans "Modèle à compléter par Maison Riri Design : forme juridique, adresse complète, numéro d'identification et hébergeur doivent être renseignés avant la mise en ligne." %}</p>
-
     <h2 style="margin-bottom:1rem">{% trans "Éditeur du site" %}</h2>
     <p>
       Maison Riri Design<br>
       {{ site.founder }}<br>
-      {% trans "Freiburg im Breisgau, Allemagne" %}<br>
+      {% if site.address %}{{ site.address|linebreaksbr }}{% else %}{% trans "Freiburg im Breisgau, Allemagne" %}{% endif %}<br>
       <a href="mailto:{{ site.email }}">{{ site.email }}</a>{% if site.phone %}<br>{{ site.phone }}{% endif %}
     </p>
+    <p>{% trans "Entreprise individuelle de design événementiel et de décoration, établie à Freiburg im Breisgau (Bade-Wurtemberg, Allemagne)." %}</p>
 
     <h2 style="margin:2.5rem 0 1rem">{% trans "Responsable de la publication" %}</h2>
     <p>{{ site.founder }}</p>
 
     <h2 style="margin:2.5rem 0 1rem">{% trans "Hébergement" %}</h2>
-    <p>{% trans "À compléter : nom, adresse et coordonnées de l'hébergeur du site." %}</p>
+    <p>
+      {% trans "Le site est hébergé par :" %}<br>
+      Railway Corp.<br>
+      548 Market St PMB 68956<br>
+      San Francisco, CA 94104, {% trans "États-Unis" %}<br>
+      <a href="https://railway.com" rel="noopener" target="_blank">railway.com</a>
+    </p>
 
     <h2 style="margin:2.5rem 0 1rem">{% trans "Propriété intellectuelle" %}</h2>
     <p>{% trans "L'ensemble des textes, concepts, moodboards et photographies présentés sur ce site est la propriété de Maison Riri Design, sauf mention contraire. Toute reproduction, même partielle, est soumise à autorisation écrite préalable." %}</p>
     <p>{% trans "Les planches d'ambiance présentées dans les concepts créatifs rassemblent des images de référence utilisées à des fins d'illustration de la direction artistique." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Responsabilité" %}</h2>
+    <p>{% trans "Les contenus de ce site sont rédigés avec le plus grand soin ; leur exactitude, leur exhaustivité et leur actualité ne peuvent toutefois être garanties. Les liens vers des sites externes renvoient à des contenus sur lesquels Maison Riri Design n'a aucune influence : leurs exploitants respectifs en sont seuls responsables." %}</p>
+
+    <h2 style="margin:2.5rem 0 1rem">{% trans "Règlement des litiges" %}</h2>
+    <p>{% trans "Maison Riri Design n'est ni tenue ni disposée à participer à une procédure de règlement des litiges devant un organisme de conciliation des consommateurs." %}</p>
 
     <h2 style="margin:2.5rem 0 1rem">{% trans "Données personnelles" %}</h2>
     <p>{% blocktrans %}Le traitement des données collectées via le formulaire de devis est détaillé sur la page consacrée à la protection des données.{% endblocktrans %}

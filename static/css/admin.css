@@ -1,0 +1,28 @@
+/* Compléments au back-office (django-unfold) : tableau de bord et page d'aide. */
+
+.mrd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.mrd-grid > * { min-width: 0; }
+
+.mrd-kpi { font-size: 2rem; font-weight: 600; line-height: 1.1; }
+.mrd-kpi small { display: block; font-size: 0.85rem; font-weight: 400; opacity: 0.7; margin-top: 0.3rem; }
+
+.mrd-help { max-width: 72ch; font-size: 0.95rem; line-height: 1.65; }
+.mrd-help h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+.mrd-help h2:first-child { margin-top: 0; }
+.mrd-help ol, .mrd-help ul { padding-left: 1.4rem; margin: 0.4rem 0 1rem; }
+.mrd-help li { margin: 0.3rem 0; }
+.mrd-help p { margin: 0.5rem 0; }
+.mrd-help kbd {
+  font: inherit; font-size: 0.85em; padding: 0.05em 0.45em; border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15); background: rgba(0, 0, 0, 0.04);
+}
+.mrd-help a { text-decoration: underline; }
+
+.mrd-quotes { width: 100%; font-size: 0.9rem; border-collapse: collapse; }
+.mrd-quotes td { padding: 0.5rem 0; border-top: 1px solid rgba(0, 0, 0, 0.08); vertical-align: top; }
+.mrd-quotes tr:first-child td { border-top: 0; }
+.mrd-quotes .mrd-muted { opacity: 0.65; }

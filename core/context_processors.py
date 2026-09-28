@@ -1,7 +1,7 @@
 """Expose les coordonnées de la maison et ses visuels à tous les gabarits."""
 from django.conf import settings
 
-from .models import SiteImage
+from .models import SiteImage, SiteText
 
 
 def site_settings(request):
@@ -10,4 +10,6 @@ def site_settings(request):
         "google_form_url": settings.GOOGLE_FORM_ACTION.replace("formResponse", "viewform"),
         # Logo, hero, portrait… : administrables depuis le back-office.
         "site_images": SiteImage.all_slots(),
+        # Textes de pages personnalisés depuis le back-office (une requête).
+        "site_texts": SiteText.custom_texts(),
     }

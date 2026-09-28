@@ -2,6 +2,7 @@
 import logging
 
 from django.conf import settings
+from django.contrib import admin
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -155,3 +156,9 @@ def page_not_found(request, exception, template_name="404.html"):
 
 def server_error(request, template_name="500.html"):
     return render(request, template_name, status=500)
+
+
+def admin_help(request):
+    """Page « Aide » du back-office : comment changer images, textes et projets."""
+    context = {**admin.site.each_context(request), "title": "Aide"}
+    return render(request, "admin/core/help.html", context)

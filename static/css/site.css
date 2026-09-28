@@ -395,6 +395,9 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
 }
 .split--top { align-items: start; }
+/* Bloc « texte puis liste » dans le HTML (l'ordre de lecture reste juste sur
+   mobile) ; sur écran large, la liste passe à gauche du texte. */
+@media (min-width: 760px) { .split--flip > :first-child { order: 2; } }
 
 .figure-frame { position: relative; }
 .figure-frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n site_text %}
 
 {% block title %}{% trans "À propos" %}{% endblock %}
 {% block description %}{% trans "Rinazar Andriampeno, fondatrice de Maison Riri Design : un parcours entre Madagascar, l'Allemagne et la France au service d'un design événementiel sur mesure." %}{% endblock %}
@@ -9,8 +9,8 @@
 <section class="page-hero">
   <div class="shell">
     <p class="eyebrow">{% trans "À propos" %}</p>
-    <h1>{% trans "Entre Madagascar, l'Allemagne et la France" %}</h1>
-    <p class="lede">{% trans "Maison Riri Design est née de l'envie de faire dialoguer plusieurs cultures dans un même espace — et d'en faire quelque chose de beau." %}</p>
+    <h1>{% site_text "about.hero_title" %}</h1>
+    <p class="lede">{% site_text "about.hero_lede" %}</p>
   </div>
 </section>
 
@@ -23,24 +23,10 @@
 
     <div class="reveal">
       <p class="eyebrow">{% trans "Mon histoire" %}</p>
-      <h2 style="margin-bottom:1.6rem">{% trans "Créer des liens, entre les cultures et entre les gens" %}</h2>
+      <h2 style="margin-bottom:1.6rem">{% site_text "about.story_title" %}</h2>
 
-      <p class="lede">{% trans "Bonjour, je suis Rina, fondatrice de Maison Riri Design. ✨" %}</p>
-      <p>{% trans "Il y a bientôt sept ans, mon chemin m'a menée de Madagascar à l'Allemagne. Ce qui avait commencé comme une nouvelle aventure a profondément changé ma vie, mais aussi ma façon de voir les rencontres, les cultures et tous ces moments précieux qui nous rassemblent." %}</p>
-      <p>{% trans "Depuis toujours, j'aime imaginer et créer des anniversaires, des surprises et des moments uniques. Au fil du temps, j'ai accumulé les inspirations, imaginé de nouveaux concepts et découvert une véritable passion : transformer une occasion spéciale en une expérience harmonieuse et mémorable." %}</p>
-      <p>{% trans "Cette passion m'a peu à peu donné envie d'aller plus loin et d'en faire un véritable projet professionnel." %}</p>
-      <p>{% trans "J'ai donc suivi une formation professionnelle en event design et décoration événementielle, qui m'a permis d'approfondir mes connaissances en conception, harmonie des couleurs, mise en scène des espaces, décoration et création d'univers visuels." %}</p>
-      <p>{% trans "C'est de la rencontre entre mon histoire personnelle, ma créativité et ce savoir-faire qu'est née Maison Riri Design." %}</p>
-      <p>{% trans "Aujourd'hui, j'imagine des concepts événementiels sur mesure, de la première idée jusqu'à l'univers final : couleurs, matières, décoration, ambiance et chaque petit détail qui donnera vie à votre événement." %}</p>
-
-      <p>{% trans "Une chose est particulièrement importante pour moi :" %}</p>
-      <p>{% trans "Un événement ne devrait pas ressembler à tous les autres. Il doit raconter quelque chose de vous." %}</p>
-
-      <p>{% trans "Grâce à mes racines et à mon parcours entre différentes cultures, j'ai une sensibilité particulière pour les événements internationaux et multiculturels. J'aime réunir différentes influences, traditions et histoires personnelles afin de créer un univers moderne, élégant et profondément personnel." %}</p>
-      <p>{% trans "Je travaille avec beaucoup d'attention aux détails, tout en gardant toujours en tête l'harmonie de l'ensemble. Et mon moment préféré reste celui où une idée imaginée ensemble devient enfin réalité et où mes clients découvrent leur événement pour la première fois." %}</p>
-
-      <p>{% trans "Maison Riri Design, ce sont des événements uniques et empreints de personnalité — imaginés avec élégance, pensés avec soin et créés pour laisser de beaux souvenirs." %}</p>
-      <p>{% trans "Bienvenue chez Maison Riri Design. ✨" %}</p>
+      <p class="lede">{% site_text "about.story_intro" %}</p>
+      {% site_text "about.story" %}
 
       <p style="margin-top:2rem"><a class="link-arrow" href="{% url 'core:contact' %}">{% trans "Discutons de votre projet" %} <span aria-hidden="true">→</span></a></p>
     </div>
@@ -51,10 +37,11 @@
   <div class="shell split">
     <div class="reveal">
       <p class="eyebrow">{% trans "Ma façon de travailler" %}</p>
-      <h2 style="margin-bottom:1.6rem">{% trans "Designed with intention." %}</h2>
+      <h2 style="margin-bottom:1.6rem">{% site_text "about.work_title" %}</h2>
       <ul class="facts" style="margin-top:2rem">
+        <li><span class="facts__key">{% trans "Formation" %}</span><span class="facts__value">{% trans "DCTE School — event design & décoration événementielle, formation certifiante" %}</span></li>
         <li><span class="facts__key">{% trans "Basée à" %}</span><span class="facts__value">Freiburg im Breisgau</span></li>
-        <li><span class="facts__key">{% trans "Interventions" %}</span><span class="facts__value">{% trans "Bade-Wurtemberg · Alsace · Bâle" %}</span></li>
+        <li><span class="facts__key">{% trans "Interventions" %}</span><span class="facts__value">{% trans "Fribourg et environs · Alsace · Bâle" %}</span></li>
         <li><span class="facts__key">{% trans "Conseil en" %}</span><span class="facts__value">Deutsch · Français · Malagasy</span></li>
         <li><span class="facts__key">{% trans "Spécialités" %}</span><span class="facts__value">{% trans "Concept, décoration, coordination" %}</span></li>
       </ul>

@@ -152,7 +152,11 @@ class PaletteColor(models.Model):
 
     project = models.ForeignKey(Project, related_name="palette", on_delete=models.CASCADE)
     hex_code = models.CharField(_("code couleur"), max_length=7, help_text="#4A1220")
-    name = models.CharField(_("nom"), max_length=60, blank=True)
+    name = models.CharField(_("nom (FR)"), max_length=60, blank=True)
+    name_de = models.CharField(
+        _("nom (DE)"), max_length=60, blank=True,
+        help_text=_("Laissé vide, le nom français est affiché sur le site allemand."),
+    )
     order = models.PositiveIntegerField(_("ordre"), default=0)
 
     class Meta:
@@ -162,6 +166,14 @@ class PaletteColor(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.hex_code, self.name)
+
+    @property
+    def label(self):
+        """Nom de la couleur dans la langue active, repli sur le français."""
+        lang = (get_language() or "fr").split("-")[0]
+        if lang == "de" and self.name_de:
+            return self.name_de
+        return self.name or self.name_de
 
 
 class QuoteRequest(models.Model):
@@ -319,3 +331,64 @@ class ResolvedImage(LocalizedMixin):
     @property
     def alt(self):
         return self.localized("alt") or SiteImage.DEFAULT_ALTS[self.slot]
+
+
+class SiteText(models.Model):
+    """Un texte de page modifiable depuis l'administration.
+
+    La liste des textes possibles vit dans ``core/content.py`` (clé, libellé,
+    valeur par défaut). Une ligne vide ici signifie « garder le texte par
+    défaut » ; une ligne renseignée le remplace immédiatement sur le site.
+    """
+
+    key = models.CharField(_("clé"), max_length=60, unique=True, editable=False)
+    position = models.PositiveIntegerField(_("ordre"), default=0, editable=False)
+    text_fr = models.TextField(
+        _("texte (FR)"), blank=True,
+        help_text=_("Laissez vide pour conserver le texte d'origine."),
+    )
+    text_de = models.TextField(
+        _("texte (DE)"), blank=True,
+        help_text=_("Laissé vide, le texte français saisi ci-dessus — ou, à défaut, la traduction d'origine — est affiché."),
+    )
+    updated_at = models.DateTimeField(_("mise à jour le"), auto_now=True)
+
+    class Meta:
+        ordering = ["position"]
+        verbose_name = _("texte du site")
+        verbose_name_plural = _("textes du site")
+
+    def __str__(self):
+        spec = self.spec
+        return str(spec.label) if spec else self.key
+
+    @property
+    def spec(self):
+        from . import content
+
+        return content.REGISTRY.get(self.key)
+
+    @property
+    def is_custom(self):
+        return bool(self.text_fr or self.text_de)
+
+    @classmethod
+    def ensure_all(cls):
+        """Crée les lignes manquantes pour que l'admin liste tous les textes."""
+        from . import content
+
+        existing = set(cls.objects.values_list("key", flat=True))
+        cls.objects.bulk_create(
+            [cls(key=spec.key, position=spec.position)
+             for spec in content.REGISTRY.values() if spec.key not in existing]
+        )
+        # Les positions suivent le registre, même s'il a été réordonné.
+        for obj in cls.objects.all():
+            spec = content.REGISTRY.get(obj.key)
+            if spec and obj.position != spec.position:
+                cls.objects.filter(pk=obj.pk).update(position=spec.position)
+
+    @classmethod
+    def custom_texts(cls):
+        """Dictionnaire ``{clé: objet}`` des seuls textes personnalisés."""
+        return {obj.key: obj for obj in cls.objects.exclude(text_fr="", text_de="")}
