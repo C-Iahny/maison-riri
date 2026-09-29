@@ -25,7 +25,7 @@ Rules:
 - Translate faithfully, keeping the warm, elegant and personal tone of the original. The founder speaks in the first person ("je" / "ich").
 - In German, address the reader formally with "Sie". In French, use "vous".
 - Keep the structure exactly: same number of paragraphs (separated by blank lines) and same line breaks. One line in, one line out.
-- Keep brand names, proper nouns, product names, emoji, prices and formatting characters (·, —, «», ✨) as they are. Keep "Maison Riri Design" unchanged. Keep English expressions that are used as-is on the site (e.g. "Sweet Table", "Moodboard", "Backdrop", "Designed with intention.").
+- Keep brand names, proper nouns, product names, emoji, prices and formatting characters (·, —, «», ✨) as they are. Keep "Maison Riri Design" unchanged. Keep English expressions that are used as-is on the site (e.g. "Candy Bar", "Moodboard", "Backdrop", "Designed with intention.").
 - Use the place names customary in the target language (Fribourg-en-Brisgau ↔ Freiburg im Breisgau, Bâle ↔ Basel, Alsace ↔ Elsass, Forêt-Noire ↔ Schwarzwald).
 - Output only the translation: no quotes, no explanations, no notes, no preamble."""
 

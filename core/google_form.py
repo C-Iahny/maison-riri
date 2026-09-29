@@ -47,7 +47,7 @@ def build_payload(quote):
 
     # Une question « cases à cocher » se transmet en répétant la même clé.
     for service in quote.service_list:
-        pairs.append((choices.ENTRY_SERVICES, service))
+        pairs.append((choices.ENTRY_SERVICES, choices.GOOGLE_SERVICE_VALUES.get(service, service)))
 
     if quote.event_date:
         pairs += [

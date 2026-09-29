@@ -33,7 +33,7 @@ def valid_post(**overrides):
         "event_date": "2027-05-15",
         "event_location": "Colmar",
         "guest_count": "51–100 Personen | 51 à 100 personnes",
-        "services": ["Sweet Table", "Tischdekoration | Décoration de table"],
+        "services": ["Candy Bar", "Tischdekoration | Décoration de table"],
         "theme": "Bordeaux & crème",
         "budget": "3.000 € –  4.500 €",
         "message": "Nous fêtons nos trente ans.",
@@ -64,7 +64,7 @@ class QuoteRequestFormTests(TestCase):
         quote = QuoteRequest.objects.get()
         self.assertEqual(quote.full_name, "Marie Dupont")
         self.assertEqual(quote.event_date, datetime.date(2027, 5, 15))
-        self.assertEqual(sorted(quote.service_list), ["Sweet Table", "Tischdekoration | Décoration de table"])
+        self.assertEqual(sorted(quote.service_list), ["Candy Bar", "Tischdekoration | Décoration de table"])
         self.assertEqual(quote.submitted_language, "fr")
         self.assertTrue(quote.consent)
 
@@ -116,7 +116,7 @@ class GoogleFormBridgeTests(TestCase):
             event_date=datetime.date(2027, 5, 15),
             event_location="Colmar",
             guest_count="51–100 Personen | 51 à 100 personnes",
-            services="Sweet Table\nBeratung | Conseil",
+            services="Candy Bar\nBeratung | Conseil",
             budget="+ 4.500 €",
             message="Bonjour",
             consent=True,
@@ -141,6 +141,7 @@ class GoogleFormBridgeTests(TestCase):
     def test_multiple_services_are_sent_as_repeated_keys(self):
         pairs = google_form.build_payload(self.make_quote())
         services = [value for key, value in pairs if key == choices.ENTRY_SERVICES]
+        # « Candy Bar » part sous le nom que porte encore l'option côté Google.
         self.assertEqual(services, ["Sweet Table", "Beratung | Conseil"])
 
     def test_german_submission_sends_the_german_consent_text(self):

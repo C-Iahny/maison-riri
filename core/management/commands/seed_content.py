@@ -25,8 +25,8 @@ DREAMLAND = {
     "subtitle_de": "Abschlussfeier · Regenbogen & Leuchtbuchstaben",
     "event_type_fr": "Cérémonie de fin d'études",
     "event_type_de": "Abschlussfeier",
-    "keywords_fr": "Arc-en-ciel, Ballons organiques, Backdrop, Lettres lumineuses, Sweet table",
-    "keywords_de": "Regenbogen, Organische Ballons, Backdrop, Leuchtbuchstaben, Sweet Table",
+    "keywords_fr": "Arc-en-ciel, Ballons organiques, Backdrop, Lettres lumineuses, Candy Bar",
+    "keywords_de": "Regenbogen, Organische Ballons, Backdrop, Leuchtbuchstaben, Candy Bar",
     "summary_fr": (
         "Une remise de diplômes transformée en parcours coloré : on franchit une arche "
         "de ballons, on avance vers la scène, et l'on termine devant des lettres "
@@ -80,8 +80,8 @@ DREAMLAND = {
          "Panneau « Great things never came from comfort zone »",
          "Schild „Great things never came from comfort zone“"),
         ("dreamland-sweettable.jpg", ProjectImage.Stage.DETAILS,
-         "Coin gourmandises et composition florale",
-         "Sweet Table und florale Komposition"),
+         "Candy Bar et composition florale",
+         "Candy Bar und florale Komposition"),
         ("dreamland-stage.jpg", ProjectImage.Stage.RESULT,
          "Scène principale et backdrop en panneaux découpés",
          "Hauptbühne und Backdrop aus geschnittenen Paneelen"),

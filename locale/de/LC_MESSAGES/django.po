@@ -1285,12 +1285,12 @@ msgid "Backdrops et espaces photo"
 msgstr "Backdrops und Fotobereiche"
 
 #: .\templates\core\services.html:42
-msgid "Gourmandises"
-msgstr "Süßes"
+msgid "Candy Bar"
+msgstr "Candy Bar"
 
 #: .\templates\core\services.html:42
-msgid "Coins gâteaux et sweet tables"
-msgstr "Kuchenecken und Sweet Tables"
+msgid "Coins gâteaux et Candy Bar"
+msgstr "Kuchenecken und Candy Bar"
 
 #: .\templates\core\services.html:43
 msgid "Signalétique, marque-places et détails personnalisés"

@@ -65,12 +65,19 @@ SERVICES = [
     "Tischdekoration | Décoration de table",
     "Blumendekoration | Décoration florale",
     "Backdrop / Fotobereich | Arche & fond photo",
-    "Sweet Table",
+    "Candy Bar",
     "Komplettes Dekorationskonzept | Décoration complète",
     "Eventplanung | Organisation de l'événement",
     "Beratung | Conseil",
     "Sonstiges | Autre",
 ]
+
+# Le site affiche « Candy Bar », mais l'option du Google Form s'appelle encore
+# « Sweet Table » : la valeur est convertie au moment de la transmission.
+# À supprimer une fois l'option renommée dans le Google Form.
+GOOGLE_SERVICE_VALUES = {
+    "Candy Bar": "Sweet Table",
+}
 
 # Attention : l'espacement de ces valeurs reproduit exactement celui du Google Form.
 BUDGETS = [
