@@ -94,6 +94,9 @@ def describe_error(exc):
     if isinstance(exc, anthropic.RateLimitError):
         return "limite de débit ou crédit épuisé chez Anthropic : %s" % exc.message
     if isinstance(exc, anthropic.APIStatusError):
+        if "credit balance" in str(exc.message).lower():
+            return ("le compte Anthropic n'a plus de crédit : rechargez-le sur console.anthropic.com "
+                    "(Plans & Billing), la clé reste valable")
         return "erreur API %s : %s" % (exc.status_code, exc.message)
     if isinstance(exc, anthropic.APIConnectionError):
         return "API Claude injoignable depuis le serveur"
