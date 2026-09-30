@@ -75,6 +75,18 @@ class AutoTranslated(models.Model):
                 flags.pop(de_field, None)
             if fr_changed and de_changed:
                 continue  # les deux versions ont été écrites : rien à générer
+            if not fr_changed and not de_changed:
+                # Réenregistrement sans modification : on complète la langue vide
+                # (cas d'un texte saisi alors que la traduction ne fonctionnait pas).
+                if fr and not de:
+                    output = translate.translate(fr, "fr", "de")
+                    if output:
+                        setattr(self, de_field, output); flags[de_field] = True; touched.add(de_field)
+                elif de and not fr:
+                    output = translate.translate(de, "de", "fr")
+                    if output:
+                        setattr(self, fr_field, output); flags[fr_field] = True; touched.add(fr_field)
+                continue
             if fr_changed:
                 if not fr and flags.get(de_field):
                     setattr(self, de_field, "")  # source effacée : sa traduction disparaît

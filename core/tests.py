@@ -447,6 +447,16 @@ class AutoTranslationTests(TestCase):
         self.assertEqual(text.text_de, "")
         self.assertFalse(text.is_custom)
 
+    def test_resaving_without_changes_fills_the_missing_language(self, translate):
+        translate.side_effect = lambda *a: None  # première tentative : l'API échoue
+        text = SiteText.objects.create(key="home.hero_title", text_de="Hallo")
+        self.assertEqual(text.text_fr, "")
+        translate.side_effect = fake_translate  # le crédit est chargé, on réenregistre tel quel
+        text = SiteText.objects.get(pk=text.pk)
+        text.save()
+        self.assertEqual(text.text_fr, "[fr] Hallo")
+        self.assertEqual(text.machine_translations, {"text_fr": True})
+
     def test_api_failure_never_blocks_saving(self, translate):
         translate.side_effect = lambda *a: None
         text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")
