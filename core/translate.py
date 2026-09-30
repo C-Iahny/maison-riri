@@ -10,6 +10,7 @@ Réglages : ``ANTHROPIC_API_KEY`` (variable d'environnement lue par le SDK) et
 ``MRD_AUTO_TRANSLATE`` (``0`` pour désactiver).
 """
 import logging
+import os
 
 from django.conf import settings
 
@@ -34,6 +35,33 @@ def is_enabled():
     return bool(getattr(settings, "AUTO_TRANSLATE", False))
 
 
+def _request(text, source, target):
+    """Appel brut à l'API ; lève l'exception du SDK en cas d'échec."""
+    import anthropic
+
+    prompt = "Translate the following text from %s to %s.\n\n<text>\n%s\n</text>" % (
+        LANGUAGE_NAMES[source], LANGUAGE_NAMES[target], text
+    )
+    client = anthropic.Anthropic(timeout=45.0, max_retries=1)
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=4096,
+        system=SYSTEM_PROMPT,
+        output_config={"effort": "low"},
+        messages=[{"role": "user", "content": prompt}],
+    )
+    if response.stop_reason == "refusal":
+        raise RuntimeError("demande refusée par le modèle")
+    output = "".join(block.text for block in response.content if block.type == "text").strip()
+    if not output:
+        raise RuntimeError("réponse vide")
+    return output
+
+
+def has_credentials():
+    return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+
+
 def translate(text, source, target):
     """Traduit ``text`` de ``source`` vers ``target`` (``"fr"`` / ``"de"``).
 
@@ -43,39 +71,43 @@ def translate(text, source, target):
     if not text or source == target:
         return None
     try:
-        import anthropic
-    except ImportError:  # pragma: no cover — dépendance listée dans requirements.txt
-        logger.warning("Traduction automatique impossible : le paquet « anthropic » est absent.")
+        return _request(text, source, target)
+    except Exception as exc:  # noqa: BLE001 — la traduction ne doit jamais bloquer l'enregistrement
+        logger.warning("Traduction automatique impossible : %s", describe_error(exc))
         return None
 
-    prompt = "Translate the following text from %s to %s.\n\n<text>\n%s\n</text>" % (
-        LANGUAGE_NAMES[source], LANGUAGE_NAMES[target], text
-    )
+
+def describe_error(exc):
+    """Message lisible pour un échec d'appel à l'API."""
     try:
-        client = anthropic.Anthropic(timeout=45.0, max_retries=1)
-        response = client.messages.create(
-            model=MODEL,
-            max_tokens=4096,
-            system=SYSTEM_PROMPT,
-            output_config={"effort": "low"},
-            messages=[{"role": "user", "content": prompt}],
-        )
-    except (anthropic.AuthenticationError, TypeError):
-        # TypeError : le SDK n'a trouvé aucune clé (ni ANTHROPIC_API_KEY ni profil).
-        logger.warning("Traduction automatique : clé API Claude absente ou invalide (ANTHROPIC_API_KEY).")
-        return None
-    except anthropic.APIConnectionError:
-        logger.warning("Traduction automatique : API Claude injoignable.")
-        return None
-    except anthropic.APIStatusError as exc:
-        logger.warning("Traduction automatique : erreur API (%s) %s", exc.status_code, exc.message)
-        return None
-    except Exception:  # noqa: BLE001 — la traduction ne doit jamais bloquer l'enregistrement
-        logger.exception("Traduction automatique : erreur inattendue.")
-        return None
+        import anthropic
+    except ImportError:  # pragma: no cover
+        return str(exc)
+    if isinstance(exc, TypeError) and "authentication" in str(exc).lower():
+        return "aucune clé API trouvée (variable ANTHROPIC_API_KEY absente)"
+    if isinstance(exc, anthropic.AuthenticationError):
+        return "clé API refusée par Anthropic (vérifiez ANTHROPIC_API_KEY)"
+    if isinstance(exc, anthropic.PermissionDeniedError):
+        return "clé API sans autorisation pour ce modèle : %s" % exc.message
+    if isinstance(exc, anthropic.NotFoundError):
+        return "modèle introuvable (%s) : %s" % (MODEL, exc.message)
+    if isinstance(exc, anthropic.RateLimitError):
+        return "limite de débit ou crédit épuisé chez Anthropic : %s" % exc.message
+    if isinstance(exc, anthropic.APIStatusError):
+        return "erreur API %s : %s" % (exc.status_code, exc.message)
+    if isinstance(exc, anthropic.APIConnectionError):
+        return "API Claude injoignable depuis le serveur"
+    return "%s : %s" % (type(exc).__name__, exc)
 
-    if response.stop_reason == "refusal":
-        logger.warning("Traduction automatique : demande refusée par le modèle.")
-        return None
-    output = "".join(block.text for block in response.content if block.type == "text").strip()
-    return output or None
+
+def diagnose():
+    """Essai réel, pour la page d'aide : ``(ok, message)``."""
+    if not is_enabled():
+        return False, "La traduction automatique est désactivée (MRD_AUTO_TRANSLATE=0)."
+    if not has_credentials():
+        return False, "Aucune clé API trouvée : la variable ANTHROPIC_API_KEY n'est pas visible par le site."
+    try:
+        output = _request("Bonjour, je suis Rina, fondatrice de Maison Riri Design.", "fr", "de")
+    except Exception as exc:  # noqa: BLE001
+        return False, "L'appel à l'API a échoué : %s" % describe_error(exc)
+    return True, "La traduction fonctionne. Essai : « %s »" % output

@@ -18,6 +18,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("admin/aide/", admin.site.admin_view(core_views.admin_help), name="admin_help"),
+    path("admin/aide/traduction/", admin.site.admin_view(core_views.admin_translation_check), name="admin_translation_check"),
     path("admin/", admin.site.urls),
     path("", include("core.urls")),
     prefix_default_language=True,

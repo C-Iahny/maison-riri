@@ -2,7 +2,9 @@
 import logging
 
 from django.conf import settings
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.http import HttpResponseRedirect
+from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -10,7 +12,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import get_language
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
-from . import google_form
+from . import google_form, translate
 from .forms import QuoteRequestForm
 from .models import InspirationImage, Project
 
@@ -160,5 +162,18 @@ def server_error(request, template_name="500.html"):
 
 def admin_help(request):
     """Page « Aide » du back-office : comment changer images, textes et projets."""
-    context = {**admin.site.each_context(request), "title": "Aide"}
+    context = {
+        **admin.site.each_context(request),
+        "title": "Aide",
+        "translation_enabled": translate.is_enabled(),
+        "translation_has_key": translate.has_credentials(),
+    }
     return render(request, "admin/core/help.html", context)
+
+
+@require_POST
+def admin_translation_check(request):
+    """Bouton « Tester la traduction automatique » de la page d'aide."""
+    ok, message = translate.diagnose()
+    (messages.success if ok else messages.error)(request, message)
+    return HttpResponseRedirect(reverse("admin_help"))

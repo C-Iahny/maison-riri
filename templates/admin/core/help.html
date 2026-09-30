@@ -46,6 +46,16 @@
       </ol>
       <p>Chaque demande est aussi recopiée dans votre Google Form et envoyée par e-mail à l'adresse de contact du site.</p>
 
+      <h2>Traduction automatique</h2>
+      <p>Écrivez vos textes dans une seule langue et laissez l'autre vide : elle est traduite automatiquement à l'enregistrement. Une traduction que vous écrivez vous-même n'est jamais modifiée. Si un champ reste vide après enregistrement, la traduction n'a pas pu être faite : le bouton ci-dessous indique pourquoi.</p>
+      <p>
+        État : {% if not translation_enabled %}désactivée{% elif translation_has_key %}activée, clé API détectée{% else %}activée, mais <strong>aucune clé API détectée</strong> (variable <kbd>ANTHROPIC_API_KEY</kbd>){% endif %}.
+      </p>
+      <form method="post" action="{% url 'admin_translation_check' %}" style="margin:0.5rem 0 1rem">
+        {% csrf_token %}
+        {% component "unfold/components/button.html" with submit=1 %}Tester la traduction automatique{% endcomponent %}
+      </form>
+
       <h2>Changer votre mot de passe</h2>
       <p>Cliquez sur votre nom en haut à droite, puis sur <kbd>Changer de mot de passe</kbd>.</p>
 

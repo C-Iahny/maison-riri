@@ -365,6 +365,15 @@ class BackOfficeTests(TestCase):
         for label in ("Images du site", "Textes du site", "Portfolio", "Demandes de devis", "Besoin d'aide"):
             self.assertContains(response, label)
 
+    def test_translation_check_button_reports_the_outcome(self):
+        with mock.patch("core.translate.diagnose", return_value=(False, "L'appel à l'API a échoué : clé API refusée")):
+            response = self.client.post("/fr/admin/aide/traduction/", follow=True)
+        self.assertContains(response, "clé API refusée")
+        with mock.patch("core.translate.diagnose", return_value=(True, "La traduction fonctionne.")):
+            response = self.client.post("/fr/admin/aide/traduction/", follow=True)
+        self.assertContains(response, "La traduction fonctionne.")
+        self.assertEqual(self.client.get("/fr/admin/aide/traduction/").status_code, 405)
+
     def test_help_page_requires_a_staff_account(self):
         self.client.logout()
         self.assertEqual(self.client.get("/fr/admin/aide/").status_code, 302)
