@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
-from . import content, google_form
+from . import content, google_form, translate
 from .models import (
     InspirationImage,
     PaletteColor,
@@ -35,7 +35,38 @@ def _thumbnail(image_field, height=90):
 
 
 class TranslationStateMixin:
-    """Affiche quels champs ont été remplis par la traduction automatique."""
+    """Affiche l'état de la traduction automatique et permet de la relancer."""
+
+    actions = ["fill_missing_translations"]
+
+    @admin.action(description=_("Compléter les traductions manquantes"))
+    def fill_missing_translations(self, request, queryset):
+        if not translate.is_enabled():
+            self.message_user(request, _("La traduction automatique est désactivée."), messages.WARNING)
+            return
+        if not translate.has_credentials():
+            self.message_user(request, _("Aucune clé API trouvée (ANTHROPIC_API_KEY)."), messages.ERROR)
+            return
+        filled = sum(1 for obj in queryset if translate.fill_missing(obj))
+        related = 0
+        for obj in queryset:
+            for accessor in ("images", "palette"):
+                manager = getattr(obj, accessor, None)
+                if manager is not None and hasattr(manager, "all"):
+                    related += sum(1 for child in manager.all() if translate.fill_missing(child))
+        if filled or related:
+            self.message_user(
+                request,
+                _("%(count)s élément(s) complété(s) (dont %(related)s photo(s) ou couleur(s)).")
+                % {"count": filled + related, "related": related},
+                messages.SUCCESS,
+            )
+        else:
+            self.message_user(
+                request,
+                _("Rien à compléter, ou la traduction a échoué : voir le test dans la page Aide."),
+                messages.WARNING,
+            )
 
     @admin.display(description=_("Traduction automatique"))
     def translation_state(self, obj):

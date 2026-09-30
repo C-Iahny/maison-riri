@@ -462,6 +462,25 @@ class AutoTranslationTests(TestCase):
         image = ProjectImage.objects.create(project=project, image=a_png("g.png"), caption_de="Bühne")
         self.assertEqual(image.caption_fr, "[fr] Bühne")
 
+    def test_admin_action_fills_texts_saved_before_translation_worked(self, translate):
+        from django.contrib.auth.models import User
+
+        with self.settings(AUTO_TRANSLATE=False):
+            text = SiteText.objects.create(key="home.hero_title", text_de="Hallo")
+        self.assertEqual(text.text_fr, "")
+        user = User.objects.create_superuser("riri", "r@example.com", "un-mot-de-passe-solide")
+        self.client.force_login(user)
+        with mock.patch("core.translate.has_credentials", return_value=True):
+            response = self.client.post(
+                reverse("admin:core_sitetext_changelist"),
+                {"action": "fill_missing_translations", "_selected_action": [text.pk]},
+                follow=True,
+            )
+        self.assertContains(response, "1 élément(s) complété(s)")
+        text.refresh_from_db()
+        self.assertEqual(text.text_fr, "[fr] Hallo")
+        self.assertEqual(text.machine_translations, {"text_fr": True})
+
     def test_disabled_setting_skips_translation(self, translate):
         with self.settings(AUTO_TRANSLATE=False):
             text = SiteText.objects.create(key="home.hero_title", text_fr="Bonjour")

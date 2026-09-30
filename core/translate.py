@@ -114,3 +114,31 @@ def diagnose():
     except Exception as exc:  # noqa: BLE001
         return False, "L'appel à l'API a échoué : %s" % describe_error(exc)
     return True, "La traduction fonctionne. Essai : « %s »" % output
+
+
+def fill_missing(obj):
+    """Complète, pour un objet ``AutoTranslated``, les champs d'une langue vides.
+
+    Renvoie l'ensemble des champs remplis. N'appelle pas ``save()`` : la mise à
+    jour se fait directement en base, sans repasser par la logique
+    d'enregistrement.
+    """
+    touched = set()
+    flags = dict(obj.machine_translations or {})
+    for fr_field, de_field in obj.TRANSLATED_PAIRS:
+        fr = (getattr(obj, fr_field) or "").strip()
+        de = (getattr(obj, de_field) or "").strip()
+        if fr and not de:
+            output = translate(fr, "fr", "de")
+            if output:
+                setattr(obj, de_field, output); flags[de_field] = True; touched.add(de_field)
+        elif de and not fr:
+            output = translate(de, "de", "fr")
+            if output:
+                setattr(obj, fr_field, output); flags[fr_field] = True; touched.add(fr_field)
+    if touched:
+        obj.machine_translations = flags
+        type(obj).objects.filter(pk=obj.pk).update(
+            machine_translations=flags, **{name: getattr(obj, name) for name in touched}
+        )
+    return touched
